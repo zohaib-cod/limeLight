@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
+const BACKEND_URL = process.env.VITE_BACKEND_URL || 'https://lime-light-b.vercel.app';
+
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -8,12 +10,14 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true
+        target: BACKEND_URL,
+        changeOrigin: true,
+        secure: true
       },
       '/uploads': {
-        target: 'http://localhost:5000',
-        changeOrigin: true
+        target: BACKEND_URL,
+        changeOrigin: true,
+        secure: true
       }
     }
   },
@@ -22,12 +26,14 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true
+        target: BACKEND_URL,
+        changeOrigin: true,
+        secure: true
       },
       '/uploads': {
-        target: 'http://localhost:5000',
-        changeOrigin: true
+        target: BACKEND_URL,
+        changeOrigin: true,
+        secure: true
       }
     }
   }
