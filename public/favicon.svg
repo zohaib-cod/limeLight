@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0c" />
+      <stop offset="100%" stop-color="#14161b" />
+    </linearGradient>
+
+    <!-- Monogram Teal Gradient (LIME) -->
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="60%" stop-color="#14b8a6" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+
+    <!-- Star Lime Gold Gradient (LIGHT) -->
+    <linearGradient id="limeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#facc15" />
+      <stop offset="50%" stop-color="#d9e625" />
+      <stop offset="100%" stop-color="#a3e635" />
+    </linearGradient>
+
+    <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#d9e625" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#d9e625" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Outer Rounded Squircle -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGrad)" />
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5" />
+
+  <!-- Monogram "L" (LIME) -->
+  <path d="M 18 14 
+           H 26 
+           C 27.65 14 29 15.35 29 17 
+           V 40 
+           C 29 40.55 29.45 41 30 41 
+           H 45 
+           C 46.65 41 48 42.35 48 44 
+           V 47 
+           C 48 48.65 46.65 50 45 50 
+           H 18 
+           C 15.8 50 14 48.2 14 46 
+           V 18 
+           C 14 15.8 15.8 14 18 14 Z" 
+        fill="url(#tealGrad)" />
+
+  <!-- Star Glow -->
+  <circle cx="43" cy="22" r="14" fill="url(#starGlow)" />
+
+  <!-- Radiant 4-Point Fashion Star (LIGHT) -->
+  <path d="M 43 11 
+           Q 43 22 54 22 
+           Q 43 22 43 33 
+           Q 43 22 32 22 
+           Q 43 22 43 11 Z" 
+        fill="url(#limeGrad)" />
+
+  <!-- Inner Sparkle Core -->
+  <circle cx="43" cy="22" r="2.2" fill="#ffffff" />
+</svg>
+
