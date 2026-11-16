@@ -266,7 +266,7 @@ export default function Header({
     const baseFontSize = typeof rawSize === 'string' ? parseInt(rawSize, 10) || 22 : rawSize;
 
     const fontSize = isDrawer
-      ? '15px'
+      ? '13px'
       : isMobileTop
       ? `clamp(14px, 4.8vw, ${baseFontSize}px)`
       : `clamp(16px, 2.2vw, ${baseFontSize}px)`;
@@ -276,12 +276,12 @@ export default function Header({
       : (isLightHeader ? 'rgba(18, 18, 18, 0.75)' : 'rgba(255, 255, 255, 0.7)');
 
     return (
-      <div className="flex flex-col items-center leading-none text-center min-w-0 max-w-full px-[2px]">
+      <div className={`flex flex-col ${isDrawer ? 'items-start text-left' : 'items-center text-center'} leading-none min-w-0 max-w-full px-[2px]`}>
         <span
           style={{ fontSize }}
-          className={`inline-flex items-center font-bold uppercase transition-opacity hover:opacity-90 font-visbyBold max-w-full ${
+          className={`inline-flex items-center font-bold uppercase transition-opacity hover:opacity-90 font-visbyBold max-w-full truncate ${
             isDrawer
-              ? 'tracking-[0.08em]'
+              ? 'tracking-[0.05em]'
               : isMobileTop
               ? 'tracking-[0.14em]'
               : 'tracking-[0.14em] sm:tracking-[0.2em]'
@@ -294,7 +294,7 @@ export default function Header({
           style={{ color: subtitleColor }}
           className={`${
             isDrawer
-              ? 'text-[7px] tracking-[0.08em]'
+              ? 'text-[6.5px] tracking-[0.05em]'
               : 'text-[7.5px] xs:text-[8.5px] sm:text-[9.5px] tracking-[0.16em] sm:tracking-[0.22em]'
           } font-medium mt-[2px] lowercase font-mono truncate max-w-full`}
         >
@@ -620,8 +620,8 @@ export default function Header({
             aria-label="Close menu backdrop"
           />
 
-          <div className="fixed inset-y-0 left-0 max-w-full flex pr-2 sm:pr-6">
-            <div className="w-[88vw] max-w-[320px] sm:max-w-sm bg-white dark:bg-[#141414] text-[#121212] dark:text-white shadow-2xl flex flex-col border-r border-gray-200 dark:border-white/10 animate-menu-open transition-colors">
+          <div className="fixed inset-y-0 left-0 max-w-full flex pr-0 xs:pr-4 sm:pr-8">
+            <div className="w-[85vw] max-w-[320px] sm:max-w-sm bg-white dark:bg-[#141414] text-[#121212] dark:text-white shadow-2xl flex flex-col border-r border-gray-200 dark:border-white/10 animate-menu-open transition-colors">
               {/* Drawer Header with Brand Logo & High-Contrast Cut / Close 'X' Button */}
               <div className="px-3.5 py-3 border-b border-gray-200 dark:border-white/10 flex items-center justify-between gap-2 bg-gray-50/50 dark:bg-white/[0.02]">
                 <div className="min-w-0 flex-1 flex items-center">
@@ -630,7 +630,7 @@ export default function Header({
                 {/* PROMINENT CLOSE / CUT BUTTON */}
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="shrink-0 w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-white/15 dark:hover:bg-white/25 text-gray-800 dark:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                  className="shrink-0 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-white/15 dark:hover:bg-white/25 text-gray-800 dark:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm ml-2"
                   title="Close Menu (Cut)"
                   aria-label="Close menu drawer"
                 >
@@ -638,53 +638,60 @@ export default function Header({
                 </button>
               </div>
 
-              {/* Direct WhatsApp Support Card (Requested in Hamburger) */}
-              <div className="px-3.5 py-2.5 bg-[#25D366]/10 dark:bg-[#25D366]/20 border-b border-[#25D366]/30 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-8 h-8 bg-[#25D366] text-white rounded-full flex items-center justify-center shrink-0 shadow-sm">
-                    <WhatsAppIcon className="w-4 h-4 fill-white" />
+              {/* Direct WhatsApp Support Card */}
+              <div className="px-3 py-2 bg-[#25D366]/10 dark:bg-[#25D366]/15 border-b border-[#25D366]/25">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div className="w-7 h-7 bg-[#25D366] text-white rounded-full flex items-center justify-center shrink-0 shadow-sm">
+                      <WhatsAppIcon className="w-3.5 h-3.5 fill-white" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11.5px] font-bold text-gray-900 dark:text-white leading-tight truncate">
+                        WhatsApp Support
+                      </p>
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate">
+                        {whatsappNumber}
+                      </p>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-[12px] font-bold text-gray-900 dark:text-white leading-tight">WhatsApp Support</p>
-                    <p className="text-[10.5px] text-gray-600 dark:text-gray-300 truncate">{whatsappNumber}</p>
-                  </div>
+
+                  <a
+                    href={`https://wa.me/${cleanWaNumber}?text=Hello%20Zimal%20Collection%20Customer%20Support`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 px-2.5 py-1 bg-[#25D366] text-white text-[10.5px] font-bold rounded-full shadow-sm hover:bg-[#20ba5a] transition-all flex items-center gap-1 cursor-pointer"
+                  >
+                    Chat
+                  </a>
                 </div>
-                <a
-                  href={`https://wa.me/${cleanWaNumber}?text=Hello%20Zimal%20Collection%20Customer%20Support`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 px-3 py-1.5 bg-[#25D366] text-white text-[11px] font-bold rounded-full shadow hover:bg-[#20ba5a] transition-all flex items-center gap-1 cursor-pointer"
-                >
-                  Chat Now
-                </a>
               </div>
 
-              {/* Theme Mode Switch (Requested in Hamburger) */}
-              <div className="px-3.5 py-2.5 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
-                <div className="flex items-center gap-2">
+              {/* Theme Mode Switch */}
+              <div className="px-3 py-2 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5 min-w-0">
                   {isDark ? (
-                    <Moon size={16} className="text-amber-400" />
+                    <Moon size={14} className="text-amber-400 shrink-0" />
                   ) : (
-                    <Sun size={16} className="text-amber-500" />
+                    <Sun size={14} className="text-amber-500 shrink-0" />
                   )}
-                  <span className="text-[12px] font-bold uppercase tracking-wider text-gray-700 dark:text-gray-200">
-                    Theme Mode
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 truncate">
+                    Theme
                   </span>
                 </div>
                 <button
                   onClick={toggleTheme}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11.5px] font-semibold bg-white dark:bg-white/15 shadow-sm border border-gray-200 dark:border-white/20 cursor-pointer text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-white/25 transition-all"
+                  className="shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10.5px] font-semibold bg-white dark:bg-white/15 shadow-sm border border-gray-200 dark:border-white/20 cursor-pointer text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-white/25 transition-all"
                   title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
                 >
                   {isDark ? (
                     <>
-                      <Sun size={13} className="text-amber-400" />
-                      <span>Dark Mode</span>
+                      <Sun size={12} className="text-amber-400" />
+                      <span>Dark</span>
                     </>
                   ) : (
                     <>
-                      <Moon size={13} className="text-gray-700" />
-                      <span>Light Mode</span>
+                      <Moon size={12} className="text-gray-700" />
+                      <span>Light</span>
                     </>
                   )}
                 </button>
