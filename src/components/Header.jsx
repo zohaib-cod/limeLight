@@ -266,7 +266,7 @@ export default function Header({
     const baseFontSize = typeof rawSize === 'string' ? parseInt(rawSize, 10) || 22 : rawSize;
 
     const fontSize = isDrawer
-      ? '16px'
+      ? '15px'
       : isMobileTop
       ? `clamp(14px, 4.8vw, ${baseFontSize}px)`
       : `clamp(16px, 2.2vw, ${baseFontSize}px)`;
@@ -280,7 +280,11 @@ export default function Header({
         <span
           style={{ fontSize }}
           className={`inline-flex items-center font-bold uppercase transition-opacity hover:opacity-90 font-visbyBold max-w-full ${
-            isMobileTop ? 'tracking-[0.14em]' : 'tracking-[0.14em] sm:tracking-[0.2em]'
+            isDrawer
+              ? 'tracking-[0.08em]'
+              : isMobileTop
+              ? 'tracking-[0.14em]'
+              : 'tracking-[0.14em] sm:tracking-[0.2em]'
           }`}
         >
           <span style={{ color: color1 }}>{part1}</span>
@@ -288,7 +292,11 @@ export default function Header({
         </span>
         <span
           style={{ color: subtitleColor }}
-          className="text-[7.5px] xs:text-[8.5px] sm:text-[9.5px] tracking-[0.16em] sm:tracking-[0.22em] font-medium mt-[2px] lowercase font-mono truncate max-w-full"
+          className={`${
+            isDrawer
+              ? 'text-[7px] tracking-[0.08em]'
+              : 'text-[7.5px] xs:text-[8.5px] sm:text-[9.5px] tracking-[0.16em] sm:tracking-[0.22em]'
+          } font-medium mt-[2px] lowercase font-mono truncate max-w-full`}
         >
           www.zimalcollection.com
         </span>
@@ -319,64 +327,30 @@ export default function Header({
             </Link>
           </div>
 
-          {/* MOBILE ROW 2: ACTION BAR ("aur us k nechy sari chezy a jaye") */}
-          {/* Left: Hamburger Menu (opens drawer where all categories live) + WhatsApp */}
-          {/* Right: Theme Switch + Search + User Account + Bag */}
+          {/* MOBILE ROW 2: CLEAN ACTION BAR (Menu on Left, Search + User + Bag on Right) */}
           <div
             style={{ backgroundColor: subnavBg }}
             className={`w-full border-b transition-colors duration-200 px-[10px] xs:px-[14px] h-[40px] xs:h-[44px] flex items-center justify-between gap-[8px] ${
               isLightSubnav ? 'border-black/10 text-[#121212]' : 'border-[#222222]/80 text-white'
             }`}
           >
-            {/* Left: Hamburger & WhatsApp */}
-            <div className="flex items-center gap-[8px] xs:gap-[10px] shrink-0">
+            {/* Left: Clean Hamburger Menu Button */}
+            <div className="flex items-center shrink-0">
               <button
                 onClick={() => setDrawerOpen(true)}
-                className={`p-[4px] -ml-[4px] flex items-center gap-[5px] cursor-pointer hover:opacity-80 transition-opacity ${
+                className={`py-[4px] px-[2px] flex items-center gap-[6px] cursor-pointer hover:opacity-80 transition-opacity ${
                   isLightSubnav ? 'text-[#121212]' : 'text-white'
                 }`}
                 title="Open Navigation Menu"
                 aria-label="Navigation Menu"
               >
-                <Menu size={21} strokeWidth={1.9} />
-                <span className="text-[11px] font-bold uppercase tracking-wider">Menu</span>
+                <Menu size={22} strokeWidth={2} />
+                <span className="text-[12px] font-bold uppercase tracking-wider">Menu</span>
               </button>
-
-              {/* WhatsApp direct chat icon */}
-              <a
-                href={`https://wa.me/${cleanWaNumber}?text=Hello%20Zimal%20Collection%20Customer%20Support`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-transform hover:scale-105 p-[2px] flex items-center"
-                title={`Chat with Zimal Collection on WhatsApp (${whatsappNumber})`}
-                aria-label="WhatsApp Support"
-              >
-                <div className="w-[22px] h-[22px] bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-sm shrink-0">
-                  <WhatsAppIcon className="w-[13px] h-[13px] fill-white" />
-                </div>
-              </a>
             </div>
 
-            {/* Right: Theme Toggle + Search + Account + Bag */}
-            <div className="flex items-center gap-[6px] xs:gap-[10px] sm:gap-[14px] shrink-0">
-              {/* Theme Toggle (Light / Dark Mode) */}
-              <button
-                onClick={toggleTheme}
-                className={`p-[4px] rounded-full transition-colors cursor-pointer flex items-center justify-center ${
-                  isLightSubnav
-                    ? 'text-[#121212] hover:bg-black/10'
-                    : 'text-white hover:bg-white/10'
-                }`}
-                title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                aria-label="Toggle Light/Dark Theme"
-              >
-                {isDark ? (
-                  <Sun size={17} className="text-amber-400" />
-                ) : (
-                  <Moon size={17} />
-                )}
-              </button>
-
+            {/* Right: Search + Account + Bag (WhatsApp & Theme Toggle moved into Hamburger Menu) */}
+            <div className="flex items-center gap-[10px] xs:gap-[14px] shrink-0">
               {/* Search Icon */}
               <button
                 onClick={onOpenSearch}
@@ -386,7 +360,7 @@ export default function Header({
                 title="Search"
                 aria-label="Search Catalog"
               >
-                <Search size={18} strokeWidth={1.8} />
+                <Search size={19} strokeWidth={1.8} />
               </button>
 
               {/* User Account Icon */}
@@ -399,7 +373,7 @@ export default function Header({
                 aria-label="User Account"
               >
                 <div className="relative">
-                  <User size={18} strokeWidth={1.8} />
+                  <User size={19} strokeWidth={1.8} />
                   {currentUser && (
                     <span className="absolute -top-[2px] -right-[2px] w-[7px] h-[7px] bg-emerald-400 rounded-full border border-black animate-pulse" />
                   )}
@@ -415,7 +389,7 @@ export default function Header({
                 title="Shopping Bag"
                 aria-label="Shopping Bag"
               >
-                <ShoppingBag size={18} strokeWidth={1.8} />
+                <ShoppingBag size={19} strokeWidth={1.8} />
                 {cartCount > 0 && (
                   <span className="absolute -top-[2px] -right-[4px] bg-[#cf0c1d] text-white text-[9px] font-bold w-[16px] h-[16px] rounded-full flex items-center justify-center">
                     {cartCount}
@@ -641,43 +615,75 @@ export default function Header({
       {drawerOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden font-assistant">
           <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity cursor-pointer"
             onClick={() => setDrawerOpen(false)}
+            aria-label="Close menu backdrop"
           />
 
-          <div className="fixed inset-y-0 left-0 max-w-full flex pr-8">
-            <div className="w-screen max-w-xs sm:max-w-sm bg-white dark:bg-[#141414] text-[#121212] dark:text-white shadow-modal flex flex-col border-r border-gray-200 dark:border-white/10 animate-menu-open transition-colors">
-              {/* Drawer Header */}
-              <div className="p-[16px] sm:p-[20px] border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
-                <div className="flex items-center">
+          <div className="fixed inset-y-0 left-0 max-w-full flex pr-2 sm:pr-6">
+            <div className="w-[88vw] max-w-[320px] sm:max-w-sm bg-white dark:bg-[#141414] text-[#121212] dark:text-white shadow-2xl flex flex-col border-r border-gray-200 dark:border-white/10 animate-menu-open transition-colors">
+              {/* Drawer Header with Brand Logo & High-Contrast Cut / Close 'X' Button */}
+              <div className="px-3.5 py-3 border-b border-gray-200 dark:border-white/10 flex items-center justify-between gap-2 bg-gray-50/50 dark:bg-white/[0.02]">
+                <div className="min-w-0 flex-1 flex items-center">
                   {renderLogo(true)}
                 </div>
+                {/* PROMINENT CLOSE / CUT BUTTON */}
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="p-[6px] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white rounded-full cursor-pointer"
+                  className="shrink-0 w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-white/15 dark:hover:bg-white/25 text-gray-800 dark:text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                  title="Close Menu (Cut)"
                   aria-label="Close menu drawer"
                 >
-                  <X size={20} />
+                  <X size={18} strokeWidth={2.4} />
                 </button>
               </div>
 
-              {/* Appearance Theme Switch Row in Drawer */}
-              <div className="px-[16px] py-[12px] bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
-                <span className="text-[12px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                  Theme Appearance
-                </span>
+              {/* Direct WhatsApp Support Card (Requested in Hamburger) */}
+              <div className="px-3.5 py-2.5 bg-[#25D366]/10 dark:bg-[#25D366]/20 border-b border-[#25D366]/30 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-8 h-8 bg-[#25D366] text-white rounded-full flex items-center justify-center shrink-0 shadow-sm">
+                    <WhatsAppIcon className="w-4 h-4 fill-white" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[12px] font-bold text-gray-900 dark:text-white leading-tight">WhatsApp Support</p>
+                    <p className="text-[10.5px] text-gray-600 dark:text-gray-300 truncate">{whatsappNumber}</p>
+                  </div>
+                </div>
+                <a
+                  href={`https://wa.me/${cleanWaNumber}?text=Hello%20Zimal%20Collection%20Customer%20Support`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 px-3 py-1.5 bg-[#25D366] text-white text-[11px] font-bold rounded-full shadow hover:bg-[#20ba5a] transition-all flex items-center gap-1 cursor-pointer"
+                >
+                  Chat Now
+                </a>
+              </div>
+
+              {/* Theme Mode Switch (Requested in Hamburger) */}
+              <div className="px-3.5 py-2.5 bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  {isDark ? (
+                    <Moon size={16} className="text-amber-400" />
+                  ) : (
+                    <Sun size={16} className="text-amber-500" />
+                  )}
+                  <span className="text-[12px] font-bold uppercase tracking-wider text-gray-700 dark:text-gray-200">
+                    Theme Mode
+                  </span>
+                </div>
                 <button
                   onClick={toggleTheme}
-                  className="flex items-center gap-[6px] px-[10px] py-[5px] rounded-full text-[12px] font-semibold bg-white dark:bg-white/10 shadow-sm border border-gray-200 dark:border-white/10 cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11.5px] font-semibold bg-white dark:bg-white/15 shadow-sm border border-gray-200 dark:border-white/20 cursor-pointer text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-white/25 transition-all"
+                  title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
                 >
                   {isDark ? (
                     <>
-                      <Sun size={14} className="text-amber-400" />
+                      <Sun size={13} className="text-amber-400" />
                       <span>Dark Mode</span>
                     </>
                   ) : (
                     <>
-                      <Moon size={14} className="text-gray-700" />
+                      <Moon size={13} className="text-gray-700" />
                       <span>Light Mode</span>
                     </>
                   )}
@@ -685,15 +691,15 @@ export default function Header({
               </div>
 
               {/* Account Quick Access in Drawer */}
-              <div className="px-[16px] py-[10px] border-b border-gray-200 dark:border-white/10">
+              <div className="px-3.5 py-2.5 border-b border-gray-200 dark:border-white/10">
                 <button
                   onClick={() => {
                     setDrawerOpen(false);
                     onOpenAuth();
                   }}
-                  className="w-full flex items-center justify-between text-[13px] font-semibold py-[6px] text-[#121212] dark:text-white cursor-pointer"
+                  className="w-full flex items-center justify-between text-[13px] font-semibold py-1 text-[#121212] dark:text-white cursor-pointer hover:opacity-80 transition-opacity"
                 >
-                  <div className="flex items-center gap-[8px]">
+                  <div className="flex items-center gap-2.5">
                     <User size={16} />
                     <span>{currentUser ? currentUser.name : 'Sign In / My Account'}</span>
                   </div>
@@ -702,7 +708,10 @@ export default function Header({
               </div>
 
               {/* Drawer Dynamic Links */}
-              <div className="flex-1 overflow-y-auto p-[16px] sm:p-[20px] space-y-[4px]">
+              <div className="flex-1 overflow-y-auto px-3.5 py-2 space-y-[2px]">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 pt-2 pb-1">
+                  Categories
+                </p>
                 {activeRoutes.map((route) => (
                   <Link
                     key={route.id || route.name}
@@ -714,7 +723,7 @@ export default function Header({
                         : `/category/${route.name.toLowerCase().replace(/[\s_]+/g, '-')}`
                     }
                     onClick={() => setDrawerOpen(false)}
-                    className={`flex items-center justify-between py-[12px] text-[13.5px] font-medium tracking-[0.1em] border-b border-gray-100 dark:border-white/5 transition-colors ${
+                    className={`flex items-center justify-between py-[11px] text-[13.5px] font-medium tracking-[0.08em] border-b border-gray-100 dark:border-white/5 transition-colors ${
                       route.isSale
                         ? 'text-[#cf0c1d] font-bold hover:text-[#e74040]'
                         : 'text-[#121212] dark:text-gray-200 hover:text-black dark:hover:text-white'
@@ -726,26 +735,17 @@ export default function Header({
                 ))}
               </div>
 
-              {/* Drawer Footer Contact with WhatsApp Number */}
-              <div className="p-[16px] sm:p-[20px] bg-gray-50 dark:bg-[#0a0a0a] border-t border-gray-200 dark:border-white/10 space-y-[10px]">
-                <div className="flex items-center gap-[10px] text-[12.5px] text-gray-700 dark:text-gray-300">
-                  <Phone size={15} />
-                  <span>UAN: {whatsappNumber}</span>
-                </div>
-                <div className="flex items-center gap-[10px] text-[12.5px] text-gray-700 dark:text-gray-300">
-                  <div className="w-[18px] h-[18px] bg-[#25D366] text-white rounded-full flex items-center justify-center shrink-0">
-                    <WhatsAppIcon className="w-[11px] h-[11px] fill-white" />
-                  </div>
-                  <a
-                    href={`https://wa.me/${cleanWaNumber}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline font-semibold"
-                  >
-                    WhatsApp Support
-                  </a>
-                </div>
-                <div className="pt-[4px] text-[11px] text-gray-500 dark:text-white/50">
+              {/* Drawer Bottom Close (Cut) Button */}
+              <div className="p-3 border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#0f0f0f] space-y-2">
+                <button
+                  onClick={() => setDrawerOpen(false)}
+                  className="w-full py-2 bg-gray-200 hover:bg-gray-300 dark:bg-white/10 dark:hover:bg-white/20 text-[#121212] dark:text-white text-[12px] font-bold uppercase tracking-widest rounded flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
+                  title="Cut / Close Hamburger Menu"
+                >
+                  <X size={15} strokeWidth={2.4} />
+                  <span>Close Menu</span>
+                </button>
+                <div className="text-[10.5px] text-center text-gray-500 dark:text-white/50">
                   FREE Nationwide Delivery on orders above Rs. 2,490
                 </div>
               </div>
