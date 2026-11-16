@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, User, ShoppingBag, Phone, Menu, X, ChevronRight } from 'lucide-react';
+import { Search, User, ShoppingBag, Phone, Menu, X, ChevronRight, Sun, Moon } from 'lucide-react';
 import { ASSETS } from '../data/products';
+import { useTheme } from '../context/ThemeContext';
 
 const DEFAULT_SETTINGS = {
   logoType: 'text',
@@ -12,6 +13,8 @@ const DEFAULT_SETTINGS = {
     color2: '#cec72e',
     fontSize: 22
   },
+  headerBg: '#000000',
+  subnavBg: '#000000',
   imageLogo: {
     url: '',
     alt: 'Zimal Collection Official (www.zimalcollection.com)',
@@ -62,9 +65,10 @@ const DEFAULT_NAV = [
         title: 'SPECIAL EDITIONS',
         href: '#collections',
         links: [
-          { label: 'Winter Velvet Collection', href: '#collections' },
-          { label: 'Co-Ord Sets Edition', href: '#ready-to-wear' },
-          { label: 'Warm Khaddar & Karandi', href: '#unstitched' }
+          { label: 'Winter Velvet Drop', href: '#collections' },
+          { label: 'Luxury Karandi Edit', href: '#collections' },
+          { label: 'Signature Co-Ords', href: '#collections' },
+          { label: 'Festive Pret Looks', href: '#collections' }
         ]
       }
     ]
@@ -79,13 +83,13 @@ const DEFAULT_NAV = [
     hasDropdown: true,
     columns: [
       {
-        title: 'MEN APPAREL',
+        title: 'EASTERN WEAR',
         href: '#men',
         links: [
-          { label: 'Unstitched Egyptian Latha (4.5m)', href: '#men' },
+          { label: 'Unstitched Latha & Cotton', href: '#men' },
           { label: 'Embroidered Kurta Pajama', href: '#men' },
-          { label: 'Tailored Waistcoats', href: '#men' },
-          { label: 'Lambswool Shawls', href: '#men' }
+          { label: 'Solid Casual Kurtas', href: '#men' },
+          { label: 'Waistcoats & Nehru Jackets', href: '#men' }
         ]
       }
     ]
@@ -93,7 +97,7 @@ const DEFAULT_NAV = [
   {
     id: 'nav-4',
     name: 'GIRLS',
-    href: '#ready-to-wear',
+    href: '#collections',
     isSale: false,
     order: 4,
     isActive: true
@@ -108,15 +112,28 @@ const DEFAULT_NAV = [
   }
 ];
 
+const isColorLight = (hexColor) => {
+  if (!hexColor || typeof hexColor !== 'string') return false;
+  let hex = hexColor.replace('#', '');
+  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+  if (hex.length !== 6) return false;
+  const r = parseInt(hex.substring(0, 2), 16) || 0;
+  const g = parseInt(hex.substring(2, 4), 16) || 0;
+  const b = parseInt(hex.substring(4, 6), 16) || 0;
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return yiq >= 128;
+};
+
 export default function Header({
-  cartCount,
-  wishlistCount,
+  cartCount = 0,
+  wishlistCount = 0,
   onOpenCart,
   onOpenSearch,
   onOpenWishlist,
   currentUser,
   onOpenAuth
 }) {
+  const { isDark, toggleTheme } = useTheme();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [phoneModalOpen, setPhoneModalOpen] = useState(false);
@@ -142,7 +159,7 @@ export default function Header({
 
   // Sync settings and navigation from API
   useEffect(() => {
-    // 1. Fetch settings (branding, logo, whatsapp)
+    // 1. Fetch settings (branding, logo, whatsapp, header background)
     fetch('/api/settings')
       .then(res => (res.ok ? res.json() : null))
       .then(data => {
@@ -172,7 +189,7 @@ export default function Header({
       })
       .catch(() => {});
 
-    // 3. Listen to live changes dispatched from admin panel
+    // Listen to admin update events
     const handleSettingsChange = (e) => {
       if (e.detail) {
         setSettings(prev => ({ ...prev, ...e.detail }));
@@ -199,6 +216,22 @@ export default function Header({
   const cleanWaNumber = whatsappNumber.replace(/[^0-9]/g, '');
   const activeRoutes = navItems.filter(item => item.isActive !== false);
 
+  // Background and luminance handling
+  const rawHeaderBg = settings.headerBg || '#000000';
+  const rawSubnavBg = settings.subnavBg || settings.headerBg || '#000000';
+
+  // In dark mode: if admin set a bright white header, adapt smoothly or retain
+  const headerBg = isDark
+    ? (isColorLight(rawHeaderBg) ? '#141414' : rawHeaderBg)
+    : rawHeaderBg;
+
+  const subnavBg = isDark
+    ? (isColorLight(rawSubnavBg) ? '#181818' : rawSubnavBg)
+    : rawSubnavBg;
+
+  const isLightHeader = isColorLight(headerBg);
+  const isLightSubnav = isColorLight(subnavBg);
+
   // Render Dynamic Logo Helper
   const renderLogo = (isDrawer = false) => {
     if (settings.logoType === 'image' && settings.imageLogo?.url) {
@@ -207,11 +240,10 @@ export default function Header({
           src={settings.imageLogo.url}
           alt={settings.imageLogo.alt || 'Zimal Collection'}
           style={{
-            maxHeight: isDrawer ? '32px' : `${settings.imageLogo.height || 36}px`
+            maxHeight: isDrawer ? '30px' : `${settings.imageLogo.height || 34}px`
           }}
           className="object-contain inline-block transition-transform hover:opacity-95"
           onError={(e) => {
-            // Fallback to text if image fails to load
             e.currentTarget.style.display = 'none';
           }}
         />
@@ -225,18 +257,27 @@ export default function Header({
     const color1 = settings.textLogo?.part1Color || settings.textLogo?.color1 || '#23ac95';
     const color2 = settings.textLogo?.part2Color || settings.textLogo?.color2 || '#cec72e';
     const rawSize = settings.textLogo?.fontSize || 22;
-    const fontSize = isDrawer ? 17 : (typeof rawSize === 'string' ? parseInt(rawSize, 10) || 22 : rawSize);
+    const baseFontSize = typeof rawSize === 'string' ? parseInt(rawSize, 10) || 22 : rawSize;
 
     return (
-      <div className="flex flex-col items-center leading-none text-center">
+      <div className="flex flex-col items-center leading-none text-center min-w-0 max-w-full px-[1px]">
         <span
-          style={{ fontSize: `${fontSize}px` }}
-          className="inline-flex items-center tracking-[0.2em] font-bold uppercase transition-opacity hover:opacity-90 font-visbyBold"
+          style={{
+            fontSize: isDrawer ? '16px' : `clamp(10.5px, 3.2vw, ${baseFontSize}px)`
+          }}
+          className="inline-flex items-center tracking-[0.06em] xs:tracking-[0.12em] sm:tracking-[0.2em] font-bold uppercase transition-opacity hover:opacity-90 font-visbyBold max-w-full truncate"
         >
           <span style={{ color: color1 }}>{part1}</span>
           <span style={{ color: color2 }}>{part2}</span>
         </span>
-        <span className="text-[8px] sm:text-[9.5px] tracking-[0.22em] text-white/70 font-medium mt-[2px] lowercase font-mono">
+        <span
+          style={{
+            color: isDrawer
+              ? (isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(18, 18, 18, 0.7)')
+              : (isLightHeader ? 'rgba(18, 18, 18, 0.75)' : 'rgba(255, 255, 255, 0.7)')
+          }}
+          className="text-[6.5px] xs:text-[8px] sm:text-[9.5px] tracking-[0.06em] xs:tracking-[0.14em] sm:tracking-[0.22em] font-medium mt-[2px] lowercase font-mono truncate max-w-full"
+        >
           www.zimalcollection.com
         </span>
       </div>
@@ -245,20 +286,31 @@ export default function Header({
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full bg-[#000000] text-white shadow-md select-none font-assistant">
-        {/* ROW 1: TOP BAR (Phone + WhatsApp | DYNAMIC LOGO | Search + User + Bag) */}
-        <div className="w-full border-b border-[#222222]">
-          <div className="max-w-[1600px] mx-auto px-[15px] sm:px-[30px] h-[46px] sm:h-[50px] flex items-center justify-between">
+      <header
+        style={{ backgroundColor: headerBg }}
+        className={`sticky top-0 z-40 w-full shadow-md select-none font-assistant transition-colors duration-200 ${
+          isLightHeader ? 'text-[#121212]' : 'text-white'
+        }`}
+      >
+        {/* ROW 1: TOP BAR (Phone + WhatsApp | DYNAMIC LOGO | Theme + Search + User + Bag) */}
+        <div
+          className={`w-full border-b transition-colors duration-200 ${
+            isLightHeader ? 'border-black/10' : 'border-[#222222]'
+          }`}
+        >
+          <div className="max-w-[1600px] mx-auto px-[8px] xs:px-[14px] sm:px-[30px] h-[46px] sm:h-[50px] flex items-center justify-between gap-[6px]">
             {/* Left: Phone icon & WhatsApp icon */}
-            <div className="flex items-center space-x-[14px]">
-              {/* Phone trigger */}
+            <div className="flex items-center gap-[6px] sm:gap-[12px] shrink-0">
+              {/* Phone trigger (hidden on ultra small screens <320px to give room to logo, WhatsApp remains) */}
               <button
                 onClick={() => setPhoneModalOpen(true)}
-                className="text-white hover:text-white/80 transition-colors p-[3px] flex items-center cursor-pointer"
+                className={`hover:opacity-80 transition-opacity p-[3px] items-center cursor-pointer hidden xs:flex ${
+                  isLightHeader ? 'text-[#121212]' : 'text-white'
+                }`}
                 title={`Call Support (${whatsappNumber})`}
                 aria-label="Phone Support"
               >
-                <Phone size={18} strokeWidth={1.6} />
+                <Phone size={17} strokeWidth={1.7} />
               </button>
 
               {/* WhatsApp direct chat icon */}
@@ -270,7 +322,7 @@ export default function Header({
                 title={`Chat with Zimal Collection on WhatsApp (${whatsappNumber})`}
                 aria-label="WhatsApp Support"
               >
-                <div className="w-[20px] h-[20px] bg-[#25D366] rounded-full flex items-center justify-center shadow-sm">
+                <div className="w-[20px] h-[20px] bg-[#25D366] rounded-full flex items-center justify-center shadow-sm shrink-0">
                   <img
                     src={ASSETS.whatsappIcon}
                     alt="WhatsApp"
@@ -280,44 +332,66 @@ export default function Header({
               </a>
             </div>
 
-            {/* Center: Dynamic Brand Logo (Text or Image configured by Admin) */}
-            <div className="flex-1 flex justify-center items-center">
+            {/* Center: Dynamic Brand Logo (Centered, responsive text clamp) */}
+            <div className="flex-1 flex justify-center items-center min-w-0 px-[4px]">
               <Link
                 to="/"
-                className="inline-flex items-center justify-center cursor-pointer"
+                className="inline-flex items-center justify-center cursor-pointer max-w-full"
                 title="Zimal Collection Official - www.zimalcollection.com"
               >
                 {renderLogo(false)}
               </Link>
             </div>
 
-            {/* Right: Search + Profile + Shopping Bag icons */}
-            <div className="flex items-center space-x-[14px] sm:space-x-[18px]">
+            {/* Right: Theme Toggle + Search + Profile + Shopping Bag icons */}
+            <div className="flex items-center gap-[4px] xs:gap-[8px] sm:gap-[14px] shrink-0">
+              {/* Theme Toggle (Light / Dark Mode) */}
+              <button
+                onClick={toggleTheme}
+                className={`p-[4px] sm:p-[5px] rounded-full transition-colors cursor-pointer flex items-center justify-center ${
+                  isLightHeader
+                    ? 'text-[#121212] hover:bg-black/10'
+                    : 'text-white hover:bg-white/10'
+                }`}
+                title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                aria-label="Toggle Light/Dark Theme"
+              >
+                {isDark ? (
+                  <Sun size={17} className="text-amber-400 hover:rotate-45 transition-transform" />
+                ) : (
+                  <Moon size={17} className="hover:-rotate-12 transition-transform" />
+                )}
+              </button>
+
               {/* Search Icon */}
               <button
                 onClick={onOpenSearch}
-                className="text-white hover:text-white/80 transition-colors p-[3px] cursor-pointer"
+                className={`hover:opacity-80 transition-opacity p-[3px] cursor-pointer ${
+                  isLightHeader ? 'text-[#121212]' : 'text-white'
+                }`}
                 title="Search"
                 aria-label="Search Catalog"
               >
-                <Search size={19} strokeWidth={1.6} />
+                <Search size={18} strokeWidth={1.7} />
               </button>
 
-              {/* User Account Icon */}
+              {/* User Account Icon (hidden on tiny screens <300px, accessible via drawer) */}
               <button
                 onClick={onOpenAuth}
-                className="text-white hover:text-white/80 transition-colors p-[3px] relative flex items-center gap-[6px] cursor-pointer"
+                className={`hover:opacity-80 transition-opacity p-[3px] relative items-center gap-[6px] cursor-pointer hidden xs:flex ${
+                  isLightHeader ? 'text-[#121212]' : 'text-white'
+                }`}
                 title={currentUser ? `Logged in as ${currentUser.name}` : "Sign In & Order Tracking"}
                 aria-label="User Account"
               >
                 <div className="relative">
-                  <User size={19} strokeWidth={1.6} />
+                  <User size={18} strokeWidth={1.7} />
                   {currentUser && (
                     <span className="absolute -top-[2px] -right-[2px] w-[8px] h-[8px] bg-emerald-400 rounded-full border border-black animate-pulse" />
                   )}
                 </div>
                 {currentUser && (
-                  <span className="hidden md:inline text-[11px] font-medium text-white/90 max-w-[80px] truncate">
+                  <span className="hidden md:inline text-[11px] font-medium opacity-90 max-w-[80px] truncate">
                     {currentUser.name.split(' ')[0]}
                   </span>
                 )}
@@ -326,11 +400,13 @@ export default function Header({
               {/* Shopping Bag Icon with counter badge */}
               <button
                 onClick={onOpenCart}
-                className="text-white hover:text-white/80 transition-colors p-[3px] relative cursor-pointer"
+                className={`hover:opacity-80 transition-opacity p-[3px] relative cursor-pointer ${
+                  isLightHeader ? 'text-[#121212]' : 'text-white'
+                }`}
                 title="Shopping Bag"
                 aria-label="Shopping Bag"
               >
-                <ShoppingBag size={19} strokeWidth={1.6} />
+                <ShoppingBag size={18} strokeWidth={1.7} />
                 {cartCount > 0 && (
                   <span className="absolute -top-[3px] -right-[6px] bg-[#cf0c1d] text-white text-[9px] font-bold w-[16px] h-[16px] rounded-full flex items-center justify-center">
                     {cartCount}
@@ -342,26 +418,33 @@ export default function Header({
         </div>
 
         {/* ROW 2: SUB-NAV (Hamburger on left | Dynamic Centered Nav Routes) */}
-        <div className="w-full bg-[#000000] border-b border-[#222222]/80 relative overflow-hidden">
-          <div className="max-w-[1600px] mx-auto px-[10px] sm:px-[30px] h-[40px] sm:h-[44px] flex items-center justify-between gap-[10px]">
+        <div
+          style={{ backgroundColor: subnavBg }}
+          className={`w-full border-b relative overflow-hidden transition-colors duration-200 ${
+            isLightSubnav ? 'border-black/10' : 'border-[#222222]/80'
+          }`}
+        >
+          <div className="max-w-[1600px] mx-auto px-[8px] sm:px-[30px] h-[38px] sm:h-[44px] flex items-center justify-between gap-[8px]">
             {/* Far Left: Hamburger Menu Icon */}
-            <div className="flex items-center shrink-0 w-[36px] sm:w-[48px]">
+            <div className="flex items-center shrink-0 w-[32px] sm:w-[48px]">
               <button
                 onClick={() => setDrawerOpen(true)}
-                className="text-white hover:text-white/80 p-[4px] focus:outline-none flex items-center justify-center cursor-pointer"
+                className={`p-[3px] focus:outline-none flex items-center justify-center cursor-pointer hover:opacity-80 ${
+                  isLightSubnav ? 'text-[#121212]' : 'text-white'
+                }`}
                 title="Navigation Menu"
                 aria-label="Open Navigation Menu"
               >
-                <Menu size={21} strokeWidth={1.8} />
+                <Menu size={20} strokeWidth={1.8} />
               </button>
             </div>
 
-            {/* Center: Dynamic Navigation Routes (smooth horizontal swipe on mobile, perfectly centered on desktop) */}
-            <nav className="flex-1 flex items-center overflow-x-auto no-scrollbar whitespace-nowrap justify-start md:justify-center gap-[16px] sm:gap-[24px] md:gap-[34px] lg:gap-[42px] px-[4px] sm:px-[10px]">
+            {/* Center: Dynamic Navigation Routes (smooth horizontal swipe on mobile, centered on desktop) */}
+            <nav className="flex-1 flex items-center overflow-x-auto no-scrollbar whitespace-nowrap justify-start md:justify-center gap-[14px] sm:gap-[24px] md:gap-[34px] lg:gap-[42px] px-[2px] sm:px-[10px]">
               {activeRoutes.map((item) => (
                 <div
                   key={item.id || item.name}
-                  className="relative py-[8px] shrink-0"
+                  className="relative py-[6px] sm:py-[8px] shrink-0"
                   onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
@@ -373,35 +456,32 @@ export default function Header({
                         ? item.href
                         : `/category/${item.name.toLowerCase().replace(/[\s_]+/g, '-')}`
                     }
-                    className={`text-[12px] sm:text-[13px] tracking-[0.1em] sm:tracking-[0.12em] font-medium uppercase transition-colors inline-block whitespace-nowrap ${
+                    className={`text-[11.5px] sm:text-[13px] tracking-[0.08em] sm:tracking-[0.12em] font-medium uppercase transition-colors inline-block whitespace-nowrap ${
                       item.isSale
                         ? 'text-[#cf0c1d] font-bold hover:text-[#e74040]'
+                        : isLightSubnav
+                        ? 'text-[#121212] hover:text-[#121212]/75'
                         : 'text-white hover:text-white/75'
                     }`}
                   >
                     {item.name}
                   </Link>
 
-                  {/* Mega dropdown on hover for desktop (if route has columns defined) */}
+                  {/* Mega Menu Dropdown */}
                   {item.hasDropdown && activeDropdown === item.name && item.columns && (
-                    <div className="hidden lg:block absolute top-full left-1/2 -translate-x-1/2 w-[650px] bg-[#121212] border border-[#262626] rounded-b-[4px] shadow-modal p-[25px] z-50 animate-expand">
-                      <div className="grid grid-cols-3 gap-[25px] text-left">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-[720px] bg-white dark:bg-[#1a1a1a] text-[#121212] dark:text-white shadow-2xl rounded-b-[6px] border border-gray-200 dark:border-white/10 p-[25px] z-50 animate-fadeIn font-assistant">
+                      <div className="grid grid-cols-3 gap-[25px]">
                         {item.columns.map((col, idx) => (
-                          <div key={idx}>
-                            <h5 className="text-[12px] font-bold tracking-[0.15em] text-[#cec72e] uppercase mb-[12px] pb-[6px] border-b border-[#262626]">
+                          <div key={idx} className="space-y-[12px]">
+                            <h4 className="text-[13px] font-bold tracking-[0.15em] text-[#121212] dark:text-white uppercase pb-[6px] border-b border-gray-100 dark:border-white/10">
                               {col.title}
-                            </h5>
+                            </h4>
                             <ul className="space-y-[8px]">
-                              {col.links.map((link, linkIdx) => (
-                                <li key={linkIdx}>
+                              {col.links.map((link, lIdx) => (
+                                <li key={lIdx}>
                                   <Link
-                                    to={
-                                      link.href?.startsWith('/')
-                                        ? link.href
-                                        : `/category/${link.label.toLowerCase().replace(/[\s_]+/g, '-')}`
-                                    }
-                                    onClick={() => setActiveDropdown(null)}
-                                    className="text-[12px] text-white/80 hover:text-white hover:translate-x-1 inline-block transition-all"
+                                    to={link.href.startsWith('#') ? `/category/${link.label.toLowerCase().replace(/[\s_]+/g, '-')}` : link.href}
+                                    className="text-[13px] text-[#121212bf] dark:text-gray-300 hover:text-[#121212] dark:hover:text-white transition-colors block"
                                   >
                                     {link.label}
                                   </Link>
@@ -418,7 +498,7 @@ export default function Header({
             </nav>
 
             {/* Far Right spacer on desktop to keep center nav links visually centered */}
-            <div className="hidden md:block shrink-0 w-[36px] sm:w-[48px]" />
+            <div className="hidden md:block shrink-0 w-[32px] sm:w-[48px]" />
           </div>
         </div>
       </header>
@@ -431,24 +511,64 @@ export default function Header({
             onClick={() => setDrawerOpen(false)}
           />
 
-          <div className="fixed inset-y-0 left-0 max-w-full flex pr-10">
-            <div className="w-screen max-w-sm bg-[#121212] text-white shadow-modal flex flex-col border-r border-[#262626] animate-menu-open">
+          <div className="fixed inset-y-0 left-0 max-w-full flex pr-8">
+            <div className="w-screen max-w-xs sm:max-w-sm bg-white dark:bg-[#141414] text-[#121212] dark:text-white shadow-modal flex flex-col border-r border-gray-200 dark:border-white/10 animate-menu-open transition-colors">
               {/* Drawer Header */}
-              <div className="p-[20px] border-b border-[#262626] flex items-center justify-between">
+              <div className="p-[16px] sm:p-[20px] border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
                 <div className="flex items-center">
                   {renderLogo(true)}
                 </div>
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="p-[6px] text-white/80 hover:text-white rounded-full cursor-pointer"
+                  className="p-[6px] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white rounded-full cursor-pointer"
                   aria-label="Close menu drawer"
                 >
                   <X size={20} />
                 </button>
               </div>
 
+              {/* Appearance Theme Switch Row in Drawer */}
+              <div className="px-[16px] py-[12px] bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
+                <span className="text-[12px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                  Theme Appearance
+                </span>
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center gap-[6px] px-[10px] py-[5px] rounded-full text-[12px] font-semibold bg-white dark:bg-white/10 shadow-sm border border-gray-200 dark:border-white/10 cursor-pointer"
+                >
+                  {isDark ? (
+                    <>
+                      <Sun size={14} className="text-amber-400" />
+                      <span>Dark Mode</span>
+                    </>
+                  ) : (
+                    <>
+                      <Moon size={14} className="text-gray-700" />
+                      <span>Light Mode</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Account Quick Access in Drawer */}
+              <div className="px-[16px] py-[10px] border-b border-gray-200 dark:border-white/10">
+                <button
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    onOpenAuth();
+                  }}
+                  className="w-full flex items-center justify-between text-[13px] font-semibold py-[6px] text-[#121212] dark:text-white cursor-pointer"
+                >
+                  <div className="flex items-center gap-[8px]">
+                    <User size={16} />
+                    <span>{currentUser ? currentUser.name : 'Sign In / My Account'}</span>
+                  </div>
+                  <ChevronRight size={15} className="text-gray-400" />
+                </button>
+              </div>
+
               {/* Drawer Dynamic Links */}
-              <div className="flex-1 overflow-y-auto p-[20px] space-y-[4px]">
+              <div className="flex-1 overflow-y-auto p-[16px] sm:p-[20px] space-y-[4px]">
                 {activeRoutes.map((route) => (
                   <Link
                     key={route.id || route.name}
@@ -460,38 +580,38 @@ export default function Header({
                         : `/category/${route.name.toLowerCase().replace(/[\s_]+/g, '-')}`
                     }
                     onClick={() => setDrawerOpen(false)}
-                    className={`flex items-center justify-between py-[12px] text-[14px] font-medium tracking-[0.1em] border-b border-[#222222] transition-colors ${
+                    className={`flex items-center justify-between py-[12px] text-[13.5px] font-medium tracking-[0.1em] border-b border-gray-100 dark:border-white/5 transition-colors ${
                       route.isSale
                         ? 'text-[#cf0c1d] font-bold hover:text-[#e74040]'
-                        : 'text-white hover:text-white/80'
+                        : 'text-[#121212] dark:text-gray-200 hover:text-black dark:hover:text-white'
                     }`}
                   >
                     <span>{route.name}</span>
-                    <ChevronRight size={16} className={route.isSale ? 'text-[#cf0c1d]' : 'text-gray-500'} />
+                    <ChevronRight size={16} className={route.isSale ? 'text-[#cf0c1d]' : 'text-gray-400'} />
                   </Link>
                 ))}
               </div>
 
-              {/* Drawer Footer Contact with updated WhatsApp Number */}
-              <div className="p-[20px] bg-[#0a0a0a] border-t border-[#262626] space-y-[12px]">
-                <div className="flex items-center gap-[10px] text-[13px] text-white/90">
-                  <Phone size={16} />
+              {/* Drawer Footer Contact with WhatsApp Number */}
+              <div className="p-[16px] sm:p-[20px] bg-gray-50 dark:bg-[#0a0a0a] border-t border-gray-200 dark:border-white/10 space-y-[10px]">
+                <div className="flex items-center gap-[10px] text-[12.5px] text-gray-700 dark:text-gray-300">
+                  <Phone size={15} />
                   <span>UAN: {whatsappNumber}</span>
                 </div>
-                <div className="flex items-center gap-[10px] text-[13px] text-white/90">
-                  <div className="w-[18px] h-[18px] bg-[#25D366] rounded-full flex items-center justify-center">
+                <div className="flex items-center gap-[10px] text-[12.5px] text-gray-700 dark:text-gray-300">
+                  <div className="w-[18px] h-[18px] bg-[#25D366] rounded-full flex items-center justify-center shrink-0">
                     <img src={ASSETS.whatsappIcon} alt="WhatsApp" className="w-[11px] h-[11px]" />
                   </div>
                   <a
                     href={`https://wa.me/${cleanWaNumber}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline"
+                    className="hover:underline font-semibold"
                   >
-                    WhatsApp: {whatsappNumber}
+                    WhatsApp Support
                   </a>
                 </div>
-                <div className="pt-[6px] text-[11px] text-white/50">
+                <div className="pt-[4px] text-[11px] text-gray-500 dark:text-white/50">
                   FREE Nationwide Delivery on orders above Rs. 2,490
                 </div>
               </div>
@@ -500,38 +620,38 @@ export default function Header({
         </div>
       )}
 
-      {/* Phone Contact Dialog Modal */}
+      {/* Customer Care Phone Direct Modal */}
       {phoneModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-[20px]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-[20px] font-assistant">
           <div
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setPhoneModalOpen(false)}
           />
-          <div className="relative bg-white text-[#121212] rounded-[6px] shadow-modal p-[25px] max-w-sm w-full z-10 animate-expand font-assistant">
+          <div className="relative bg-white dark:bg-[#1a1a1a] text-[#121212] dark:text-white rounded-[6px] shadow-modal p-[25px] max-w-sm w-full z-10 animate-expand font-assistant border dark:border-white/10">
             <button
               onClick={() => setPhoneModalOpen(false)}
-              className="absolute top-[12px] right-[12px] text-gray-400 hover:text-black p-[4px] cursor-pointer"
+              className="absolute top-[12px] right-[12px] text-gray-400 hover:text-black dark:hover:text-white p-[4px] cursor-pointer"
               aria-label="Close dialog"
             >
               <X size={18} />
             </button>
-            <div className="w-[42px] h-[42px] bg-[#121212] text-white rounded-full flex items-center justify-center mb-[15px]">
+            <div className="w-[42px] h-[42px] bg-[#121212] dark:bg-white text-white dark:text-[#121212] rounded-full flex items-center justify-center mb-[15px]">
               <Phone size={20} />
             </div>
             <h4 className="text-[18px] font-bold mb-[6px]">Zimal Collection Customer Care</h4>
-            <p className="text-[13px] text-[#121212bf] mb-[15px] leading-relaxed">
+            <p className="text-[13px] text-[#121212bf] dark:text-gray-300 mb-[15px] leading-relaxed">
               Our support team is available Monday through Saturday from 9:00 AM to 6:00 PM PKT.
             </p>
-            <div className="bg-[#f3f3f3] p-[12px] rounded-[4px] mb-[15px] text-center">
-              <span className="text-[11px] text-[#121212bf] uppercase tracking-wider block">Official Helpline / WhatsApp</span>
-              <a href={`tel:${cleanWaNumber}`} className="text-[18px] font-bold text-[#121212] hover:underline">
+            <div className="bg-[#f3f3f3] dark:bg-white/5 p-[12px] rounded-[4px] mb-[15px] text-center border dark:border-white/10">
+              <span className="text-[11px] text-[#121212bf] dark:text-gray-400 uppercase tracking-wider block">Official Helpline / WhatsApp</span>
+              <a href={`tel:${cleanWaNumber}`} className="text-[18px] font-bold text-[#121212] dark:text-white hover:underline">
                 {whatsappNumber}
               </a>
             </div>
             <div className="flex gap-[10px]">
               <a
                 href={`tel:${cleanWaNumber}`}
-                className="button-primary flex-1 text-center py-[10px] text-[13px] rounded-[3px]"
+                className="button-primary flex-1 text-center py-[10px] text-[13px] rounded-[3px] bg-[#121212] dark:bg-white text-white dark:text-black font-semibold"
               >
                 CALL NOW
               </a>

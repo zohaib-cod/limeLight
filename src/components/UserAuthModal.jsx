@@ -257,7 +257,7 @@ export default function UserAuthModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-[15px] sm:p-[25px]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-[6px] xs:p-[12px] sm:p-[25px]">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
@@ -265,18 +265,18 @@ export default function UserAuthModal({
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-2xl bg-white rounded-[8px] shadow-2xl overflow-hidden z-10 animate-expand flex flex-col max-h-[92vh]">
+      <div className="relative w-full max-w-2xl bg-white dark:bg-[#161616] text-[#121212] dark:text-white rounded-[8px] shadow-2xl overflow-hidden z-10 animate-expand flex flex-col max-h-[94vh] transition-colors duration-200">
         {/* Top Header */}
-        <div className="px-[20px] sm:px-[25px] py-[16px] bg-[#121212] text-white flex items-center justify-between shrink-0">
+        <div className="px-[16px] sm:px-[25px] py-[14px] sm:py-[16px] bg-[#121212] text-white flex items-center justify-between shrink-0">
           <div className="flex items-center gap-[10px]">
-            <div className="w-[34px] h-[34px] bg-white text-[#121212] rounded-full flex items-center justify-center font-bold text-[14px]">
-              {currentUser ? currentUser.name.charAt(0).toUpperCase() : 'LM'}
+            <div className="w-[32px] sm:w-[34px] h-[32px] sm:h-[34px] bg-white text-[#121212] rounded-full flex items-center justify-center font-bold text-[13px] sm:text-[14px] shrink-0">
+              {currentUser ? currentUser.name.charAt(0).toUpperCase() : 'ZC'}
             </div>
             <div>
-              <h3 className="text-[16px] font-bold tracking-wider uppercase text-white">
+              <h3 className="text-[14px] sm:text-[16px] font-bold tracking-wider uppercase text-white">
                 {currentUser ? `Hi, ${currentUser.name}` : 'Customer Portal & Order Tracking'}
               </h3>
-              <p className="text-[11px] text-white/70">
+              <p className="text-[10.5px] sm:text-[11px] text-white/70">
                 {currentUser
                   ? 'Your orders are tracked automatically below with live courier status'
                   : 'Please sign in or create an account to view and track your orders'}
@@ -285,34 +285,34 @@ export default function UserAuthModal({
           </div>
           <button
             onClick={onClose}
-            className="w-[30px] h-[30px] rounded-full hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+            className="w-[30px] h-[30px] rounded-full hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer shrink-0"
           >
             <X size={18} />
           </button>
         </div>
 
         {/* Navigation Tabs (Only Sign In / Register if not logged in; My Orders / Profile if logged in) */}
-        <div className="flex border-b border-gray-200 bg-gray-50 px-[20px] gap-[8px] shrink-0">
+        <div className="flex border-b border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#1c1c1c] px-[14px] sm:px-[20px] gap-[8px] shrink-0">
           {currentUser ? (
             <>
               <button
                 onClick={() => { setActiveTab('orders'); fetchUserOrders(currentUser); }}
-                className={`py-[12px] px-[14px] text-[13px] font-bold tracking-wider uppercase border-b-2 transition-colors cursor-pointer flex items-center gap-[6px] ${
+                className={`py-[10px] sm:py-[12px] px-[10px] sm:px-[14px] text-[12px] sm:text-[13px] font-bold tracking-wider uppercase border-b-2 transition-colors cursor-pointer flex items-center gap-[6px] ${
                   activeTab === 'orders'
-                    ? 'border-[#121212] text-[#121212]'
-                    : 'border-transparent text-gray-500 hover:text-gray-900'
+                    ? 'border-[#121212] dark:border-white text-[#121212] dark:text-white'
+                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 <Package size={15} />
-                <span>My Orders & Live Tracking ({userOrders.length})</span>
+                <span>My Orders ({userOrders.length})</span>
               </button>
 
               <button
                 onClick={() => setActiveTab('profile')}
-                className={`py-[12px] px-[14px] text-[13px] font-bold tracking-wider uppercase border-b-2 transition-colors cursor-pointer flex items-center gap-[6px] ${
+                className={`py-[10px] sm:py-[12px] px-[10px] sm:px-[14px] text-[12px] sm:text-[13px] font-bold tracking-wider uppercase border-b-2 transition-colors cursor-pointer flex items-center gap-[6px] ${
                   activeTab === 'profile'
-                    ? 'border-[#121212] text-[#121212]'
-                    : 'border-transparent text-gray-500 hover:text-gray-900'
+                    ? 'border-[#121212] dark:border-white text-[#121212] dark:text-white'
+                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 <User size={15} />
@@ -323,10 +323,10 @@ export default function UserAuthModal({
             <>
               <button
                 onClick={() => { setActiveTab('login'); setError(null); }}
-                className={`py-[12px] px-[16px] text-[13px] font-bold tracking-wider uppercase border-b-2 transition-colors cursor-pointer ${
+                className={`py-[10px] sm:py-[12px] px-[12px] sm:px-[16px] text-[12px] sm:text-[13px] font-bold tracking-wider uppercase border-b-2 transition-colors cursor-pointer ${
                   activeTab === 'login'
-                    ? 'border-[#121212] text-[#121212]'
-                    : 'border-transparent text-gray-500 hover:text-gray-900'
+                    ? 'border-[#121212] dark:border-white text-[#121212] dark:text-white'
+                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 Sign In
@@ -334,10 +334,10 @@ export default function UserAuthModal({
 
               <button
                 onClick={() => { setActiveTab('register'); setError(null); }}
-                className={`py-[12px] px-[16px] text-[13px] font-bold tracking-wider uppercase border-b-2 transition-colors cursor-pointer ${
+                className={`py-[10px] sm:py-[12px] px-[12px] sm:px-[16px] text-[12px] sm:text-[13px] font-bold tracking-wider uppercase border-b-2 transition-colors cursor-pointer ${
                   activeTab === 'register'
-                    ? 'border-[#121212] text-[#121212]'
-                    : 'border-transparent text-gray-500 hover:text-gray-900'
+                    ? 'border-[#121212] dark:border-white text-[#121212] dark:text-white'
+                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 Create Account

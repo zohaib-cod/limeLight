@@ -130,26 +130,26 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
 
         {/* Section Heading */}
         <div className="text-center mb-[30px]" id="unstitched-grid">
-          <h2 className="text-[13px] font-normal text-[#121212] tracking-[0.15em] uppercase mb-[6px]">
+          <h2 className="text-[13px] font-normal text-[#121212] dark:text-gray-300 tracking-[0.15em] uppercase mb-[6px]">
             PREMIUM WINTER UNSTITCHED
           </h2>
-          <h3 className="text-[20px] font-bold text-[#121212] tracking-wide">
+          <h3 className="text-[20px] font-bold text-[#121212] dark:text-white tracking-wide">
             UNSTITCHED
           </h3>
-          <div className="w-[50px] h-[2px] bg-[#121212] mx-auto mt-[10px]" />
+          <div className="w-[50px] h-[2px] bg-[#121212] dark:bg-white/40 mx-auto mt-[10px]" />
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] sm:gap-[20px]">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[8px] xs:gap-[12px] sm:gap-[20px]">
           {products.map((product) => {
             const isWishlisted = wishlist.includes(product.id);
             return (
               <div
                 key={product.id}
-                className="group flex flex-col bg-white border border-[#1212121a] rounded-[6px] overflow-hidden shadow-soft hover:shadow-modal transition-all duration-300"
+                className="group flex flex-col bg-white dark:bg-[#181818] border border-[#1212121a] dark:border-white/10 rounded-[6px] overflow-hidden shadow-soft hover:shadow-modal transition-all duration-300"
               >
                 {/* Image Container */}
-                <div className="relative aspect-[3/4] overflow-hidden bg-[#f3f3f3]">
+                <div className="relative aspect-[3/4] overflow-hidden bg-[#f3f3f3] dark:bg-[#222222]">
                   <img
                     src={product.image}
                     alt={product.title}
@@ -167,7 +167,7 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
                   {/* Wishlist Button */}
                   <button
                     onClick={() => onToggleWishlist(product.id)}
-                    className="absolute top-[8px] sm:top-[10px] right-[8px] sm:right-[10px] w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[#121212] hover:text-[#cf0c1d] hover:bg-white shadow-sm transition-colors cursor-pointer"
+                    className="absolute top-[8px] sm:top-[10px] right-[8px] sm:right-[10px] w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] bg-white/90 dark:bg-[#1a1a1a]/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[#121212] dark:text-white hover:text-[#cf0c1d] hover:bg-white dark:hover:bg-[#252525] shadow-sm transition-colors cursor-pointer"
                     aria-label="Wishlist"
                   >
                     <Heart
@@ -180,14 +180,14 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
                   <div className="absolute inset-x-0 bottom-0 p-[8px] sm:p-[10px] bg-gradient-to-t from-black/60 to-transparent flex gap-[6px] sm:gap-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <button
                       onClick={() => onQuickView(product)}
-                      className="flex-1 bg-white text-[#121212] text-[12px] sm:text-[13px] py-[6px] sm:py-[8px] font-medium flex items-center justify-center gap-[4px] hover:bg-[#f3f3f3] transition-colors rounded-[3px] cursor-pointer"
+                      className="flex-1 bg-white dark:bg-[#252525] text-[#121212] dark:text-white text-[12px] sm:text-[13px] py-[6px] sm:py-[8px] font-medium flex items-center justify-center gap-[4px] hover:bg-[#f3f3f3] dark:hover:bg-[#333] transition-colors rounded-[3px] cursor-pointer"
                     >
                       <Eye size={14} />
-                      <span>Quick View</span>
+                      <span className="hidden xs:inline">Quick View</span>
                     </button>
                     <button
                       onClick={() => onAddToCart(product)}
-                      className="bg-[#121212] text-white p-[6px] sm:p-[8px] hover:bg-[#333333] transition-colors rounded-[3px] cursor-pointer"
+                      className="bg-[#121212] dark:bg-white text-white dark:text-black p-[6px] sm:p-[8px] hover:bg-[#333333] dark:hover:bg-gray-200 transition-colors rounded-[3px] cursor-pointer shrink-0"
                       title="Add to Cart"
                     >
                       <ShoppingBag size={15} />
@@ -196,23 +196,23 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
                 </div>
 
                 {/* Product Meta */}
-                <div className="p-[10px] sm:p-[14px] flex-1 flex flex-col justify-between">
+                <div className="p-[8px] xs:p-[10px] sm:p-[14px] flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[10px] sm:text-[11px] tracking-widest text-[#121212bf] uppercase block mb-[3px] truncate">
+                    <span className="text-[9.5px] sm:text-[11px] tracking-widest text-[#121212bf] dark:text-gray-400 uppercase block mb-[2px] sm:mb-[3px] truncate">
                       {product.subCategory} • {product.fabric}
                     </span>
-                    <h4 className="text-[13px] sm:text-[14px] font-medium text-[#121212] line-clamp-1 mb-[4px]">
+                    <h4 className="text-[12px] xs:text-[13px] sm:text-[14px] font-medium text-[#121212] dark:text-gray-100 line-clamp-1 mb-[4px]">
                       {product.title}
                     </h4>
                   </div>
 
-                  <div className="pt-[6px] border-t border-[#1212121a] flex items-center justify-between">
-                    <div className="flex flex-wrap items-baseline gap-[6px]">
-                      <span className="text-[13px] sm:text-[15px] font-bold text-[#121212]">
+                  <div className="pt-[6px] border-t border-[#1212121a] dark:border-white/10 flex items-center justify-between">
+                    <div className="flex flex-wrap items-baseline gap-[4px] sm:gap-[6px]">
+                      <span className="text-[12px] xs:text-[13px] sm:text-[15px] font-bold text-[#121212] dark:text-white">
                         Rs. {product.price.toLocaleString()}
                       </span>
                       {product.originalPrice && (
-                        <span className="text-[11px] sm:text-[12px] text-[#121212b3] line-through">
+                        <span className="text-[10px] xs:text-[11px] sm:text-[12px] text-[#121212b3] dark:text-gray-400 line-through">
                           Rs. {product.originalPrice.toLocaleString()}
                         </span>
                       )}

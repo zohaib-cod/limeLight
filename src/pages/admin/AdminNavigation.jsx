@@ -29,13 +29,42 @@ import {
   ArrowDown,
   GripVertical,
   RotateCcw,
-  Check
+  Check,
+  CheckCircle
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
+const isColorLight = (hexColor) => {
+  if (!hexColor || typeof hexColor !== 'string') return false;
+  let hex = hexColor.replace('#', '');
+  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+  if (hex.length !== 6) return false;
+  const r = parseInt(hex.substring(0, 2), 16) || 0;
+  const g = parseInt(hex.substring(2, 4), 16) || 0;
+  const b = parseInt(hex.substring(4, 6), 16) || 0;
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return yiq >= 128;
+};
+
 export default function AdminNavigation() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('routes'); // 'routes' | 'sections' | 'branding'
+  const [activeTab, setActiveTabState] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab');
+      if (tab === 'branding' || tab === 'sections' || tab === 'routes') return tab;
+    } catch (e) {}
+    return 'routes';
+  });
+
+  const setActiveTab = (tab) => {
+    setActiveTabState(tab);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', tab);
+      window.history.replaceState(null, '', url.toString());
+    } catch (e) {}
+  };
   const [routes, setRoutes] = useState([]);
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -55,6 +84,8 @@ export default function AdminNavigation() {
       letterSpacing: '0.22em',
       fontSize: '22px'
     },
+    headerBg: '#000000',
+    subnavBg: '#000000',
     imageLogo: {
       url: '',
       alt: 'Zimal Collection Official (www.zimalcollection.com)',
@@ -1094,6 +1125,112 @@ export default function AdminNavigation() {
               </div>
             )}
 
+            {/* Header & Sub-Navigation Background Styling (Color & Contrast Control) */}
+            <div className="space-y-[14px] p-[16px] bg-[#f8f9fa] rounded-[6px] border border-gray-200">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-gray-500 block">
+                  Header Background & Bar Styling
+                </span>
+                <span className="text-[10px] bg-gray-200 text-gray-700 px-[6px] py-[1px] rounded font-semibold">
+                  Contrast Control
+                </span>
+              </div>
+
+              {/* Row 1 Header BG */}
+              <div>
+                <label className="block text-[11px] font-bold uppercase text-gray-700 mb-[4px]">
+                  Header Top Bar Background Color
+                </label>
+                <div className="flex items-center gap-[8px]">
+                  <input
+                    type="color"
+                    value={settings.headerBg || '#000000'}
+                    onChange={(e) => setSettings(prev => ({ ...prev, headerBg: e.target.value }))}
+                    className="w-[38px] h-[38px] rounded border border-gray-300 cursor-pointer p-[2px]"
+                  />
+                  <input
+                    type="text"
+                    value={settings.headerBg || '#000000'}
+                    onChange={(e) => setSettings(prev => ({ ...prev, headerBg: e.target.value }))}
+                    placeholder="#000000"
+                    className="flex-1 px-[10px] py-[8px] text-[12px] font-mono border border-gray-300 rounded bg-white"
+                  />
+                </div>
+                {/* Presets */}
+                <div className="flex flex-wrap gap-[6px] mt-[8px]">
+                  {[
+                    { label: 'Black', hex: '#000000' },
+                    { label: 'White', hex: '#ffffff' },
+                    { label: 'Charcoal', hex: '#18181b' },
+                    { label: 'Navy', hex: '#0f172a' },
+                    { label: 'Emerald', hex: '#064e3b' }
+                  ].map(p => (
+                    <button
+                      key={p.hex}
+                      type="button"
+                      onClick={() => setSettings(prev => ({ ...prev, headerBg: p.hex }))}
+                      className={`text-[10.5px] px-[8px] py-[3px] rounded border flex items-center gap-[4px] cursor-pointer transition-colors ${
+                        (settings.headerBg || '#000000').toLowerCase() === p.hex.toLowerCase()
+                          ? 'border-[#121212] bg-[#121212] text-white font-bold'
+                          : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span className="w-[8px] h-[8px] rounded-full border border-black/20" style={{ backgroundColor: p.hex }} />
+                      <span>{p.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sub-nav BG */}
+              <div className="pt-[10px] border-t border-gray-200">
+                <div className="flex items-center justify-between mb-[4px]">
+                  <label className="text-[11px] font-bold uppercase text-gray-700">
+                    Sub-Nav (Category Menu) Background Color
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setSettings(prev => ({ ...prev, subnavBg: prev.headerBg || '#000000' }))}
+                    className="text-[10px] text-blue-600 hover:underline font-semibold cursor-pointer"
+                  >
+                    Match Top Bar
+                  </button>
+                </div>
+                <div className="flex items-center gap-[8px]">
+                  <input
+                    type="color"
+                    value={settings.subnavBg || settings.headerBg || '#000000'}
+                    onChange={(e) => setSettings(prev => ({ ...prev, subnavBg: e.target.value }))}
+                    className="w-[38px] h-[38px] rounded border border-gray-300 cursor-pointer p-[2px]"
+                  />
+                  <input
+                    type="text"
+                    value={settings.subnavBg || settings.headerBg || '#000000'}
+                    onChange={(e) => setSettings(prev => ({ ...prev, subnavBg: e.target.value }))}
+                    placeholder="#000000"
+                    className="flex-1 px-[10px] py-[8px] text-[12px] font-mono border border-gray-300 rounded bg-white"
+                  />
+                </div>
+              </div>
+
+              {/* Contrast Guidance Notice */}
+              {isColorLight(settings.headerBg) ? (
+                <div className="p-[10px] rounded bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11.5px] leading-relaxed flex items-start gap-[8px]">
+                  <CheckCircle size={15} className="shrink-0 mt-[1px] text-emerald-600" />
+                  <span>
+                    <strong>Light Header Active:</strong> Header icons (Search, Profile, Bag, WhatsApp) and category links automatically adapt to dark contrast so dark/black text and icons remain crisp and readable!
+                  </span>
+                </div>
+              ) : (
+                <div className="p-[10px] rounded bg-gray-100 border border-gray-300 text-gray-700 text-[11.5px] leading-relaxed flex items-start gap-[8px]">
+                  <Sparkles size={15} className="shrink-0 mt-[1px] text-amber-500" />
+                  <span>
+                    <strong>Dark Header Active:</strong> If you select dark or black text for your logo, click the <strong>White (#ffffff)</strong> background preset above so black text stands out with high contrast.
+                  </span>
+                </div>
+              )}
+            </div>
+
             {/* Official WhatsApp Hotline */}
             <div className="pt-[10px] border-t border-gray-200">
               <label className="block text-[12px] font-bold uppercase tracking-wider text-gray-700 mb-[6px] flex items-center gap-[6px]">
@@ -1136,7 +1273,12 @@ export default function AdminNavigation() {
               </div>
 
               {/* Header Container Mock */}
-              <div className="bg-black p-[20px] rounded-[6px] border border-white/10 text-center flex flex-col items-center justify-center min-h-[120px]">
+              <div
+                style={{ backgroundColor: settings.headerBg || '#000000' }}
+                className={`p-[20px] rounded-[6px] border text-center flex flex-col items-center justify-center min-h-[120px] transition-colors duration-200 ${
+                  isColorLight(settings.headerBg) ? 'border-black/15 shadow-inner' : 'border-white/10'
+                }`}
+              >
                 {settings.logoType === 'image' && settings.imageLogo?.url ? (
                   <img
                     src={settings.imageLogo.url}
@@ -1145,27 +1287,47 @@ export default function AdminNavigation() {
                     className="object-contain"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = 'https://placehold.co/180x45/121212/ffffff?text=LIMELIGHT';
+                      e.target.src = 'https://placehold.co/180x45/121212/ffffff?text=ZIMAL';
                     }}
                   />
                 ) : (
-                  <div className="tracking-[0.2em] text-[24px] font-extrabold uppercase">
-                    <span style={{ color: settings.textLogo?.part1Color || '#23ac95' }}>
-                      {settings.textLogo?.part1 || 'ZIMAL '}
-                    </span>
-                    <span style={{ color: settings.textLogo?.part2Color || '#cec72e' }}>
-                      {settings.textLogo?.part2 || 'COLLECTION'}
+                  <div className="flex flex-col items-center leading-none">
+                    <div className="tracking-[0.2em] text-[24px] font-extrabold uppercase font-visbyBold">
+                      <span style={{ color: settings.textLogo?.part1Color || '#23ac95' }}>
+                        {settings.textLogo?.part1 || 'ZIMAL '}
+                      </span>
+                      <span style={{ color: settings.textLogo?.part2Color || '#cec72e' }}>
+                        {settings.textLogo?.part2 || 'COLLECTION'}
+                      </span>
+                    </div>
+                    <span
+                      style={{
+                        color: isColorLight(settings.headerBg) ? 'rgba(18, 18, 18, 0.7)' : 'rgba(255, 255, 255, 0.7)'
+                      }}
+                      className="text-[9.5px] tracking-[0.22em] font-medium mt-[4px] lowercase font-mono"
+                    >
+                      www.zimalcollection.com
                     </span>
                   </div>
                 )}
               </div>
 
               {/* Sub-nav preview */}
-              <div className="bg-[#1a1a1a] p-[10px] rounded-[4px] flex items-center justify-center gap-[15px] overflow-x-auto text-[11px] font-medium tracking-wider">
+              <div
+                style={{ backgroundColor: settings.subnavBg || settings.headerBg || '#1a1a1a' }}
+                className={`p-[10px] rounded-[4px] flex items-center justify-center gap-[15px] overflow-x-auto text-[11px] font-medium tracking-wider transition-colors duration-200 border ${
+                  isColorLight(settings.subnavBg || settings.headerBg) ? 'border-black/15' : 'border-white/10'
+                }`}
+              >
                 {routes.map(r => (
                   <span
                     key={r.id}
-                    className={r.isSale ? 'text-[#cf0c1d] font-bold' : 'text-white/80'}
+                    style={{
+                      color: r.isSale
+                        ? '#cf0c1d'
+                        : (isColorLight(settings.subnavBg || settings.headerBg) ? '#121212' : 'rgba(255, 255, 255, 0.85)')
+                    }}
+                    className={r.isSale ? 'font-bold' : ''}
                   >
                     {r.name}
                   </span>

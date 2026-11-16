@@ -111,7 +111,7 @@ export default function Hero() {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Slider Viewport */}
-      <div className="relative w-full h-[480px] sm:h-[560px] lg:h-[640px] max-h-[85vh]">
+      <div className="relative w-full h-[420px] xs:h-[480px] sm:h-[560px] lg:h-[640px] max-h-[85vh]">
         {/* Slides stack with cross-fade transition */}
         {slides.map((slide, idx) => {
           const isActive = idx === currentIndex;
@@ -162,23 +162,23 @@ export default function Hero() {
                     )}
 
                     {/* H1 Heading (Responsive size preventing line collisons) */}
-                    <h1 className="text-[22px] sm:text-[32px] md:text-[38px] lg:text-[42px] font-bold text-[#ffffff] tracking-wide mb-[10px] sm:mb-[14px] leading-[1.2] drop-shadow-md uppercase">
+                    <h1 className="text-[17px] xs:text-[22px] sm:text-[32px] md:text-[38px] lg:text-[42px] font-bold text-[#ffffff] tracking-wide mb-[10px] sm:mb-[14px] leading-[1.2] drop-shadow-md uppercase">
                       {slide.title}
                     </h1>
 
                     {/* Subtitle / Description */}
                     {slide.subtitle && (
-                      <p className="text-[13px] sm:text-[15px] leading-[20px] sm:leading-[25px] text-white/90 font-normal mb-[20px] sm:mb-[28px] max-w-[620px] line-clamp-3 sm:line-clamp-none drop-shadow-sm">
+                      <p className="text-[12px] sm:text-[15px] leading-[18px] sm:leading-[25px] text-white/90 font-normal mb-[16px] sm:mb-[28px] max-w-[620px] line-clamp-2 sm:line-clamp-none drop-shadow-sm">
                         {slide.subtitle}
                       </p>
                     )}
 
                     {/* Action Buttons */}
-                    <div className="flex flex-wrap items-center gap-[10px] sm:gap-[18px]">
+                    <div className="flex flex-col xs:flex-row items-stretch xs:items-center gap-[8px] sm:gap-[18px]">
                       {slide.primaryBtnText && (
                         <a
                           href={slide.primaryBtnLink || '#unstitched'}
-                          className="button-style-1 bg-[#121212] text-[#ffffff] hover:bg-black border border-white/20 transition-all shadow-md active:scale-95 text-[13px] sm:text-[14px] px-[20px] sm:px-[28px] h-[40px] sm:h-[44px]"
+                          className="button-style-1 bg-[#121212] text-[#ffffff] hover:bg-black border border-white/20 transition-all shadow-md active:scale-95 text-[12px] sm:text-[14px] px-[16px] sm:px-[28px] h-[38px] sm:h-[44px] flex items-center justify-center text-center"
                         >
                           {slide.primaryBtnText}
                         </a>
@@ -187,7 +187,7 @@ export default function Hero() {
                       {slide.secondaryBtnText && (
                         <a
                           href={slide.secondaryBtnLink || '#ready-to-wear'}
-                          className="button-style-2 text-[#ffffff] hover:underline flex items-center gap-[6px] tracking-wider text-[13px] sm:text-[14px] font-medium py-[4px]"
+                          className="button-style-2 text-[#ffffff] hover:underline flex items-center justify-center gap-[6px] tracking-wider text-[12.5px] sm:text-[14px] font-medium py-[4px]"
                         >
                           <span>{slide.secondaryBtnText}</span>
                           <ArrowRight size={14} />

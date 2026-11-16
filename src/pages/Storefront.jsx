@@ -271,7 +271,7 @@ export default function Storefront() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-[#121212] selection:bg-[#121212] selection:text-white relative">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-[#111111] text-[#121212] dark:text-[#f3f4f6] selection:bg-[#121212] selection:text-white relative transition-colors duration-200 overflow-x-hidden">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed top-[85px] right-[20px] z-50 bg-[#121212] text-white text-[13px] font-medium py-[10px] px-[18px] rounded-[4px] shadow-modal animate-expand flex items-center gap-[8px]">

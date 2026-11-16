@@ -78,6 +78,23 @@
   --product-card-shadow-vertical-offset: 0.4rem;
 }
 
+.dark {
+  --color-background: 18, 18, 18;
+  --gradient-background: #111111;
+  --color-foreground: 245, 245, 245;
+  --color-background-contrast: 34, 34, 34;
+  --color-shadow: 0, 0, 0;
+  --color-button: 255, 255, 255;
+  --color-button-text: 18, 18, 18;
+  --color-secondary-button: 28, 28, 28;
+  --color-secondary-button-text: 255, 255, 255;
+  --color-link: 255, 255, 255;
+  --color-badge-foreground: 255, 255, 255;
+  --color-badge-background: 28, 28, 28;
+  --color-badge-border: 55, 55, 55;
+  --payment-terms-background-color: #111111;
+}
+
 body {
   margin: 0;
   padding: 0;

@@ -205,7 +205,7 @@ export default function CheckoutModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-[15px] sm:p-[25px]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-[6px] xs:p-[12px] sm:p-[25px]">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
@@ -213,26 +213,26 @@ export default function CheckoutModal({
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-4xl bg-white rounded-[8px] shadow-2xl overflow-hidden z-10 animate-expand flex flex-col max-h-[92vh]">
+      <div className="relative w-full max-w-4xl bg-white dark:bg-[#161616] text-[#121212] dark:text-white rounded-[8px] shadow-2xl overflow-hidden z-10 animate-expand flex flex-col max-h-[94vh] transition-colors duration-200">
         {/* Top Header */}
-        <div className="px-[20px] sm:px-[30px] py-[16px] border-b border-gray-200 bg-white flex items-center justify-between shrink-0">
+        <div className="px-[16px] sm:px-[30px] py-[14px] sm:py-[16px] border-b border-gray-200 dark:border-white/10 bg-white dark:bg-[#161616] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-[10px]">
-            <div className="w-[32px] h-[32px] bg-[#121212] text-white rounded-full flex items-center justify-center font-bold text-[14px]">
-              LM
+            <div className="w-[30px] sm:w-[32px] h-[30px] sm:h-[32px] bg-[#121212] dark:bg-white text-white dark:text-black rounded-full flex items-center justify-center font-bold text-[13px] sm:text-[14px] shrink-0">
+              ZC
             </div>
             <div>
-              <h2 className="text-[17px] font-bold text-[#121212] tracking-wider uppercase">
+              <h2 className="text-[14px] sm:text-[17px] font-bold text-[#121212] dark:text-white tracking-wider uppercase">
                 {completedOrder ? 'Order Confirmation' : 'Direct Checkout — Cash on Delivery'}
               </h2>
-              <div className="flex items-center gap-[6px] text-[11px] text-gray-500 font-medium">
-                <Lock size={11} className="text-emerald-600" />
-                <span>256-bit Secure Checkout • Free Nationwide Delivery Available</span>
+              <div className="flex items-center gap-[6px] text-[10.5px] sm:text-[11px] text-gray-500 dark:text-gray-400 font-medium">
+                <Lock size={11} className="text-emerald-600 dark:text-emerald-400" />
+                <span>256-bit Secure Checkout • Free Delivery Available</span>
               </div>
             </div>
           </div>
           <button
             onClick={handleClose}
-            className="w-[32px] h-[32px] rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-600 transition-colors"
+            className="w-[32px] h-[32px] rounded-full hover:bg-gray-100 dark:hover:bg-white/10 flex items-center justify-center text-gray-600 dark:text-gray-300 transition-colors cursor-pointer shrink-0"
             aria-label="Close"
           >
             <X size={18} />
@@ -240,7 +240,7 @@ export default function CheckoutModal({
         </div>
 
         {/* Modal Body */}
-        <div className="flex-1 overflow-y-auto p-[20px] sm:p-[30px]">
+        <div className="flex-1 overflow-y-auto p-[14px] sm:p-[25px] md:p-[30px]">
           {completedOrder ? (
             /* SUCCESS CONFIRMATION SCREEN */
             <div className="max-w-xl mx-auto py-[20px] text-center space-y-[20px]">
@@ -349,27 +349,27 @@ export default function CheckoutModal({
             </div>
           ) : (
             /* CHECKOUT FORM & REVIEW */
-            <form onSubmit={handleSubmitOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-[25px]">
+            <form onSubmit={handleSubmitOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-[20px] sm:gap-[25px]">
               {/* Left Column: Customer & Delivery Info (7 cols) */}
-              <div className="lg:col-span-7 space-y-[20px]">
+              <div className="lg:col-span-7 space-y-[16px] sm:space-y-[20px]">
                 <div>
-                  <h3 className="text-[15px] font-bold uppercase tracking-wider text-[#121212] mb-[4px] flex items-center gap-[8px]">
+                  <h3 className="text-[14px] sm:text-[15px] font-bold uppercase tracking-wider text-[#121212] dark:text-white mb-[4px] flex items-center gap-[8px]">
                     <MapPin size={17} className="text-[#cf0c1d]" />
                     <span>1. Shipping & Contact Information</span>
                   </h3>
-                  <p className="text-[12px] text-gray-500">
+                  <p className="text-[12px] text-gray-500 dark:text-gray-400">
                     Please provide your correct address for prompt courier delivery.
                   </p>
                 </div>
 
                 {/* Logged in member badge */}
                 {currentUser && (
-                  <div className="p-[10px] bg-purple-50 border border-purple-200 rounded-[6px] flex items-center justify-between text-[12px] text-purple-900">
+                  <div className="p-[10px] bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 rounded-[6px] flex items-center justify-between text-[12px] text-purple-900 dark:text-purple-200">
                     <div className="flex items-center gap-[6px]">
                       <span className="w-[8px] h-[8px] rounded-full bg-emerald-500 shrink-0" />
                       <span>Ordering as registered member: <strong>{currentUser.name}</strong></span>
                     </div>
-                    <span className="text-[10px] font-bold bg-purple-200 text-purple-800 px-[6px] py-[2px] rounded uppercase font-mono">
+                    <span className="text-[10px] font-bold bg-purple-200 dark:bg-purple-800 text-purple-800 dark:text-purple-200 px-[6px] py-[2px] rounded uppercase font-mono">
                       #{currentUser.id}
                     </span>
                   </div>
@@ -377,7 +377,7 @@ export default function CheckoutModal({
 
                 {/* Full Name */}
                 <div>
-                  <label className="block text-[12px] font-semibold uppercase tracking-wider text-gray-700 mb-[6px]">
+                  <label className="block text-[11.5px] sm:text-[12px] font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-[5px]">
                     Full Name <span className="text-[#cf0c1d]">*</span>
                   </label>
                   <div className="relative">
@@ -387,8 +387,8 @@ export default function CheckoutModal({
                       value={formData.name}
                       onChange={(e) => handleInputChange('name', e.target.value)}
                       placeholder="e.g. Ayesha Khan"
-                      className={`w-full pl-[36px] pr-[12px] py-[10px] text-[14px] border rounded-[4px] focus:outline-none transition-colors ${
-                        errors.name ? 'border-red-500 bg-red-50/30' : 'border-gray-300 focus:border-[#121212]'
+                      className={`w-full pl-[36px] pr-[12px] py-[10px] text-[13.5px] sm:text-[14px] border rounded-[4px] focus:outline-none transition-colors bg-white dark:bg-[#202020] text-[#121212] dark:text-white ${
+                        errors.name ? 'border-red-500 bg-red-50/30' : 'border-gray-300 dark:border-white/20 focus:border-[#121212] dark:focus:border-white'
                       }`}
                     />
                   </div>
@@ -398,7 +398,7 @@ export default function CheckoutModal({
                 {/* Mobile / WhatsApp & Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-[12px]">
                   <div>
-                    <label className="block text-[12px] font-semibold uppercase tracking-wider text-gray-700 mb-[6px]">
+                    <label className="block text-[11.5px] sm:text-[12px] font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-[5px]">
                       Mobile / WhatsApp <span className="text-[#cf0c1d]">*</span>
                     </label>
                     <div className="relative">
@@ -408,8 +408,8 @@ export default function CheckoutModal({
                         value={formData.phone}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
                         placeholder="0300 1234567"
-                        className={`w-full pl-[36px] pr-[12px] py-[10px] text-[14px] border rounded-[4px] focus:outline-none transition-colors ${
-                          errors.phone ? 'border-red-500 bg-red-50/30' : 'border-gray-300 focus:border-[#121212]'
+                        className={`w-full pl-[36px] pr-[12px] py-[10px] text-[13.5px] sm:text-[14px] border rounded-[4px] focus:outline-none transition-colors bg-white dark:bg-[#202020] text-[#121212] dark:text-white ${
+                          errors.phone ? 'border-red-500 bg-red-50/30' : 'border-gray-300 dark:border-white/20 focus:border-[#121212] dark:focus:border-white'
                         }`}
                       />
                     </div>
@@ -417,7 +417,7 @@ export default function CheckoutModal({
                   </div>
 
                   <div>
-                    <label className="block text-[12px] font-semibold uppercase tracking-wider text-gray-700 mb-[6px]">
+                    <label className="block text-[11.5px] sm:text-[12px] font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-[5px]">
                       Email Address <span className="text-gray-400 font-normal lowercase">(optional)</span>
                     </label>
                     <div className="relative">
@@ -427,7 +427,7 @@ export default function CheckoutModal({
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         placeholder="customer@example.com"
-                        className="w-full pl-[36px] pr-[12px] py-[10px] text-[14px] border border-gray-300 rounded-[4px] focus:outline-none focus:border-[#121212]"
+                        className="w-full pl-[36px] pr-[12px] py-[10px] text-[13.5px] sm:text-[14px] border border-gray-300 dark:border-white/20 rounded-[4px] bg-white dark:bg-[#202020] text-[#121212] dark:text-white focus:outline-none focus:border-[#121212] dark:focus:border-white"
                       />
                     </div>
                   </div>
@@ -435,7 +435,7 @@ export default function CheckoutModal({
 
                 {/* Complete Address */}
                 <div>
-                  <label className="block text-[12px] font-semibold uppercase tracking-wider text-gray-700 mb-[6px]">
+                  <label className="block text-[11.5px] sm:text-[12px] font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-[5px]">
                     Delivery Street Address <span className="text-[#cf0c1d]">*</span>
                   </label>
                   <textarea
@@ -443,8 +443,8 @@ export default function CheckoutModal({
                     value={formData.address}
                     onChange={(e) => handleInputChange('address', e.target.value)}
                     placeholder="House / Apartment #, Street #, Sector / Area / Landmark"
-                    className={`w-full px-[12px] py-[10px] text-[14px] border rounded-[4px] focus:outline-none transition-colors ${
-                      errors.address ? 'border-red-500 bg-red-50/30' : 'border-gray-300 focus:border-[#121212]'
+                    className={`w-full px-[12px] py-[10px] text-[13.5px] sm:text-[14px] border rounded-[4px] focus:outline-none transition-colors bg-white dark:bg-[#202020] text-[#121212] dark:text-white ${
+                      errors.address ? 'border-red-500 bg-red-50/30' : 'border-gray-300 dark:border-white/20 focus:border-[#121212] dark:focus:border-white'
                     }`}
                   />
                   {errors.address && <p className="text-red-500 text-[11px] mt-[4px]">{errors.address}</p>}
@@ -453,13 +453,13 @@ export default function CheckoutModal({
                 {/* City & Province */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-[12px]">
                   <div>
-                    <label className="block text-[12px] font-semibold uppercase tracking-wider text-gray-700 mb-[6px]">
+                    <label className="block text-[11.5px] sm:text-[12px] font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-[5px]">
                       City <span className="text-[#cf0c1d]">*</span>
                     </label>
                     <select
                       value={formData.city}
                       onChange={(e) => handleInputChange('city', e.target.value)}
-                      className="w-full px-[12px] py-[10px] text-[14px] border border-gray-300 rounded-[4px] bg-white focus:outline-none focus:border-[#121212]"
+                      className="w-full px-[12px] py-[10px] text-[13.5px] sm:text-[14px] border border-gray-300 dark:border-white/20 rounded-[4px] bg-white dark:bg-[#202020] text-[#121212] dark:text-white focus:outline-none focus:border-[#121212] dark:focus:border-white"
                     >
                       {PAKISTAN_CITIES.map((c) => (
                         <option key={c} value={c}>{c}</option>
@@ -468,13 +468,13 @@ export default function CheckoutModal({
                   </div>
 
                   <div>
-                    <label className="block text-[12px] font-semibold uppercase tracking-wider text-gray-700 mb-[6px]">
+                    <label className="block text-[11.5px] sm:text-[12px] font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-[5px]">
                       Province
                     </label>
                     <select
                       value={formData.province}
                       onChange={(e) => handleInputChange('province', e.target.value)}
-                      className="w-full px-[12px] py-[10px] text-[14px] border border-gray-300 rounded-[4px] bg-white focus:outline-none focus:border-[#121212]"
+                      className="w-full px-[12px] py-[10px] text-[13.5px] sm:text-[14px] border border-gray-300 dark:border-white/20 rounded-[4px] bg-white dark:bg-[#202020] text-[#121212] dark:text-white focus:outline-none focus:border-[#121212] dark:focus:border-white"
                     >
                       {PROVINCES.map((p) => (
                         <option key={p} value={p}>{p}</option>
@@ -485,7 +485,7 @@ export default function CheckoutModal({
 
                 {formData.city === 'Other City' && (
                   <div>
-                    <label className="block text-[12px] font-semibold uppercase tracking-wider text-gray-700 mb-[6px]">
+                    <label className="block text-[11.5px] sm:text-[12px] font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-[5px]">
                       Specify Your City <span className="text-[#cf0c1d]">*</span>
                     </label>
                     <input
@@ -493,7 +493,7 @@ export default function CheckoutModal({
                       value={formData.customCity}
                       onChange={(e) => handleInputChange('customCity', e.target.value)}
                       placeholder="Enter city name in Pakistan"
-                      className="w-full px-[12px] py-[10px] text-[14px] border border-gray-300 rounded-[4px] focus:outline-none focus:border-[#121212]"
+                      className="w-full px-[12px] py-[10px] text-[13.5px] sm:text-[14px] border border-gray-300 dark:border-white/20 rounded-[4px] bg-white dark:bg-[#202020] text-[#121212] dark:text-white focus:outline-none focus:border-[#121212] dark:focus:border-white"
                     />
                     {errors.city && <p className="text-red-500 text-[11px] mt-[4px]">{errors.city}</p>}
                   </div>
@@ -501,7 +501,7 @@ export default function CheckoutModal({
 
                 {/* Delivery Notes */}
                 <div>
-                  <label className="block text-[12px] font-semibold uppercase tracking-wider text-gray-700 mb-[6px]">
+                  <label className="block text-[11.5px] sm:text-[12px] font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-[5px]">
                     Delivery Instructions <span className="text-gray-400 font-normal lowercase">(optional)</span>
                   </label>
                   <input
@@ -509,27 +509,27 @@ export default function CheckoutModal({
                     value={formData.notes}
                     onChange={(e) => handleInputChange('notes', e.target.value)}
                     placeholder="e.g. Call before delivery, Leave with security"
-                    className="w-full px-[12px] py-[8px] text-[13px] border border-gray-300 rounded-[4px] focus:outline-none focus:border-[#121212]"
+                    className="w-full px-[12px] py-[8px] text-[13px] border border-gray-300 dark:border-white/20 rounded-[4px] bg-white dark:bg-[#202020] text-[#121212] dark:text-white focus:outline-none focus:border-[#121212] dark:focus:border-white"
                   />
                 </div>
 
                 {/* Payment Option */}
-                <div className="pt-[10px] border-t border-gray-200">
-                  <h3 className="text-[13px] font-bold uppercase tracking-wider text-[#121212] mb-[10px] flex items-center gap-[6px]">
+                <div className="pt-[10px] border-t border-gray-200 dark:border-white/10">
+                  <h3 className="text-[13px] font-bold uppercase tracking-wider text-[#121212] dark:text-white mb-[10px] flex items-center gap-[6px]">
                     <ShieldCheck size={16} className="text-emerald-600" />
                     <span>Payment Method</span>
                   </h3>
-                  <div className="p-[14px] rounded-[6px] border-2 border-emerald-500 bg-emerald-50/40 flex items-center justify-between">
+                  <div className="p-[12px] sm:p-[14px] rounded-[6px] border-2 border-emerald-500 bg-emerald-50/40 dark:bg-emerald-950/30 flex items-center justify-between">
                     <div className="flex items-center gap-[10px]">
                       <div className="w-[18px] h-[18px] rounded-full border-2 border-emerald-600 flex items-center justify-center">
                         <div className="w-[9px] h-[9px] rounded-full bg-emerald-600" />
                       </div>
                       <div>
-                        <span className="text-[14px] font-bold text-gray-900 block">Cash on Delivery (COD)</span>
-                        <span className="text-[12px] text-gray-600">Pay cash to courier upon package delivery</span>
+                        <span className="text-[13.5px] sm:text-[14px] font-bold text-gray-900 dark:text-white block">Cash on Delivery (COD)</span>
+                        <span className="text-[11.5px] sm:text-[12px] text-gray-600 dark:text-gray-300">Pay cash to courier upon package delivery</span>
                       </div>
                     </div>
-                    <span className="text-[11px] font-bold bg-emerald-600 text-white px-[8px] py-[3px] rounded">
+                    <span className="text-[10.5px] sm:text-[11px] font-bold bg-emerald-600 text-white px-[8px] py-[3px] rounded">
                       Standard
                     </span>
                   </div>
@@ -537,42 +537,42 @@ export default function CheckoutModal({
               </div>
 
               {/* Right Column: Order Summary (5 cols) */}
-              <div className="lg:col-span-5 bg-[#f8f9fa] rounded-[8px] p-[20px] flex flex-col justify-between border border-gray-200">
+              <div className="lg:col-span-5 bg-[#f8f9fa] dark:bg-[#202020] rounded-[8px] p-[16px] sm:p-[20px] flex flex-col justify-between border border-gray-200 dark:border-white/10">
                 <div>
-                  <div className="flex items-center justify-between pb-[12px] border-b border-gray-200 mb-[15px]">
-                    <h3 className="text-[14px] font-bold uppercase tracking-wider text-[#121212] flex items-center gap-[6px]">
+                  <div className="flex items-center justify-between pb-[12px] border-b border-gray-200 dark:border-white/10 mb-[15px]">
+                    <h3 className="text-[13.5px] sm:text-[14px] font-bold uppercase tracking-wider text-[#121212] dark:text-white flex items-center gap-[6px]">
                       <Package size={16} />
                       <span>Order Items ({items.reduce((s, i) => s + (i.quantity || 1), 0)})</span>
                     </h3>
                   </div>
 
                   {/* Items list */}
-                  <div className="space-y-[12px] max-h-[260px] overflow-y-auto pr-[5px] mb-[15px]">
+                  <div className="space-y-[10px] sm:space-y-[12px] max-h-[260px] overflow-y-auto pr-[5px] mb-[15px]">
                     {items.map((it, idx) => (
-                      <div key={idx} className="flex gap-[12px] items-center bg-white p-[10px] rounded-[6px] border border-gray-200">
+                      <div key={idx} className="flex gap-[10px] sm:gap-[12px] items-center bg-white dark:bg-[#1a1a1a] p-[8px] sm:p-[10px] rounded-[6px] border border-gray-200 dark:border-white/10">
                         <img
                           src={it.image}
                           alt={it.title}
-                          className="w-[50px] h-[64px] object-cover rounded-[3px] bg-gray-100 shrink-0"
+                          className="w-[46px] sm:w-[50px] h-[58px] sm:h-[64px] object-cover rounded-[3px] bg-gray-100 dark:bg-gray-800 shrink-0"
                         />
                         <div className="flex-1 min-w-0">
-                          <span className="text-[11px] text-gray-500 uppercase tracking-wider block">
-                            {it.category || 'Limelight'}
+                          <span className="text-[10px] sm:text-[11px] text-gray-500 dark:text-gray-400 uppercase tracking-wider block">
+                            {it.category || 'Zimal Collection'}
                           </span>
-                          <h4 className="text-[13px] font-bold text-[#121212] truncate">
+                          <h4 className="text-[12px] sm:text-[13px] font-bold text-[#121212] dark:text-white truncate">
                             {it.title}
                           </h4>
-                          <div className="flex items-center gap-[8px] text-[11px] text-gray-600 mt-[2px]">
+                          <div className="flex items-center gap-[8px] text-[11px] text-gray-600 dark:text-gray-300 mt-[2px]">
                             {it.selectedSize && (
-                              <span className="bg-gray-100 px-[5px] py-[1px] rounded font-medium">
+                              <span className="bg-gray-100 dark:bg-white/10 px-[5px] py-[1px] rounded font-medium">
                                 Size: {it.selectedSize}
                               </span>
                             )}
                             <span>Qty: {it.quantity || 1}</span>
                           </div>
                         </div>
-                        <div className="text-right">
-                          <span className="text-[13px] font-bold text-[#121212] block">
+                        <div className="text-right shrink-0">
+                          <span className="text-[12px] sm:text-[13px] font-bold text-[#121212] dark:text-white block">
                             Rs. {((Number(it.price) || 0) * (Number(it.quantity) || 1)).toLocaleString()}
                           </span>
                         </div>
@@ -581,42 +581,42 @@ export default function CheckoutModal({
                   </div>
 
                   {/* Pricing Breakdown */}
-                  <div className="space-y-[8px] pt-[12px] border-t border-gray-200 text-[13px]">
-                    <div className="flex justify-between text-gray-600">
+                  <div className="space-y-[8px] pt-[12px] border-t border-gray-200 dark:border-white/10 text-[13px]">
+                    <div className="flex justify-between text-gray-600 dark:text-gray-300">
                       <span>Subtotal</span>
-                      <span className="font-semibold text-gray-900">
+                      <span className="font-semibold text-gray-900 dark:text-white">
                         Rs. {subtotal.toLocaleString()}
                       </span>
                     </div>
 
-                    <div className="flex justify-between items-center text-gray-600">
+                    <div className="flex justify-between items-center text-gray-600 dark:text-gray-300">
                       <span className="flex items-center gap-[5px]">
                         <Truck size={14} />
                         <span>Nationwide Shipping</span>
                       </span>
                       {isFreeShipping ? (
-                        <span className="text-emerald-600 font-bold bg-emerald-50 px-[6px] py-[1px] rounded text-[12px]">
+                        <span className="text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-[6px] py-[1px] rounded text-[12px]">
                           FREE
                         </span>
                       ) : (
-                        <span className="font-semibold text-gray-900">Rs. {STANDARD_SHIPPING_FEE}</span>
+                        <span className="font-semibold text-gray-900 dark:text-white">Rs. {STANDARD_SHIPPING_FEE}</span>
                       )}
                     </div>
 
                     {!isFreeShipping && (
-                      <p className="text-[11px] text-amber-700 bg-amber-50 p-[6px] rounded border border-amber-200">
+                      <p className="text-[11px] text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 p-[6px] rounded border border-amber-200 dark:border-amber-800">
                         Add Rs. {(FREE_SHIPPING_THRESHOLD - subtotal).toLocaleString()} more to get <strong>FREE SHIPPING</strong>!
                       </p>
                     )}
 
-                    <div className="flex justify-between items-baseline pt-[12px] border-t border-gray-300">
+                    <div className="flex justify-between items-baseline pt-[12px] border-t border-gray-300 dark:border-white/20">
                       <div>
-                        <span className="text-[14px] font-extrabold text-[#121212] uppercase tracking-wider block">
+                        <span className="text-[13.5px] sm:text-[14px] font-extrabold text-[#121212] dark:text-white uppercase tracking-wider block">
                           Total Amount
                         </span>
-                        <span className="text-[10px] text-gray-500">Includes all applicable duties & taxes</span>
+                        <span className="text-[10px] text-gray-500 dark:text-gray-400">Includes all applicable duties & taxes</span>
                       </div>
-                      <span className="text-[20px] font-extrabold text-[#cf0c1d]">
+                      <span className="text-[18px] sm:text-[20px] font-extrabold text-[#cf0c1d]">
                         Rs. {grandTotal.toLocaleString()}
                       </span>
                     </div>

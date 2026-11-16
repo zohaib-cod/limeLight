@@ -139,7 +139,7 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
       {/* Interactive Chat Window: Animates and Docks on the Right Side (Leaves Center Screen Open) */}
       {isOpen && (
         <div className="fixed bottom-[10px] sm:bottom-[25px] right-[10px] sm:right-[30px] z-50 animate-slide-side font-assistant max-w-[calc(100vw-20px)]">
-          <div className="w-[calc(100vw-20px)] sm:w-[390px] max-w-[420px] h-[540px] sm:h-[580px] max-h-[85vh] bg-white rounded-[16px] shadow-[0_15px_50px_rgba(0,0,0,0.3)] flex flex-col overflow-hidden border border-gray-200">
+          <div className="w-[calc(100vw-20px)] sm:w-[390px] max-w-[420px] h-[520px] sm:h-[580px] max-h-[85vh] bg-white dark:bg-[#161616] text-[#121212] dark:text-white rounded-[16px] shadow-[0_15px_50px_rgba(0,0,0,0.3)] flex flex-col overflow-hidden border border-gray-200 dark:border-white/10 transition-colors duration-200">
             {/* Header */}
             <div className="bg-[#121212] text-white p-[14px] px-[16px] flex items-center justify-between border-b border-[#262626]">
               <div className="flex items-center gap-[10px]">
@@ -183,7 +183,7 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
             </div>
 
           {/* Messages Container */}
-          <div className="flex-1 overflow-y-auto p-[14px] space-y-[12px] bg-[#fbfbfb] text-[13px]">
+          <div className="flex-1 overflow-y-auto p-[14px] space-y-[12px] bg-[#fbfbfb] dark:bg-[#121212] text-[13px]">
             {messages.map((msg) => {
               const isAssistant = msg.role === 'assistant';
               return (
@@ -194,41 +194,41 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
                   <div
                     className={`max-w-[88%] p-[12px] rounded-[10px] leading-[20px] shadow-xs ${
                       isAssistant
-                        ? 'bg-white text-[#121212] border border-gray-200'
-                        : 'bg-[#121212] text-white rounded-br-xs'
+                        ? 'bg-white dark:bg-[#1e1e1e] text-[#121212] dark:text-gray-100 border border-gray-200 dark:border-white/10'
+                        : 'bg-[#121212] dark:bg-emerald-700 text-white rounded-br-xs'
                     }`}
                   >
                     <p className="whitespace-pre-line break-words">{msg.content}</p>
 
                     {/* Matched / Suggested Products Mini Cards */}
                     {isAssistant && msg.suggestedProducts && msg.suggestedProducts.length > 0 && (
-                      <div className="mt-[10px] pt-[10px] border-t border-gray-100 space-y-[8px]">
-                        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">
+                      <div className="mt-[10px] pt-[10px] border-t border-gray-100 dark:border-white/10 space-y-[8px]">
+                        <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider block">
                           Recommended Products:
                         </span>
                         {msg.suggestedProducts.map((p) => (
                           <div
                             key={p.id || p.title}
-                            className="bg-[#f8f9fa] border border-gray-200 rounded-[6px] p-[8px] flex items-center gap-[10px]"
+                            className="bg-[#f8f9fa] dark:bg-[#252525] border border-gray-200 dark:border-white/10 rounded-[6px] p-[8px] flex items-center gap-[10px]"
                           >
                             {p.image ? (
                               <img
                                 src={p.image}
                                 alt={p.title}
-                                className="w-[46px] h-[58px] object-cover rounded-[3px] shrink-0 border border-gray-200"
+                                className="w-[46px] h-[58px] object-cover rounded-[3px] shrink-0 border border-gray-200 dark:border-white/10"
                               />
                             ) : (
-                              <div className="w-[46px] h-[58px] bg-gray-200 rounded-[3px] shrink-0 flex items-center justify-center text-gray-400">
+                              <div className="w-[46px] h-[58px] bg-gray-200 dark:bg-gray-700 rounded-[3px] shrink-0 flex items-center justify-center text-gray-400">
                                 <ShoppingBag size={18} />
                               </div>
                             )}
 
                             <div className="flex-1 min-w-0">
-                              <h5 className="text-[12px] font-bold text-[#121212] truncate">
+                              <h5 className="text-[12px] font-bold text-[#121212] dark:text-white truncate">
                                 {p.title}
                               </h5>
-                              <span className="text-[10px] text-gray-500 block truncate">
-                                {p.category || 'Limelight Collection'}
+                              <span className="text-[10px] text-gray-500 dark:text-gray-400 block truncate">
+                                {p.category || 'Zimal Collection'}
                               </span>
                               <div className="flex items-baseline gap-[6px] mt-[2px]">
                                 <span className="text-[12px] font-bold text-[#cf0c1d]">
@@ -247,7 +247,7 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
                                 <button
                                   type="button"
                                   onClick={() => onAddToCart(p)}
-                                  className="px-[8px] py-[4px] bg-[#121212] hover:bg-black text-white text-[10px] font-bold rounded-[3px] flex items-center gap-[3px] cursor-pointer"
+                                  className="px-[8px] py-[4px] bg-[#121212] dark:bg-white hover:bg-black dark:hover:bg-gray-200 text-white dark:text-black text-[10px] font-bold rounded-[3px] flex items-center gap-[3px] cursor-pointer"
                                   title="Add to Shopping Bag"
                                 >
                                   <ShoppingBag size={11} />
@@ -258,7 +258,7 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
                                 <button
                                   type="button"
                                   onClick={() => onQuickView(p)}
-                                  className="px-[8px] py-[4px] bg-white border border-gray-300 hover:bg-gray-100 text-[#121212] text-[10px] font-medium rounded-[3px] flex items-center gap-[3px] cursor-pointer"
+                                  className="px-[8px] py-[4px] bg-white dark:bg-[#333333] border border-gray-300 dark:border-white/20 hover:bg-gray-100 text-[#121212] dark:text-white text-[10px] font-medium rounded-[3px] flex items-center gap-[3px] cursor-pointer"
                                   title="View Details"
                                 >
                                   <Eye size={11} />
@@ -277,7 +277,7 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
 
             {/* Typing Indicator */}
             {isTyping && (
-              <div className="flex items-center gap-[6px] text-gray-400 p-[10px] bg-white border border-gray-200 rounded-[10px] w-[80px]">
+              <div className="flex items-center gap-[6px] text-gray-400 p-[10px] bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-white/10 rounded-[10px] w-[80px]">
                 <span className="w-[6px] h-[6px] bg-gray-400 rounded-full animate-bounce" />
                 <span className="w-[6px] h-[6px] bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]" />
                 <span className="w-[6px] h-[6px] bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]" />
@@ -289,7 +289,7 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
 
           {/* Quick Prompts (shown when only initial message exists or on idle) */}
           {messages.length <= 3 && !isTyping && (
-            <div className="p-[10px] bg-white border-t border-gray-100">
+            <div className="p-[10px] bg-white dark:bg-[#181818] border-t border-gray-100 dark:border-white/10">
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-[6px]">
                 Suggestions:
               </span>
@@ -299,7 +299,7 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
                     key={idx}
                     type="button"
                     onClick={() => handleSend(prompt)}
-                    className="text-[11px] bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200 px-[8px] py-[4px] rounded-full transition-all text-left truncate max-w-full cursor-pointer"
+                    className="text-[11px] bg-gray-50 dark:bg-[#222222] hover:bg-gray-100 dark:hover:bg-[#2c2c2c] text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10 px-[8px] py-[4px] rounded-full transition-all text-left truncate max-w-full cursor-pointer"
                   >
                     {prompt}
                   </button>
@@ -314,7 +314,7 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
               e.preventDefault();
               handleSend();
             }}
-            className="p-[10px] bg-white border-t border-gray-200 flex items-center gap-[8px]"
+            className="p-[10px] bg-white dark:bg-[#181818] border-t border-gray-200 dark:border-white/10 flex items-center gap-[8px]"
           >
             <input
               ref={inputRef}
@@ -323,12 +323,12 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask in English or Roman Urdu..."
               disabled={isTyping}
-              className="flex-1 px-[12px] py-[9px] text-[13px] border border-gray-200 rounded-full focus:outline-none focus:border-[#121212] bg-[#f8f9fa] disabled:opacity-50"
+              className="flex-1 px-[12px] py-[9px] text-[13px] border border-gray-200 dark:border-white/15 rounded-full focus:outline-none focus:border-[#121212] dark:focus:border-white bg-[#f8f9fa] dark:bg-[#222222] text-[#121212] dark:text-white disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={!input.trim() || isTyping}
-              className="w-[36px] h-[36px] bg-[#121212] hover:bg-black disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-all cursor-pointer disabled:cursor-not-allowed shrink-0"
+              className="w-[36px] h-[36px] bg-[#121212] dark:bg-white hover:bg-black dark:hover:bg-gray-200 disabled:bg-gray-300 dark:disabled:bg-gray-700 text-white dark:text-black rounded-full flex items-center justify-center transition-all cursor-pointer disabled:cursor-not-allowed shrink-0"
               aria-label="Send message"
             >
               <Send size={15} />
