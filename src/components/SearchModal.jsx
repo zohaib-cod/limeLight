@@ -165,7 +165,7 @@ export default function SearchModal({ isOpen, onClose, onQuickView, onAddToCart 
               <div className="text-center py-[40px] text-[#121212bf]">
                 <Search size={40} className="mx-auto mb-[10px] text-gray-300" />
                 <p className="text-[15px] font-medium text-[#121212] mb-[4px]">
-                  Explore Limelight's Winter Catalog
+                  Explore Zimal Collection's Catalog (www.zimalcollection.com)
                 </p>
                 <p className="text-[13px]">
                   Type a keyword above or select a trending filter to begin your search.

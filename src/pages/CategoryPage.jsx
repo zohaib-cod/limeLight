@@ -310,7 +310,7 @@ export default function CategoryPage() {
 
           <div className="relative z-10 max-w-[800px] mx-auto space-y-[10px]">
             <span className="inline-block text-[11px] font-bold tracking-[0.25em] text-[#cec72e] uppercase">
-              OFFICIAL LIMELIGHT COLLECTION
+              OFFICIAL ZIMAL COLLECTION • WWW.ZIMALCOLLECTION.COM
             </span>
             <h1 className="text-[28px] sm:text-[40px] font-extrabold tracking-[0.1em] uppercase font-visbyBold">
               {displayName}
@@ -479,7 +479,7 @@ export default function CategoryPage() {
                     {/* Product Details */}
                     <div className="space-y-[4px]">
                       <span className="text-[11px] tracking-widest text-[#121212bf] uppercase block">
-                        {product.fabric || product.category || 'LIMELIGHT'}
+                        {product.fabric || product.category || 'ZIMAL COLLECTION'}
                         {product.pieces ? ` • ${product.pieces}` : ''}
                       </span>
 

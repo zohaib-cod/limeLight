@@ -135,12 +135,12 @@ export default function AdminLayout() {
           {/* Brand header */}
           <div className="p-[20px] border-b border-[#262626] flex items-center justify-between">
             <Link to="/admin" className="flex flex-col group">
-              <div className="flex items-center tracking-[0.22em] text-[18px] font-bold">
-                <span className="text-[#23ac95]">LIME</span>
-                <span className="text-[#cec72e]">LIGHT</span>
+              <div className="flex items-center tracking-[0.2em] text-[16px] font-bold">
+                <span className="text-[#23ac95]">ZIMAL</span>
+                <span className="text-[#cec72e] ml-[4px]">COLLECTION</span>
               </div>
-              <span className="text-[9px] tracking-[0.3em] text-white/50 uppercase mt-[2px]">
-                ADMIN CONTROL PANEL
+              <span className="text-[8.5px] tracking-[0.2em] text-white/50 lowercase mt-[2px]">
+                www.zimalcollection.com
               </span>
             </Link>
             <div className="flex items-center gap-[6px]">

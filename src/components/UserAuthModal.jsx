@@ -476,7 +476,7 @@ export default function UserAuthModal({
 
               <div className="text-center pt-[5px]">
                 <p className="text-[13px] text-gray-600">
-                  New to Limelight?{' '}
+                  New to Zimal Collection?{' '}
                   <button
                     onClick={() => setActiveTab('register')}
                     className="font-bold text-[#121212] underline hover:text-[#cf0c1d]"
@@ -492,7 +492,7 @@ export default function UserAuthModal({
           {!currentUser && activeTab === 'register' && (
             <div className="space-y-[16px]">
               <div>
-                <h4 className="text-[18px] font-bold text-[#121212]">Create Limelight Account</h4>
+                <h4 className="text-[18px] font-bold text-[#121212]">Create Zimal Collection Account</h4>
                 <p className="text-[13px] text-gray-500 mt-[2px]">
                   Register once. Whenever you place an order, it will automatically appear in your profile with live courier tracking.
                 </p>
@@ -791,7 +791,7 @@ export default function UserAuthModal({
                                         ({new Date(order.createdAt || order.date || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})
                                       </span>
                                     </div>
-                                    <p className="text-[11px] text-gray-500">Order confirmed in Limelight system via Direct Checkout.</p>
+                                    <p className="text-[11px] text-gray-500">Order confirmed in Zimal Collection (www.zimalcollection.com) system via Direct Checkout.</p>
                                   </div>
                                 </div>
 

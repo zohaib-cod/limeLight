@@ -6,14 +6,15 @@ import { ASSETS } from '../data/products';
 const DEFAULT_SETTINGS = {
   logoType: 'text',
   textLogo: {
-    part1: 'LIME',
-    part2: 'LIGHT',
+    part1: 'ZIMAL ',
+    part2: 'COLLECTION',
     color1: '#23ac95',
     color2: '#cec72e',
-    fontSize: 23
+    fontSize: 22
   },
   imageLogo: {
     url: '',
+    alt: 'Zimal Collection Official (www.zimalcollection.com)',
     height: 36
   },
   whatsappNumber: '+92 345 7867016'
@@ -204,7 +205,7 @@ export default function Header({
       return (
         <img
           src={settings.imageLogo.url}
-          alt={`${settings.textLogo?.part1 || 'LIME'}${settings.textLogo?.part2 || 'LIGHT'}`}
+          alt={settings.imageLogo.alt || 'Zimal Collection'}
           style={{
             maxHeight: isDrawer ? '32px' : `${settings.imageLogo.height || 36}px`
           }}
@@ -217,21 +218,28 @@ export default function Header({
       );
     }
 
-    const part1 = settings.textLogo?.part1 || 'LIME';
-    const part2 = settings.textLogo?.part2 || 'LIGHT';
+    let part1 = settings.textLogo?.part1;
+    let part2 = settings.textLogo?.part2;
+    if (!part1 || part1.trim() === 'LIME') part1 = 'ZIMAL ';
+    if (!part2 || part2.trim() === 'LIGHT') part2 = 'COLLECTION';
     const color1 = settings.textLogo?.part1Color || settings.textLogo?.color1 || '#23ac95';
     const color2 = settings.textLogo?.part2Color || settings.textLogo?.color2 || '#cec72e';
-    const rawSize = settings.textLogo?.fontSize || 23;
-    const fontSize = isDrawer ? 18 : (typeof rawSize === 'string' ? parseInt(rawSize, 10) || 23 : rawSize);
+    const rawSize = settings.textLogo?.fontSize || 22;
+    const fontSize = isDrawer ? 17 : (typeof rawSize === 'string' ? parseInt(rawSize, 10) || 22 : rawSize);
 
     return (
-      <span
-        style={{ fontSize: `${fontSize}px` }}
-        className="inline-flex items-center tracking-[0.24em] font-bold uppercase transition-opacity hover:opacity-90 font-visbyBold"
-      >
-        <span style={{ color: color1 }}>{part1}</span>
-        <span style={{ color: color2 }}>{part2}</span>
-      </span>
+      <div className="flex flex-col items-center leading-none text-center">
+        <span
+          style={{ fontSize: `${fontSize}px` }}
+          className="inline-flex items-center tracking-[0.2em] font-bold uppercase transition-opacity hover:opacity-90 font-visbyBold"
+        >
+          <span style={{ color: color1 }}>{part1}</span>
+          <span style={{ color: color2 }}>{part2}</span>
+        </span>
+        <span className="text-[8px] sm:text-[9.5px] tracking-[0.22em] text-white/70 font-medium mt-[2px] lowercase font-mono">
+          www.zimalcollection.com
+        </span>
+      </div>
     );
   };
 
@@ -247,7 +255,7 @@ export default function Header({
               <button
                 onClick={() => setPhoneModalOpen(true)}
                 className="text-white hover:text-white/80 transition-colors p-[3px] flex items-center cursor-pointer"
-                title={`Call Limelight Support (${whatsappNumber})`}
+                title={`Call Support (${whatsappNumber})`}
                 aria-label="Phone Support"
               >
                 <Phone size={18} strokeWidth={1.6} />
@@ -255,11 +263,11 @@ export default function Header({
 
               {/* WhatsApp direct chat icon */}
               <a
-                href={`https://wa.me/${cleanWaNumber}?text=Hello%20Limelight%20Customer%20Support`}
+                href={`https://wa.me/${cleanWaNumber}?text=Hello%20Zimal%20Collection%20Customer%20Support`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-transform hover:scale-105 p-[2px] flex items-center"
-                title={`Chat with Limelight on WhatsApp (${whatsappNumber})`}
+                title={`Chat with Zimal Collection on WhatsApp (${whatsappNumber})`}
                 aria-label="WhatsApp Support"
               >
                 <div className="w-[20px] h-[20px] bg-[#25D366] rounded-full flex items-center justify-center shadow-sm">
@@ -277,7 +285,7 @@ export default function Header({
               <Link
                 to="/"
                 className="inline-flex items-center justify-center cursor-pointer"
-                title="Limelight Pakistan Official"
+                title="Zimal Collection Official - www.zimalcollection.com"
               >
                 {renderLogo(false)}
               </Link>
@@ -510,7 +518,7 @@ export default function Header({
             <div className="w-[42px] h-[42px] bg-[#121212] text-white rounded-full flex items-center justify-center mb-[15px]">
               <Phone size={20} />
             </div>
-            <h4 className="text-[18px] font-bold mb-[6px]">Limelight Customer Care</h4>
+            <h4 className="text-[18px] font-bold mb-[6px]">Zimal Collection Customer Care</h4>
             <p className="text-[13px] text-[#121212bf] mb-[15px] leading-relaxed">
               Our support team is available Monday through Saturday from 9:00 AM to 6:00 PM PKT.
             </p>
@@ -528,7 +536,7 @@ export default function Header({
                 CALL NOW
               </a>
               <a
-                href={`https://wa.me/${cleanWaNumber}?text=Hello%20Limelight%20Customer%20Support`}
+                href={`https://wa.me/${cleanWaNumber}?text=Hello%20Zimal%20Collection%20Customer%20Support`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 bg-[#25D366] text-white font-medium py-[10px] text-[13px] rounded-[3px] flex items-center justify-center gap-[6px] hover:bg-[#20ba59]"

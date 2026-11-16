@@ -64,7 +64,7 @@ export default function AdminDashboard() {
         <div className="relative z-10 max-w-[650px]">
           <div className="inline-flex items-center gap-[6px] bg-white/10 px-[10px] py-[4px] rounded-[3px] text-[11px] font-semibold tracking-wider text-[#cec72e] uppercase mb-[10px]">
             <Sparkles size={13} />
-            <span>Limelight Control Center</span>
+            <span>Zimal Collection Control Center • www.zimalcollection.com</span>
           </div>
           <h2 className="text-[24px] sm:text-[30px] font-bold tracking-tight mb-[8px] leading-tight">
             Homepage Hero Slider & Catalog Overview

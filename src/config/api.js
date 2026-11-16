@@ -5,7 +5,7 @@
 export const API_BASE_URL = (import.meta.env.VITE_API_URL || 'https://lime-light-b.vercel.app').replace(/\/$/, '');
 export const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'qzkctjzg';
 export const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || '+92 345 7867016';
-export const BRAND_NAME = import.meta.env.VITE_BRAND_NAME || 'Limelight Pakistan';
+export const BRAND_NAME = import.meta.env.VITE_BRAND_NAME || 'www.zimalcollection.com';
 
 /**
  * Helper to construct full API endpoint URL

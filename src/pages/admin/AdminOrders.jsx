@@ -705,7 +705,7 @@ export default function AdminOrders() {
             <div className="px-[20px] py-[12px] bg-[#121212] text-white flex items-center justify-between shrink-0">
               <div className="flex items-center gap-[8px] text-[13px] font-bold">
                 <Printer size={16} />
-                <span>Limelight Order Dispatch Slip — #{selectedInvoice.id}</span>
+                <span>Zimal Collection Order Dispatch Slip — #{selectedInvoice.id}</span>
               </div>
               <div className="flex items-center gap-[8px]">
                 <button
@@ -729,12 +729,12 @@ export default function AdminOrders() {
               {/* Slip Header */}
               <div className="flex justify-between items-start border-b-2 border-black pb-[18px]">
                 <div>
-                  <h2 className="text-[28px] font-extrabold tracking-tight">LIMELIGHT</h2>
+                  <h2 className="text-[28px] font-extrabold tracking-tight">ZIMAL COLLECTION</h2>
                   <span className="text-[11px] font-bold tracking-[2px] text-gray-500 uppercase block">
-                    Luxury Pret & Unstitched Pakistan
+                    Luxury Pret & Unstitched Pakistan • www.zimalcollection.com
                   </span>
                   <p className="text-[11px] text-gray-500 mt-[4px]">
-                    Limelight Flagship Logistics Center • Lahore, Pakistan
+                    Zimal Collection Flagship Logistics Center • www.zimalcollection.com
                   </p>
                 </div>
                 <div className="text-right">
@@ -853,7 +853,7 @@ export default function AdminOrders() {
                   TRX-{selectedInvoice.id}-PK
                 </span>
                 <p className="text-[11px] text-gray-400">
-                  Limelight Official COD Dispatch Voucher. Please verify recipient identity and collect exact cash amount upon delivery.
+                  Zimal Collection Official COD Dispatch Voucher. Please verify recipient identity and collect exact cash amount upon delivery.
                 </p>
               </div>
             </div>

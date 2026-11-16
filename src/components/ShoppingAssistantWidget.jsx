@@ -16,7 +16,7 @@ import {
 const INITIAL_MESSAGE = {
   id: 'init-1',
   role: 'assistant',
-  content: `Assalam-o-Alaikum! 👗 Welcome to Limelight! I'm your AI Fashion & Personal Shopping Stylist.\n\nMain aapko winter velvet collections, ready to wear kurtis, co-ords, sizing aur store policies mein guide kar sakti hoon. Aaj aap kya dekhna chahte hain?`
+  content: `Assalam-o-Alaikum! 👗 Welcome to Zimal Collection (www.zimalcollection.com)! I'm your AI Fashion & Personal Shopping Stylist.\n\nMain aapko winter velvet collections, ready to wear kurtis, co-ords, sizing aur store policies mein guide kar sakti hoon. Aaj aap kya dekhna chahte hain?`
 };
 
 const QUICK_PROMPTS = [
@@ -93,7 +93,7 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
       const fallbackMessage = {
         id: `bot-${Date.now()}`,
         role: 'assistant',
-        content: `Assalam-o-Alaikum! Limelight helpline par rabta karne ke liye hamara official WhatsApp **+92 345 7867016** hamesha dastiyab hai. Nationwide orders par **Free Delivery over Rs. 2,490** di ja rahi hai. Aap catalog se koi bhi suit dekh sakte hain!`
+        content: `Assalam-o-Alaikum! Zimal Collection helpline par rabta karne ke liye hamara official WhatsApp **+92 345 7867016** hamesha dastiyab hai. Nationwide orders par **Free Delivery over Rs. 2,490** di ja rahi hai. Aap www.zimalcollection.com catalog se koi bhi suit dekh sakte hain!`
       };
       setMessages(prev => [...prev, fallbackMessage]);
     } finally {
@@ -113,7 +113,7 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
           <button
             onClick={() => setIsOpen(true)}
             className="group flex items-center gap-[8px] sm:gap-[10px] bg-[#121212] hover:bg-black text-white px-[16px] sm:px-[22px] py-[9px] sm:py-[12px] rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.35)] border border-[#23ac95]/50 transition-all hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
-            title="Open Limelight AI Fashion Assistant"
+            title="Open Zimal Collection AI Fashion Assistant"
             aria-label="Open AI Shopping Assistant"
           >
             <div className="relative shrink-0">
@@ -148,8 +148,8 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
                 </div>
                 <div>
                   <div className="flex items-center gap-[6px] text-[14px] font-bold">
-                    <span className="text-[#23ac95]">LIME</span>
-                    <span className="text-[#cec72e]">LIGHT</span>
+                    <span className="text-[#23ac95]">ZIMAL</span>
+                    <span className="text-[#cec72e]">COLLECTION</span>
                     <span className="text-[10px] font-bold bg-white/10 text-white px-[5px] py-[1px] rounded tracking-wider uppercase ml-[2px]">
                       AI Stylist
                     </span>

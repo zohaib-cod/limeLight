@@ -47,17 +47,17 @@ export default function AdminNavigation() {
   const [settings, setSettings] = useState({
     logoType: 'text',
     textLogo: {
-      part1: 'LIME',
-      part2: 'LIGHT',
+      part1: 'ZIMAL ',
+      part2: 'COLLECTION',
       part1Color: '#23ac95',
       part2Color: '#cec72e',
-      singleText: 'LIMELIGHT',
-      letterSpacing: '0.24em',
+      singleText: 'www.zimalcollection.com',
+      letterSpacing: '0.22em',
       fontSize: '22px'
     },
     imageLogo: {
       url: '',
-      alt: 'Limelight Official',
+      alt: 'Zimal Collection Official (www.zimalcollection.com)',
       height: 34
     },
     whatsappNumber: '+92 345 7867016'
@@ -955,7 +955,7 @@ export default function AdminNavigation() {
                     <label className="block text-[11px] font-bold uppercase text-gray-600 mb-[4px]">Part 1 Text</label>
                     <input
                       type="text"
-                      value={settings.textLogo?.part1 || 'LIME'}
+                      value={settings.textLogo?.part1 || 'ZIMAL '}
                       onChange={(e) => setSettings(prev => ({
                         ...prev,
                         textLogo: { ...prev.textLogo, part1: e.target.value }
@@ -994,7 +994,7 @@ export default function AdminNavigation() {
                     <label className="block text-[11px] font-bold uppercase text-gray-600 mb-[4px]">Part 2 Text</label>
                     <input
                       type="text"
-                      value={settings.textLogo?.part2 || 'LIGHT'}
+                      value={settings.textLogo?.part2 || 'COLLECTION'}
                       onChange={(e) => setSettings(prev => ({
                         ...prev,
                         textLogo: { ...prev.textLogo, part2: e.target.value }
@@ -1149,12 +1149,12 @@ export default function AdminNavigation() {
                     }}
                   />
                 ) : (
-                  <div className="tracking-[0.24em] text-[24px] font-extrabold uppercase">
+                  <div className="tracking-[0.2em] text-[24px] font-extrabold uppercase">
                     <span style={{ color: settings.textLogo?.part1Color || '#23ac95' }}>
-                      {settings.textLogo?.part1 || 'LIME'}
+                      {settings.textLogo?.part1 || 'ZIMAL '}
                     </span>
                     <span style={{ color: settings.textLogo?.part2Color || '#cec72e' }}>
-                      {settings.textLogo?.part2 || 'LIGHT'}
+                      {settings.textLogo?.part2 || 'COLLECTION'}
                     </span>
                   </div>
                 )}
