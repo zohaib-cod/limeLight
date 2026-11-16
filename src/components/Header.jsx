@@ -4,6 +4,12 @@ import { Search, User, ShoppingBag, Phone, Menu, X, ChevronRight, Sun, Moon } fr
 import { ASSETS } from '../data/products';
 import { useTheme } from '../context/ThemeContext';
 
+const WhatsAppIcon = ({ className = "w-[12px] h-[12px]" }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.414-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.711 1.456h.005c6.554 0 11.89-5.336 11.893-11.893a11.821 11.821 0 00-3.48-8.414z"/>
+  </svg>
+);
+
 const DEFAULT_SETTINGS = {
   logoType: 'text',
   textLogo: {
@@ -233,14 +239,14 @@ export default function Header({
   const isLightSubnav = isColorLight(subnavBg);
 
   // Render Dynamic Logo Helper
-  const renderLogo = (isDrawer = false) => {
+  const renderLogo = (isDrawer = false, isMobileTop = false) => {
     if (settings.logoType === 'image' && settings.imageLogo?.url) {
       return (
         <img
           src={settings.imageLogo.url}
           alt={settings.imageLogo.alt || 'Zimal Collection'}
           style={{
-            maxHeight: isDrawer ? '30px' : `${settings.imageLogo.height || 34}px`
+            maxHeight: isDrawer ? '30px' : isMobileTop ? '38px' : `${settings.imageLogo.height || 34}px`
           }}
           className="object-contain inline-block transition-transform hover:opacity-95"
           onError={(e) => {
@@ -259,24 +265,30 @@ export default function Header({
     const rawSize = settings.textLogo?.fontSize || 22;
     const baseFontSize = typeof rawSize === 'string' ? parseInt(rawSize, 10) || 22 : rawSize;
 
+    const fontSize = isDrawer
+      ? '16px'
+      : isMobileTop
+      ? `clamp(14px, 4.8vw, ${baseFontSize}px)`
+      : `clamp(16px, 2.2vw, ${baseFontSize}px)`;
+
+    const subtitleColor = isDrawer
+      ? (isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(18, 18, 18, 0.7)')
+      : (isLightHeader ? 'rgba(18, 18, 18, 0.75)' : 'rgba(255, 255, 255, 0.7)');
+
     return (
-      <div className="flex flex-col items-center leading-none text-center min-w-0 max-w-full px-[1px]">
+      <div className="flex flex-col items-center leading-none text-center min-w-0 max-w-full px-[2px]">
         <span
-          style={{
-            fontSize: isDrawer ? '16px' : `clamp(10.5px, 3.2vw, ${baseFontSize}px)`
-          }}
-          className="inline-flex items-center tracking-[0.06em] xs:tracking-[0.12em] sm:tracking-[0.2em] font-bold uppercase transition-opacity hover:opacity-90 font-visbyBold max-w-full truncate"
+          style={{ fontSize }}
+          className={`inline-flex items-center font-bold uppercase transition-opacity hover:opacity-90 font-visbyBold max-w-full ${
+            isMobileTop ? 'tracking-[0.14em]' : 'tracking-[0.14em] sm:tracking-[0.2em]'
+          }`}
         >
           <span style={{ color: color1 }}>{part1}</span>
           <span style={{ color: color2 }}>{part2}</span>
         </span>
         <span
-          style={{
-            color: isDrawer
-              ? (isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(18, 18, 18, 0.7)')
-              : (isLightHeader ? 'rgba(18, 18, 18, 0.75)' : 'rgba(255, 255, 255, 0.7)')
-          }}
-          className="text-[6.5px] xs:text-[8px] sm:text-[9.5px] tracking-[0.06em] xs:tracking-[0.14em] sm:tracking-[0.22em] font-medium mt-[2px] lowercase font-mono truncate max-w-full"
+          style={{ color: subtitleColor }}
+          className="text-[7.5px] xs:text-[8.5px] sm:text-[9.5px] tracking-[0.16em] sm:tracking-[0.22em] font-medium mt-[2px] lowercase font-mono truncate max-w-full"
         >
           www.zimalcollection.com
         </span>
@@ -286,31 +298,48 @@ export default function Header({
 
   return (
     <>
-      <header
-        style={{ backgroundColor: headerBg }}
-        className={`sticky top-0 z-40 w-full shadow-md select-none font-assistant transition-colors duration-200 ${
-          isLightHeader ? 'text-[#121212]' : 'text-white'
-        }`}
-      >
-        {/* ROW 1: TOP BAR (Phone + WhatsApp | DYNAMIC LOGO | Theme + Search + User + Bag) */}
-        <div
-          className={`w-full border-b transition-colors duration-200 ${
-            isLightHeader ? 'border-black/10' : 'border-[#222222]'
-          }`}
-        >
-          <div className="max-w-[1600px] mx-auto px-[8px] xs:px-[14px] sm:px-[30px] h-[46px] sm:h-[50px] flex items-center justify-between gap-[6px]">
-            {/* Left: Phone icon & WhatsApp icon */}
-            <div className="flex items-center gap-[6px] sm:gap-[12px] shrink-0">
-              {/* Phone trigger (hidden on ultra small screens <320px to give room to logo, WhatsApp remains) */}
+      <header className="sticky top-0 z-40 w-full shadow-md select-none font-assistant">
+        {/* ========================================================= */}
+        {/* =================== MOBILE HEADER (< md) ================= */}
+        {/* ========================================================= */}
+        <div className="block md:hidden w-full">
+          {/* MOBILE ROW 1: BRAND LOGO DEDICATED TOP ROW (Alone on top - "ye uper k side py a jaye akela") */}
+          <div
+            style={{ backgroundColor: headerBg }}
+            className={`w-full border-b transition-colors duration-200 h-[46px] xs:h-[50px] px-[12px] flex items-center justify-center ${
+              isLightHeader ? 'border-black/10 text-[#121212]' : 'border-[#222222] text-white'
+            }`}
+          >
+            <Link
+              to="/"
+              className="inline-flex items-center justify-center cursor-pointer max-w-full text-center"
+              title="Zimal Collection Official - www.zimalcollection.com"
+            >
+              {renderLogo(false, true)}
+            </Link>
+          </div>
+
+          {/* MOBILE ROW 2: ACTION BAR ("aur us k nechy sari chezy a jaye") */}
+          {/* Left: Hamburger Menu (opens drawer where all categories live) + WhatsApp */}
+          {/* Right: Theme Switch + Search + User Account + Bag */}
+          <div
+            style={{ backgroundColor: subnavBg }}
+            className={`w-full border-b transition-colors duration-200 px-[10px] xs:px-[14px] h-[40px] xs:h-[44px] flex items-center justify-between gap-[8px] ${
+              isLightSubnav ? 'border-black/10 text-[#121212]' : 'border-[#222222]/80 text-white'
+            }`}
+          >
+            {/* Left: Hamburger & WhatsApp */}
+            <div className="flex items-center gap-[8px] xs:gap-[10px] shrink-0">
               <button
-                onClick={() => setPhoneModalOpen(true)}
-                className={`hover:opacity-80 transition-opacity p-[3px] items-center cursor-pointer hidden xs:flex ${
-                  isLightHeader ? 'text-[#121212]' : 'text-white'
+                onClick={() => setDrawerOpen(true)}
+                className={`p-[4px] -ml-[4px] flex items-center gap-[5px] cursor-pointer hover:opacity-80 transition-opacity ${
+                  isLightSubnav ? 'text-[#121212]' : 'text-white'
                 }`}
-                title={`Call Support (${whatsappNumber})`}
-                aria-label="Phone Support"
+                title="Open Navigation Menu"
+                aria-label="Navigation Menu"
               >
-                <Phone size={17} strokeWidth={1.7} />
+                <Menu size={21} strokeWidth={1.9} />
+                <span className="text-[11px] font-bold uppercase tracking-wider">Menu</span>
               </button>
 
               {/* WhatsApp direct chat icon */}
@@ -322,34 +351,19 @@ export default function Header({
                 title={`Chat with Zimal Collection on WhatsApp (${whatsappNumber})`}
                 aria-label="WhatsApp Support"
               >
-                <div className="w-[20px] h-[20px] bg-[#25D366] rounded-full flex items-center justify-center shadow-sm shrink-0">
-                  <img
-                    src={ASSETS.whatsappIcon}
-                    alt="WhatsApp"
-                    className="w-[12px] h-[12px]"
-                  />
+                <div className="w-[22px] h-[22px] bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+                  <WhatsAppIcon className="w-[13px] h-[13px] fill-white" />
                 </div>
               </a>
             </div>
 
-            {/* Center: Dynamic Brand Logo (Centered, responsive text clamp) */}
-            <div className="flex-1 flex justify-center items-center min-w-0 px-[4px]">
-              <Link
-                to="/"
-                className="inline-flex items-center justify-center cursor-pointer max-w-full"
-                title="Zimal Collection Official - www.zimalcollection.com"
-              >
-                {renderLogo(false)}
-              </Link>
-            </div>
-
-            {/* Right: Theme Toggle + Search + Profile + Shopping Bag icons */}
-            <div className="flex items-center gap-[4px] xs:gap-[8px] sm:gap-[14px] shrink-0">
+            {/* Right: Theme Toggle + Search + Account + Bag */}
+            <div className="flex items-center gap-[6px] xs:gap-[10px] sm:gap-[14px] shrink-0">
               {/* Theme Toggle (Light / Dark Mode) */}
               <button
                 onClick={toggleTheme}
-                className={`p-[4px] sm:p-[5px] rounded-full transition-colors cursor-pointer flex items-center justify-center ${
-                  isLightHeader
+                className={`p-[4px] rounded-full transition-colors cursor-pointer flex items-center justify-center ${
+                  isLightSubnav
                     ? 'text-[#121212] hover:bg-black/10'
                     : 'text-white hover:bg-white/10'
                 }`}
@@ -357,58 +371,53 @@ export default function Header({
                 aria-label="Toggle Light/Dark Theme"
               >
                 {isDark ? (
-                  <Sun size={17} className="text-amber-400 hover:rotate-45 transition-transform" />
+                  <Sun size={17} className="text-amber-400" />
                 ) : (
-                  <Moon size={17} className="hover:-rotate-12 transition-transform" />
+                  <Moon size={17} />
                 )}
               </button>
 
               {/* Search Icon */}
               <button
                 onClick={onOpenSearch}
-                className={`hover:opacity-80 transition-opacity p-[3px] cursor-pointer ${
-                  isLightHeader ? 'text-[#121212]' : 'text-white'
+                className={`p-[4px] cursor-pointer hover:opacity-80 transition-opacity ${
+                  isLightSubnav ? 'text-[#121212]' : 'text-white'
                 }`}
                 title="Search"
                 aria-label="Search Catalog"
               >
-                <Search size={18} strokeWidth={1.7} />
+                <Search size={18} strokeWidth={1.8} />
               </button>
 
-              {/* User Account Icon (hidden on tiny screens <300px, accessible via drawer) */}
+              {/* User Account Icon */}
               <button
                 onClick={onOpenAuth}
-                className={`hover:opacity-80 transition-opacity p-[3px] relative items-center gap-[6px] cursor-pointer hidden xs:flex ${
-                  isLightHeader ? 'text-[#121212]' : 'text-white'
+                className={`p-[4px] relative items-center cursor-pointer hover:opacity-80 transition-opacity ${
+                  isLightSubnav ? 'text-[#121212]' : 'text-white'
                 }`}
                 title={currentUser ? `Logged in as ${currentUser.name}` : "Sign In & Order Tracking"}
                 aria-label="User Account"
               >
                 <div className="relative">
-                  <User size={18} strokeWidth={1.7} />
+                  <User size={18} strokeWidth={1.8} />
                   {currentUser && (
-                    <span className="absolute -top-[2px] -right-[2px] w-[8px] h-[8px] bg-emerald-400 rounded-full border border-black animate-pulse" />
+                    <span className="absolute -top-[2px] -right-[2px] w-[7px] h-[7px] bg-emerald-400 rounded-full border border-black animate-pulse" />
                   )}
                 </div>
-                {currentUser && (
-                  <span className="hidden md:inline text-[11px] font-medium opacity-90 max-w-[80px] truncate">
-                    {currentUser.name.split(' ')[0]}
-                  </span>
-                )}
               </button>
 
               {/* Shopping Bag Icon with counter badge */}
               <button
                 onClick={onOpenCart}
-                className={`hover:opacity-80 transition-opacity p-[3px] relative cursor-pointer ${
-                  isLightHeader ? 'text-[#121212]' : 'text-white'
+                className={`p-[4px] relative cursor-pointer hover:opacity-80 transition-opacity ${
+                  isLightSubnav ? 'text-[#121212]' : 'text-white'
                 }`}
                 title="Shopping Bag"
                 aria-label="Shopping Bag"
               >
-                <ShoppingBag size={18} strokeWidth={1.7} />
+                <ShoppingBag size={18} strokeWidth={1.8} />
                 {cartCount > 0 && (
-                  <span className="absolute -top-[3px] -right-[6px] bg-[#cf0c1d] text-white text-[9px] font-bold w-[16px] h-[16px] rounded-full flex items-center justify-center">
+                  <span className="absolute -top-[2px] -right-[4px] bg-[#cf0c1d] text-white text-[9px] font-bold w-[16px] h-[16px] rounded-full flex items-center justify-center">
                     {cartCount}
                   </span>
                 )}
@@ -417,88 +426,213 @@ export default function Header({
           </div>
         </div>
 
-        {/* ROW 2: SUB-NAV (Hamburger on left | Dynamic Centered Nav Routes) */}
-        <div
-          style={{ backgroundColor: subnavBg }}
-          className={`w-full border-b relative overflow-hidden transition-colors duration-200 ${
-            isLightSubnav ? 'border-black/10' : 'border-[#222222]/80'
-          }`}
-        >
-          <div className="max-w-[1600px] mx-auto px-[8px] sm:px-[30px] h-[38px] sm:h-[44px] flex items-center justify-between gap-[8px]">
-            {/* Far Left: Hamburger Menu Icon */}
-            <div className="flex items-center shrink-0 w-[32px] sm:w-[48px]">
-              <button
-                onClick={() => setDrawerOpen(true)}
-                className={`p-[3px] focus:outline-none flex items-center justify-center cursor-pointer hover:opacity-80 ${
-                  isLightSubnav ? 'text-[#121212]' : 'text-white'
-                }`}
-                title="Navigation Menu"
-                aria-label="Open Navigation Menu"
-              >
-                <Menu size={20} strokeWidth={1.8} />
-              </button>
-            </div>
-
-            {/* Center: Dynamic Navigation Routes (smooth horizontal swipe on mobile, centered on desktop) */}
-            <nav className="flex-1 flex items-center overflow-x-auto no-scrollbar whitespace-nowrap justify-start md:justify-center gap-[14px] sm:gap-[24px] md:gap-[34px] lg:gap-[42px] px-[2px] sm:px-[10px]">
-              {activeRoutes.map((item) => (
-                <div
-                  key={item.id || item.name}
-                  className="relative py-[6px] sm:py-[8px] shrink-0"
-                  onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
-                  onMouseLeave={() => setActiveDropdown(null)}
+        {/* ========================================================= */}
+        {/* ================== DESKTOP HEADER (>= md) =============== */}
+        {/* ========================================================= */}
+        <div className="hidden md:block w-full">
+          {/* DESKTOP ROW 1: TOP BAR (Phone + WhatsApp | DYNAMIC LOGO | Theme + Search + User + Bag) */}
+          <div
+            style={{ backgroundColor: headerBg }}
+            className={`w-full border-b transition-colors duration-200 ${
+              isLightHeader ? 'border-black/10 text-[#121212]' : 'border-[#222222] text-white'
+            }`}
+          >
+            <div className="max-w-[1600px] mx-auto px-[20px] sm:px-[30px] h-[50px] flex items-center justify-between gap-[10px]">
+              {/* Left: Phone icon & WhatsApp icon */}
+              <div className="flex items-center gap-[12px] shrink-0">
+                <button
+                  onClick={() => setPhoneModalOpen(true)}
+                  className={`hover:opacity-80 transition-opacity p-[3px] flex items-center cursor-pointer ${
+                    isLightHeader ? 'text-[#121212]' : 'text-white'
+                  }`}
+                  title={`Call Support (${whatsappNumber})`}
+                  aria-label="Phone Support"
                 >
-                  <Link
-                    to={
-                      item.slug
-                        ? `/category/${item.slug}`
-                        : item.href && !item.href.startsWith('#')
-                        ? item.href
-                        : `/category/${item.name.toLowerCase().replace(/[\s_]+/g, '-')}`
-                    }
-                    className={`text-[11.5px] sm:text-[13px] tracking-[0.08em] sm:tracking-[0.12em] font-medium uppercase transition-colors inline-block whitespace-nowrap ${
-                      item.isSale
-                        ? 'text-[#cf0c1d] font-bold hover:text-[#e74040]'
-                        : isLightSubnav
-                        ? 'text-[#121212] hover:text-[#121212]/75'
-                        : 'text-white hover:text-white/75'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
+                  <Phone size={17} strokeWidth={1.7} />
+                </button>
 
-                  {/* Mega Menu Dropdown */}
-                  {item.hasDropdown && activeDropdown === item.name && item.columns && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-[720px] bg-white dark:bg-[#1a1a1a] text-[#121212] dark:text-white shadow-2xl rounded-b-[6px] border border-gray-200 dark:border-white/10 p-[25px] z-50 animate-fadeIn font-assistant">
-                      <div className="grid grid-cols-3 gap-[25px]">
-                        {item.columns.map((col, idx) => (
-                          <div key={idx} className="space-y-[12px]">
-                            <h4 className="text-[13px] font-bold tracking-[0.15em] text-[#121212] dark:text-white uppercase pb-[6px] border-b border-gray-100 dark:border-white/10">
-                              {col.title}
-                            </h4>
-                            <ul className="space-y-[8px]">
-                              {col.links.map((link, lIdx) => (
-                                <li key={lIdx}>
-                                  <Link
-                                    to={link.href.startsWith('#') ? `/category/${link.label.toLowerCase().replace(/[\s_]+/g, '-')}` : link.href}
-                                    className="text-[13px] text-[#121212bf] dark:text-gray-300 hover:text-[#121212] dark:hover:text-white transition-colors block"
-                                  >
-                                    {link.label}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                <a
+                  href={`https://wa.me/${cleanWaNumber}?text=Hello%20Zimal%20Collection%20Customer%20Support`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-transform hover:scale-105 p-[2px] flex items-center"
+                  title={`Chat with Zimal Collection on WhatsApp (${whatsappNumber})`}
+                  aria-label="WhatsApp Support"
+                >
+                  <div className="w-[20px] h-[20px] bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+                    <WhatsAppIcon className="w-[12px] h-[12px] fill-white" />
+                  </div>
+                </a>
+              </div>
+
+              {/* Center: Dynamic Brand Logo */}
+              <div className="flex-1 flex justify-center items-center min-w-0 px-[4px]">
+                <Link
+                  to="/"
+                  className="inline-flex items-center justify-center cursor-pointer max-w-full"
+                  title="Zimal Collection Official - www.zimalcollection.com"
+                >
+                  {renderLogo(false, false)}
+                </Link>
+              </div>
+
+              {/* Right: Theme Toggle + Search + Profile + Shopping Bag icons */}
+              <div className="flex items-center gap-[14px] shrink-0">
+                {/* Theme Toggle */}
+                <button
+                  onClick={toggleTheme}
+                  className={`p-[5px] rounded-full transition-colors cursor-pointer flex items-center justify-center ${
+                    isLightHeader
+                      ? 'text-[#121212] hover:bg-black/10'
+                      : 'text-white hover:bg-white/10'
+                  }`}
+                  title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                  aria-label="Toggle Light/Dark Theme"
+                >
+                  {isDark ? (
+                    <Sun size={17} className="text-amber-400 hover:rotate-45 transition-transform" />
+                  ) : (
+                    <Moon size={17} className="hover:-rotate-12 transition-transform" />
                   )}
-                </div>
-              ))}
-            </nav>
+                </button>
 
-            {/* Far Right spacer on desktop to keep center nav links visually centered */}
-            <div className="hidden md:block shrink-0 w-[32px] sm:w-[48px]" />
+                {/* Search Icon */}
+                <button
+                  onClick={onOpenSearch}
+                  className={`hover:opacity-80 transition-opacity p-[3px] cursor-pointer ${
+                    isLightHeader ? 'text-[#121212]' : 'text-white'
+                  }`}
+                  title="Search"
+                  aria-label="Search Catalog"
+                >
+                  <Search size={18} strokeWidth={1.7} />
+                </button>
+
+                {/* User Account Icon */}
+                <button
+                  onClick={onOpenAuth}
+                  className={`hover:opacity-80 transition-opacity p-[3px] relative flex items-center gap-[6px] cursor-pointer ${
+                    isLightHeader ? 'text-[#121212]' : 'text-white'
+                  }`}
+                  title={currentUser ? `Logged in as ${currentUser.name}` : "Sign In & Order Tracking"}
+                  aria-label="User Account"
+                >
+                  <div className="relative">
+                    <User size={18} strokeWidth={1.7} />
+                    {currentUser && (
+                      <span className="absolute -top-[2px] -right-[2px] w-[8px] h-[8px] bg-emerald-400 rounded-full border border-black animate-pulse" />
+                    )}
+                  </div>
+                  {currentUser && (
+                    <span className="text-[11px] font-medium opacity-90 max-w-[80px] truncate">
+                      {currentUser.name.split(' ')[0]}
+                    </span>
+                  )}
+                </button>
+
+                {/* Shopping Bag Icon with counter badge */}
+                <button
+                  onClick={onOpenCart}
+                  className={`hover:opacity-80 transition-opacity p-[3px] relative cursor-pointer ${
+                    isLightHeader ? 'text-[#121212]' : 'text-white'
+                  }`}
+                  title="Shopping Bag"
+                  aria-label="Shopping Bag"
+                >
+                  <ShoppingBag size={18} strokeWidth={1.7} />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-[3px] -right-[6px] bg-[#cf0c1d] text-white text-[9px] font-bold w-[16px] h-[16px] rounded-full flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* DESKTOP ROW 2: SUB-NAV (Hamburger on left | Dynamic Centered Nav Routes) */}
+          <div
+            style={{ backgroundColor: subnavBg }}
+            className={`w-full border-b relative overflow-hidden transition-colors duration-200 ${
+              isLightSubnav ? 'border-black/10' : 'border-[#222222]/80'
+            }`}
+          >
+            <div className="max-w-[1600px] mx-auto px-[30px] h-[44px] flex items-center justify-between gap-[8px]">
+              {/* Far Left: Hamburger Menu Icon */}
+              <div className="flex items-center shrink-0 w-[48px]">
+                <button
+                  onClick={() => setDrawerOpen(true)}
+                  className={`p-[3px] focus:outline-none flex items-center justify-center cursor-pointer hover:opacity-80 ${
+                    isLightSubnav ? 'text-[#121212]' : 'text-white'
+                  }`}
+                  title="Navigation Menu"
+                  aria-label="Open Navigation Menu"
+                >
+                  <Menu size={20} strokeWidth={1.8} />
+                </button>
+              </div>
+
+              {/* Center: Dynamic Navigation Routes */}
+              <nav className="flex-1 flex items-center justify-center gap-[24px] md:gap-[34px] lg:gap-[42px] px-[10px]">
+                {activeRoutes.map((item) => (
+                  <div
+                    key={item.id || item.name}
+                    className="relative py-[8px] shrink-0"
+                    onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    <Link
+                      to={
+                        item.slug
+                          ? `/category/${item.slug}`
+                          : item.href && !item.href.startsWith('#')
+                          ? item.href
+                          : `/category/${item.name.toLowerCase().replace(/[\s_]+/g, '-')}`
+                      }
+                      className={`text-[12px] sm:text-[13px] tracking-[0.12em] font-medium uppercase transition-colors inline-block whitespace-nowrap ${
+                        item.isSale
+                          ? 'text-[#cf0c1d] font-bold hover:text-[#e74040]'
+                          : isLightSubnav
+                          ? 'text-[#121212] hover:text-[#121212]/75'
+                          : 'text-white hover:text-white/75'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+
+                    {/* Mega Menu Dropdown */}
+                    {item.hasDropdown && activeDropdown === item.name && item.columns && (
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-[720px] bg-white dark:bg-[#1a1a1a] text-[#121212] dark:text-white shadow-2xl rounded-b-[6px] border border-gray-200 dark:border-white/10 p-[25px] z-50 animate-fadeIn font-assistant">
+                        <div className="grid grid-cols-3 gap-[25px]">
+                          {item.columns.map((col, idx) => (
+                            <div key={idx} className="space-y-[12px]">
+                              <h4 className="text-[13px] font-bold tracking-[0.15em] text-[#121212] dark:text-white uppercase pb-[6px] border-b border-gray-100 dark:border-white/10">
+                                {col.title}
+                              </h4>
+                              <ul className="space-y-[8px]">
+                                {col.links.map((link, lIdx) => (
+                                  <li key={lIdx}>
+                                    <Link
+                                      to={link.href.startsWith('#') ? `/category/${link.label.toLowerCase().replace(/[\s_]+/g, '-')}` : link.href}
+                                      className="text-[13px] text-[#121212bf] dark:text-gray-300 hover:text-[#121212] dark:hover:text-white transition-colors block"
+                                    >
+                                      {link.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </nav>
+
+              {/* Far Right spacer on desktop to keep center nav links visually centered */}
+              <div className="shrink-0 w-[48px]" />
+            </div>
           </div>
         </div>
       </header>
@@ -599,8 +733,8 @@ export default function Header({
                   <span>UAN: {whatsappNumber}</span>
                 </div>
                 <div className="flex items-center gap-[10px] text-[12.5px] text-gray-700 dark:text-gray-300">
-                  <div className="w-[18px] h-[18px] bg-[#25D366] rounded-full flex items-center justify-center shrink-0">
-                    <img src={ASSETS.whatsappIcon} alt="WhatsApp" className="w-[11px] h-[11px]" />
+                  <div className="w-[18px] h-[18px] bg-[#25D366] text-white rounded-full flex items-center justify-center shrink-0">
+                    <WhatsAppIcon className="w-[11px] h-[11px] fill-white" />
                   </div>
                   <a
                     href={`https://wa.me/${cleanWaNumber}`}
