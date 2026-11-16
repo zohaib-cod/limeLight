@@ -70,41 +70,38 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
                   e.target.src = ASSETS.rtwMain;
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent flex items-end justify-between p-[22px] sm:p-[28px] z-10">
-                {/* Left content */}
-                <div className="max-w-[65%]">
-                  {pretBanner.badge && (
-                    <span className="text-white/90 text-[11px] tracking-[0.2em] uppercase font-medium block mb-[4px]">
-                      {pretBanner.badge}
-                    </span>
-                  )}
-                  <h3 className="text-white text-[20px] sm:text-[23px] font-bold mb-[8px] leading-tight">
-                    {pretBanner.title}
-                  </h3>
-                  {pretBanner.buttonText && (
-                    <a
-                      href={pretBanner.buttonLink || '#rtw-grid'}
-                      className="button-style-2 text-white text-[12px] sm:text-[13px] hover:underline font-normal inline-flex"
-                    >
-                      {pretBanner.buttonText}
-                    </a>
-                  )}
-                </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-[18px] sm:p-[26px] z-10">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-[12px]">
+                  {/* Left content */}
+                  <div className="max-w-full sm:max-w-[70%]">
+                    {pretBanner.badge && (
+                      <span className="text-white/90 text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-medium block mb-[4px]">
+                        {pretBanner.badge}
+                      </span>
+                    )}
+                    <h3 className="text-white text-[18px] sm:text-[22px] font-bold mb-[6px] leading-tight">
+                      {pretBanner.title}
+                    </h3>
+                    {pretBanner.buttonText && (
+                      <a
+                        href={pretBanner.buttonLink || '#rtw-grid'}
+                        className="button-style-2 text-white text-[12px] sm:text-[13px] hover:underline font-normal inline-flex"
+                      >
+                        {pretBanner.buttonText}
+                      </a>
+                    )}
+                  </div>
 
-                {/* Right content: Stylized "Ready to" watermark & outlined button */}
-                <div className="flex flex-col items-end text-right select-none pb-[4px]">
-                  {pretBanner.watermark && (
-                    <div className="font-serif italic text-white/75 text-[30px] sm:text-[42px] leading-none mb-[8px] drop-shadow-sm">
-                      {pretBanner.watermark}
-                    </div>
-                  )}
+                  {/* Right CTA */}
                   {pretBanner.secondaryBtnText && (
-                    <a
-                      href={pretBanner.secondaryBtnLink || '#rtw-grid'}
-                      className="border border-white/60 hover:border-white text-white hover:bg-white hover:text-black text-[10px] sm:text-[11px] font-semibold px-[14px] py-[6px] rounded-[2px] uppercase tracking-wider transition-colors inline-block"
-                    >
-                      {pretBanner.secondaryBtnText}
-                    </a>
+                    <div className="shrink-0">
+                      <a
+                        href={pretBanner.secondaryBtnLink || '#rtw-grid'}
+                        className="border border-white/70 hover:border-white text-white hover:bg-white hover:text-black text-[10.5px] sm:text-[11.5px] font-semibold px-[14px] py-[6px] rounded-[2px] uppercase tracking-wider transition-colors inline-block"
+                      >
+                        {pretBanner.secondaryBtnText}
+                      </a>
+                    </div>
                   )}
                 </div>
               </div>
@@ -123,36 +120,30 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
                   e.target.src = ASSETS.coordsBanner;
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent flex items-end justify-between p-[22px] sm:p-[28px] z-10">
-                {/* Left content */}
-                <div className="max-w-[60%]">
-                  {coordsBanner.badge && (
-                    <span className="text-white/90 text-[11px] tracking-[0.2em] uppercase font-medium block mb-[4px]">
-                      {coordsBanner.badge}
-                    </span>
-                  )}
-                  <h3 className="text-white text-[20px] sm:text-[23px] font-bold mb-[8px] leading-tight">
-                    {coordsBanner.title}
-                  </h3>
-                  {coordsBanner.buttonText && (
-                    <a
-                      href={coordsBanner.buttonLink || '#rtw-grid'}
-                      className="button-style-2 text-white text-[12px] sm:text-[13px] hover:underline font-normal inline-flex"
-                    >
-                      {coordsBanner.buttonText}
-                    </a>
-                  )}
-                </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-[18px] sm:p-[26px] z-10">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-[12px]">
+                  {/* Left content */}
+                  <div className="max-w-full sm:max-w-[70%]">
+                    {coordsBanner.badge && (
+                      <span className="text-white/90 text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-medium block mb-[4px]">
+                        {coordsBanner.badge}
+                      </span>
+                    )}
+                    <h3 className="text-white text-[18px] sm:text-[22px] font-bold mb-[6px] leading-tight">
+                      {coordsBanner.title}
+                    </h3>
+                    {coordsBanner.buttonText && (
+                      <a
+                        href={coordsBanner.buttonLink || '#rtw-grid'}
+                        className="button-style-2 text-white text-[12px] sm:text-[13px] hover:underline font-normal inline-flex"
+                      >
+                        {coordsBanner.buttonText}
+                      </a>
+                    )}
+                  </div>
 
-                {/* Right content: Stylized "CO-ORDS" and "MADE TO MATCH" typography */}
-                <div className="flex flex-col items-end text-right select-none pb-[4px]">
-                  {coordsBanner.watermark && (
-                    <div className="font-extrabold text-[#0f3b6a] text-[34px] sm:text-[46px] leading-none tracking-tight drop-shadow-xs">
-                      {coordsBanner.watermark}
-                    </div>
-                  )}
                   {coordsBanner.subtitle && (
-                    <div className="text-[#2563eb] text-[10px] sm:text-[12px] font-bold tracking-[0.22em] uppercase mt-[3px]">
+                    <div className="shrink-0 text-white/80 text-[10px] sm:text-[11.5px] font-bold tracking-[0.2em] uppercase bg-black/40 px-[10px] py-[4px] rounded-[3px] border border-white/10">
                       {coordsBanner.subtitle}
                     </div>
                   )}

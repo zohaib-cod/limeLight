@@ -15,12 +15,19 @@ import {
   ShoppingBag,
   Users,
   Compass,
-  Mail
+  Mail,
+  Menu,
+  X
 } from 'lucide-react';
 
 export default function AdminLayout() {
   const location = useLocation();
   const [stats, setStats] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     fetch('/api/stats')
@@ -111,9 +118,19 @@ export default function AdminLayout() {
   ];
 
   return (
-    <div className="min-h-screen flex bg-[#f8f9fa] text-[#121212] font-assistant antialiased">
-      {/* Sidebar */}
-      <aside className="w-64 bg-[#121212] text-white flex flex-col justify-between shrink-0 shadow-xl z-20">
+    <div className="min-h-screen flex bg-[#f8f9fa] text-[#121212] font-assistant antialiased relative">
+      {/* Mobile Drawer Backdrop */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar (Responsive drawer on mobile, fixed sidebar on desktop) */}
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#121212] text-white flex flex-col justify-between shrink-0 shadow-2xl transition-transform duration-300 lg:static lg:translate-x-0 ${
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
         <div>
           {/* Brand header */}
           <div className="p-[20px] border-b border-[#262626] flex items-center justify-between">
@@ -126,9 +143,18 @@ export default function AdminLayout() {
                 ADMIN CONTROL PANEL
               </span>
             </Link>
-            <span className="bg-[#23ac95]/20 text-[#23ac95] text-[10px] font-bold px-[6px] py-[2px] rounded border border-[#23ac95]/40">
-              v1.0
-            </span>
+            <div className="flex items-center gap-[6px]">
+              <span className="bg-[#23ac95]/20 text-[#23ac95] text-[10px] font-bold px-[6px] py-[2px] rounded border border-[#23ac95]/40">
+                v1.0
+              </span>
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="lg:hidden text-white/60 hover:text-white p-[2px]"
+                aria-label="Close sidebar"
+              >
+                <X size={18} />
+              </button>
+            </div>
           </div>
 
           {/* Navigation Links */}
@@ -206,11 +232,18 @@ export default function AdminLayout() {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* Top Navbar */}
-        <header className="h-[60px] bg-white border-b border-gray-200 px-[25px] flex items-center justify-between shrink-0 sticky top-0 z-10 shadow-sm">
-          <div className="flex items-center gap-[10px]">
-            <span className="text-[12px] text-gray-500 font-medium">Admin Panel</span>
-            <ChevronRight size={14} className="text-gray-400" />
-            <span className="text-[14px] font-bold text-[#121212]">
+        <header className="h-[56px] sm:h-[60px] bg-white border-b border-gray-200 px-[15px] sm:px-[25px] flex items-center justify-between shrink-0 sticky top-0 z-10 shadow-sm">
+          <div className="flex items-center gap-[8px] sm:gap-[10px] min-w-0">
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden p-[6px] text-gray-700 hover:text-black hover:bg-gray-100 rounded-[4px] cursor-pointer mr-[4px]"
+              aria-label="Open sidebar menu"
+            >
+              <Menu size={20} />
+            </button>
+            <span className="text-[12px] text-gray-500 font-medium hidden sm:inline">Admin Panel</span>
+            <ChevronRight size={14} className="text-gray-400 hidden sm:inline" />
+            <span className="text-[13px] sm:text-[14px] font-bold text-[#121212] truncate">
               {location.pathname === '/admin' && 'Overview Dashboard'}
               {location.pathname === '/admin/orders' && 'Customer Orders'}
               {location.pathname === '/admin/users' && 'Registered Customers'}

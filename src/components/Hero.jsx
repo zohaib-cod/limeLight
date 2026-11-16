@@ -111,7 +111,7 @@ export default function Hero() {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Slider Viewport */}
-      <div className="relative w-full h-[540px] sm:h-[620px] lg:h-[720px] max-h-[88vh]">
+      <div className="relative w-full h-[480px] sm:h-[560px] lg:h-[640px] max-h-[85vh]">
         {/* Slides stack with cross-fade transition */}
         {slides.map((slide, idx) => {
           const isActive = idx === currentIndex;
@@ -135,52 +135,50 @@ export default function Hero() {
               />
 
               {/* Scrim Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
 
               {/* Content Box */}
-              <div className="absolute inset-0 flex items-center">
-                <div className="max-w-[1600px] w-full mx-auto px-[20px] sm:px-[50px] relative">
-                  <div className="max-w-[742px] relative z-10">
-                    {/* Calligraphy Watermark Script (Signature / Elegance / Festive) */}
-                    <div className="relative">
-                      {slide.scriptText && (
-                        <span
-                          className="absolute -top-[55px] -left-[10px] text-[75px] sm:text-[110px] font-serif italic text-white/20 select-none pointer-events-none tracking-normal font-light leading-none"
-                          style={{ fontFamily: 'Georgia, "Playfair Display", serif' }}
-                        >
-                          {slide.scriptText}
+              <div className="absolute inset-0 flex items-center pb-[50px] sm:pb-[30px]">
+                <div className="max-w-[1600px] w-full mx-auto px-[15px] sm:px-[50px] relative">
+                  <div className="max-w-[700px] relative z-10">
+                    {/* Script Accent Tag (Non-overlapping, clean elegant typography) */}
+                    {slide.scriptText && (
+                      <span
+                        className="inline-block text-[15px] sm:text-[20px] font-serif italic text-[#cec72e] tracking-wider mb-[6px] select-none font-light drop-shadow-sm"
+                        style={{ fontFamily: 'Georgia, "Playfair Display", serif' }}
+                      >
+                        ~ {slide.scriptText} Edit ~
+                      </span>
+                    )}
+
+                    {/* Top Badge */}
+                    {slide.badge && (
+                      <div className="block mb-[10px] sm:mb-[14px]">
+                        <span className="inline-flex items-center gap-[6px] text-[10px] sm:text-[12px] tracking-[0.2em] text-white/95 uppercase font-medium bg-black/50 backdrop-blur-md px-[10px] sm:px-[12px] py-[4px] sm:py-[5px] rounded-[3px] border border-white/10">
+                          <Sparkles size={11} className="text-[#cec72e]" />
+                          <span>{slide.badge}</span>
                         </span>
-                      )}
+                      </div>
+                    )}
 
-                      {/* Top Badge */}
-                      {slide.badge && (
-                        <div className="relative z-10 inline-block mb-[12px]">
-                          <span className="inline-flex items-center gap-[6px] text-[11.5px] sm:text-[12.5px] tracking-[0.25em] text-white/95 uppercase font-medium bg-black/40 backdrop-blur-md px-[12px] py-[5px] rounded-[3px] border border-white/10">
-                            <Sparkles size={12} className="text-[#cec72e]" />
-                            <span>{slide.badge}</span>
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Exact H1: 40px, weight 700, color #ffffff */}
-                    <h1 className="text-[32px] sm:text-[40px] font-bold text-[#ffffff] tracking-wide mb-[14px] leading-[1.15] drop-shadow-md uppercase">
+                    {/* H1 Heading (Responsive size preventing line collisons) */}
+                    <h1 className="text-[22px] sm:text-[32px] md:text-[38px] lg:text-[42px] font-bold text-[#ffffff] tracking-wide mb-[10px] sm:mb-[14px] leading-[1.2] drop-shadow-md uppercase">
                       {slide.title}
                     </h1>
 
                     {/* Subtitle / Description */}
                     {slide.subtitle && (
-                      <p className="text-[15px] sm:text-[16px] leading-[26px] sm:leading-[28.8px] text-white/90 font-normal mb-[28px] max-w-[620px] drop-shadow-sm">
+                      <p className="text-[13px] sm:text-[15px] leading-[20px] sm:leading-[25px] text-white/90 font-normal mb-[20px] sm:mb-[28px] max-w-[620px] line-clamp-3 sm:line-clamp-none drop-shadow-sm">
                         {slide.subtitle}
                       </p>
                     )}
 
-                    {/* Action Buttons: Button style 1 & Button style 2 */}
-                    <div className="flex flex-wrap items-center gap-[15px] sm:gap-[20px]">
+                    {/* Action Buttons */}
+                    <div className="flex flex-wrap items-center gap-[10px] sm:gap-[18px]">
                       {slide.primaryBtnText && (
                         <a
                           href={slide.primaryBtnLink || '#unstitched'}
-                          className="button-style-1 bg-[#121212] text-[#ffffff] hover:bg-black border border-white/20 transition-all shadow-md active:scale-95"
+                          className="button-style-1 bg-[#121212] text-[#ffffff] hover:bg-black border border-white/20 transition-all shadow-md active:scale-95 text-[13px] sm:text-[14px] px-[20px] sm:px-[28px] h-[40px] sm:h-[44px]"
                         >
                           {slide.primaryBtnText}
                         </a>
@@ -189,10 +187,10 @@ export default function Hero() {
                       {slide.secondaryBtnText && (
                         <a
                           href={slide.secondaryBtnLink || '#ready-to-wear'}
-                          className="button-style-2 text-[#ffffff] hover:underline flex items-center gap-[6px] tracking-wider text-[14px] font-medium"
+                          className="button-style-2 text-[#ffffff] hover:underline flex items-center gap-[6px] tracking-wider text-[13px] sm:text-[14px] font-medium py-[4px]"
                         >
                           <span>{slide.secondaryBtnText}</span>
-                          <ArrowRight size={15} />
+                          <ArrowRight size={14} />
                         </a>
                       )}
                     </div>

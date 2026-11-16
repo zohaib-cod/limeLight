@@ -39,12 +39,12 @@ export default function NewArrivalsSection({ onQuickView, onAddToCart, onToggleW
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex justify-center items-center gap-[10px] sm:gap-[15px] mb-[30px] flex-wrap">
-          {['ALL', 'UNSTITCHED', 'READY TO WEAR', 'ACCESSORIES'].map((tab) => (
+        <div className="flex justify-center items-center gap-[8px] sm:gap-[15px] mb-[25px] sm:mb-[30px] flex-wrap">
+          {['ALL', 'UNSTITCHED', 'READY TO WEAR'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-[18px] py-[8px] text-[13px] tracking-wider uppercase transition-all rounded-[3px] cursor-pointer ${
+              className={`px-[14px] sm:px-[18px] py-[6px] sm:py-[8px] text-[12px] sm:text-[13px] tracking-wider uppercase transition-all rounded-[3px] cursor-pointer ${
                 activeTab === tab
                   ? 'bg-[#121212] text-white font-medium shadow-sm'
                   : 'bg-[#f3f3f3] text-[#121212] hover:bg-gray-200'
@@ -56,7 +56,7 @@ export default function NewArrivalsSection({ onQuickView, onAddToCart, onToggleW
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-[15px] sm:gap-[24px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-[10px] sm:gap-[20px]">
           {filteredProducts.map((product) => {
             const isWishlisted = wishlist.includes(product.id);
             return (
@@ -111,28 +111,28 @@ export default function NewArrivalsSection({ onQuickView, onAddToCart, onToggleW
                   </div>
                 </div>
 
-                <div className="p-[15px] flex-1 flex flex-col justify-between">
+                <div className="p-[10px] sm:p-[14px] flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[11px] tracking-widest text-[#121212bf] uppercase block mb-[4px] font-semibold">
+                    <span className="text-[10px] sm:text-[11px] tracking-widest text-[#121212bf] uppercase block mb-[3px] font-semibold truncate">
                       {product.category}
                     </span>
-                    <h4 className="text-[15px] font-medium text-[#121212] line-clamp-1 mb-[4px]" title={product.title}>
+                    <h4 className="text-[13px] sm:text-[14px] font-medium text-[#121212] line-clamp-1 mb-[4px]" title={product.title}>
                       {product.title}
                     </h4>
                     {product.fabric && (
-                      <p className="text-[12px] text-[#121212b3] line-clamp-1 mb-[6px]">
+                      <p className="text-[11px] sm:text-[12px] text-[#121212b3] line-clamp-1 mb-[4px]">
                         {product.fabric}
                       </p>
                     )}
                   </div>
 
-                  <div className="pt-[8px] border-t border-[#1212121a] flex items-center justify-between">
-                    <div className="flex items-baseline gap-[8px]">
-                      <span className="text-[16px] font-bold text-[#121212]">
+                  <div className="pt-[6px] border-t border-[#1212121a] flex items-center justify-between">
+                    <div className="flex flex-wrap items-baseline gap-[6px]">
+                      <span className="text-[13px] sm:text-[15px] font-bold text-[#121212]">
                         Rs. {product.price.toLocaleString()}
                       </span>
                       {product.originalPrice && (
-                        <span className="text-[13px] text-[#121212b3] line-through">
+                        <span className="text-[11px] sm:text-[12px] text-[#121212b3] line-through">
                           Rs. {product.originalPrice.toLocaleString()}
                         </span>
                       )}

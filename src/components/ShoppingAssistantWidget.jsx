@@ -109,26 +109,26 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
     <>
       {/* Floating Centered Trigger Pill (Moves to side on click) */}
       {!isOpen && (
-        <div className="fixed bottom-[20px] sm:bottom-[25px] left-1/2 -translate-x-1/2 z-40 font-assistant transition-all duration-300">
+        <div className="fixed bottom-[16px] sm:bottom-[25px] left-1/2 -translate-x-1/2 z-30 font-assistant transition-all duration-300 max-w-[calc(100vw-32px)]">
           <button
             onClick={() => setIsOpen(true)}
-            className="group flex items-center gap-[10px] bg-[#121212] hover:bg-black text-white px-[18px] sm:px-[22px] py-[11px] sm:py-[12px] rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.35)] border border-[#23ac95]/50 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            className="group flex items-center gap-[8px] sm:gap-[10px] bg-[#121212] hover:bg-black text-white px-[16px] sm:px-[22px] py-[9px] sm:py-[12px] rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.35)] border border-[#23ac95]/50 transition-all hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
             title="Open Limelight AI Fashion Assistant"
             aria-label="Open AI Shopping Assistant"
           >
-            <div className="relative">
-              <div className="w-[30px] h-[30px] rounded-full bg-gradient-to-tr from-[#23ac95] to-[#cec72e] flex items-center justify-center text-black font-bold shadow-sm">
-                <Sparkles size={16} className="text-[#121212] animate-pulse" />
+            <div className="relative shrink-0">
+              <div className="w-[28px] sm:w-[30px] h-[28px] sm:h-[30px] rounded-full bg-gradient-to-tr from-[#23ac95] to-[#cec72e] flex items-center justify-center text-black font-bold shadow-sm">
+                <Sparkles size={15} className="text-[#121212] animate-pulse" />
               </div>
-              <span className="absolute -top-[1px] -right-[1px] w-[8px] h-[8px] bg-emerald-400 rounded-full border border-[#121212] animate-ping" />
-              <span className="absolute -top-[1px] -right-[1px] w-[8px] h-[8px] bg-emerald-400 rounded-full border border-[#121212]" />
+              <span className="absolute -top-[1px] -right-[1px] w-[7px] h-[7px] bg-emerald-400 rounded-full border border-[#121212] animate-ping" />
+              <span className="absolute -top-[1px] -right-[1px] w-[7px] h-[7px] bg-emerald-400 rounded-full border border-[#121212]" />
             </div>
 
             <div className="text-left flex items-center gap-[6px]">
-              <span className="text-[13px] font-bold tracking-wide">
+              <span className="text-[12px] sm:text-[13px] font-bold tracking-wide">
                 <span className="text-[#23ac95]">AI</span> Shopping Stylist
               </span>
-              <span className="text-[10px] bg-white/10 text-white/80 font-bold px-[6px] py-[1px] rounded-full border border-white/10 hidden sm:inline">
+              <span className="text-[9px] sm:text-[10px] bg-white/10 text-white/80 font-bold px-[6px] py-[1px] rounded-full border border-white/10 hidden sm:inline">
                 Ask Anything
               </span>
             </div>
@@ -138,8 +138,8 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
 
       {/* Interactive Chat Window: Animates and Docks on the Right Side (Leaves Center Screen Open) */}
       {isOpen && (
-        <div className="fixed bottom-[20px] sm:bottom-[25px] right-[15px] sm:right-[30px] z-50 animate-slide-side font-assistant">
-          <div className="w-[350px] sm:w-[410px] h-[580px] max-h-[82vh] bg-white rounded-[16px] shadow-[0_15px_50px_rgba(0,0,0,0.3)] flex flex-col overflow-hidden border border-gray-200">
+        <div className="fixed bottom-[10px] sm:bottom-[25px] right-[10px] sm:right-[30px] z-50 animate-slide-side font-assistant max-w-[calc(100vw-20px)]">
+          <div className="w-[calc(100vw-20px)] sm:w-[390px] max-w-[420px] h-[540px] sm:h-[580px] max-h-[85vh] bg-white rounded-[16px] shadow-[0_15px_50px_rgba(0,0,0,0.3)] flex flex-col overflow-hidden border border-gray-200">
             {/* Header */}
             <div className="bg-[#121212] text-white p-[14px] px-[16px] flex items-center justify-between border-b border-[#262626]">
               <div className="flex items-center gap-[10px]">

@@ -155,7 +155,7 @@ export default function Footer() {
           <h3 className="text-[24px] font-bold text-[#121212] tracking-wide mb-[10px]">
             {footer.newsletter?.title || 'SUBSCRIBE TO OUR NEWSLETTER'}
           </h3>
-          <p className="text-[16px] leading-[28.8px] text-[#121212bf] mb-[25px]">
+          <p className="text-[14px] sm:text-[15px] leading-[22px] sm:leading-[26px] text-[#121212bf] mb-[25px]">
             {footer.newsletter?.description || 'Subscribe to be the first to receive updates on new seasonal collections, limited pret drops, and exclusive seasonal promotions.'}
           </p>
 
@@ -173,7 +173,7 @@ export default function Footer() {
               <span>{feedback.message}</span>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="relative flex flex-col sm:flex-row gap-[10px] items-stretch justify-center max-w-[550px] mx-auto">
+            <form onSubmit={handleSubmit} className="relative flex flex-col sm:flex-row gap-[10px] items-stretch justify-center max-w-[550px] mx-auto px-[10px]">
               <input
                 type="email"
                 value={email}
@@ -181,12 +181,12 @@ export default function Footer() {
                 placeholder={footer.newsletter?.placeholder || 'Enter your email address'}
                 required
                 disabled={submitting}
-                className="input flex-1 bg-white text-[#121212] text-[16px] tracking-[0.4px] rounded-[5px] border border-gray-300 focus:border-[#121212]"
+                className="w-full sm:flex-1 bg-white text-[#121212] text-[14px] sm:text-[15px] px-[16px] py-[12px] rounded-[3px] border border-gray-300 focus:border-[#121212] outline-none"
               />
               <button
                 type="submit"
                 disabled={submitting}
-                className="button-primary bg-[#121212] text-white hover:bg-black transition-colors h-[50px] px-[30px] text-[15px] tracking-[1px] uppercase font-medium rounded-none flex items-center justify-center gap-[8px] cursor-pointer disabled:opacity-50"
+                className="button-primary bg-[#121212] text-white hover:bg-black transition-colors h-[46px] sm:h-[50px] px-[24px] sm:px-[30px] text-[14px] sm:text-[15px] tracking-[1px] uppercase font-medium rounded-none flex items-center justify-center gap-[8px] cursor-pointer disabled:opacity-50 shrink-0"
               >
                 <span>{submitting ? 'SUBSCRIBING...' : (footer.newsletter?.buttonText || 'SUBSCRIBE')}</span>
                 <ArrowRight size={16} />

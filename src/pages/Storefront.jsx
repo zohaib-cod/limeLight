@@ -46,24 +46,23 @@ export default function Storefront() {
   const [sections, setSections] = useState(() => {
     try {
       const saved = localStorage.getItem('limelight_sections');
-      return saved ? JSON.parse(saved) : [
-        { id: "hero", enabled: true },
-        { id: "unstitched", enabled: true },
-        { id: "rtw", enabled: true },
-        { id: "collections", enabled: true },
-        { id: "men", enabled: true },
-        { id: "new-arrivals", enabled: true }
-      ];
-    } catch {
-      return [
-        { id: "hero", enabled: true },
-        { id: "unstitched", enabled: true },
-        { id: "rtw", enabled: true },
-        { id: "collections", enabled: true },
-        { id: "men", enabled: true },
-        { id: "new-arrivals", enabled: true }
-      ];
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      // fallback
     }
+    return [
+      { id: "hero", enabled: true },
+      { id: "unstitched", enabled: true },
+      { id: "rtw", enabled: true },
+      { id: "collections", enabled: true },
+      { id: "men", enabled: true },
+      { id: "new-arrivals", enabled: true }
+    ];
   });
 
   useEffect(() => {
@@ -294,8 +293,14 @@ export default function Storefront() {
 
       {/* Dynamic Sections (Reorderable via Admin Panel) */}
       <main className="flex-1 w-full">
-        {sections && sections.length > 0 ? (
-          sections.filter(s => s.enabled !== false).map(sec => renderSection(sec.id))
+        {Array.isArray(sections) && sections.length > 0 ? (
+          sections
+            .filter(s => s && s.enabled !== false)
+            .map(sec => (
+              <React.Fragment key={sec.id}>
+                {renderSection(sec.id)}
+              </React.Fragment>
+            ))
         ) : (
           <>
             <Hero />

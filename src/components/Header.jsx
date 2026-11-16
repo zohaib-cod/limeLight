@@ -334,26 +334,26 @@ export default function Header({
         </div>
 
         {/* ROW 2: SUB-NAV (Hamburger on left | Dynamic Centered Nav Routes) */}
-        <div className="w-full bg-[#000000] border-b border-[#222222]/80 relative">
-          <div className="max-w-[1600px] mx-auto px-[15px] sm:px-[30px] h-[38px] sm:h-[42px] flex items-center justify-between">
+        <div className="w-full bg-[#000000] border-b border-[#222222]/80 relative overflow-hidden">
+          <div className="max-w-[1600px] mx-auto px-[10px] sm:px-[30px] h-[40px] sm:h-[44px] flex items-center justify-between gap-[10px]">
             {/* Far Left: Hamburger Menu Icon */}
-            <div className="flex items-center w-[60px]">
+            <div className="flex items-center shrink-0 w-[36px] sm:w-[48px]">
               <button
                 onClick={() => setDrawerOpen(true)}
-                className="text-white hover:text-white/80 p-[4px] -ml-[4px] focus:outline-none flex items-center justify-center cursor-pointer"
+                className="text-white hover:text-white/80 p-[4px] focus:outline-none flex items-center justify-center cursor-pointer"
                 title="Navigation Menu"
                 aria-label="Open Navigation Menu"
               >
-                <Menu size={22} strokeWidth={1.8} />
+                <Menu size={21} strokeWidth={1.8} />
               </button>
             </div>
 
-            {/* Center: Dynamic Navigation Routes mapped from Backend */}
-            <nav className="flex-1 flex items-center justify-center space-x-[22px] sm:space-x-[32px] md:space-x-[42px]">
+            {/* Center: Dynamic Navigation Routes (smooth horizontal swipe on mobile, perfectly centered on desktop) */}
+            <nav className="flex-1 flex items-center overflow-x-auto no-scrollbar whitespace-nowrap justify-start md:justify-center gap-[16px] sm:gap-[24px] md:gap-[34px] lg:gap-[42px] px-[4px] sm:px-[10px]">
               {activeRoutes.map((item) => (
                 <div
                   key={item.id || item.name}
-                  className="relative py-[8px]"
+                  className="relative py-[8px] shrink-0"
                   onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
@@ -365,7 +365,7 @@ export default function Header({
                         ? item.href
                         : `/category/${item.name.toLowerCase().replace(/[\s_]+/g, '-')}`
                     }
-                    className={`text-[12.5px] sm:text-[13px] tracking-[0.12em] font-medium uppercase transition-colors inline-block ${
+                    className={`text-[12px] sm:text-[13px] tracking-[0.1em] sm:tracking-[0.12em] font-medium uppercase transition-colors inline-block whitespace-nowrap ${
                       item.isSale
                         ? 'text-[#cf0c1d] font-bold hover:text-[#e74040]'
                         : 'text-white hover:text-white/75'
@@ -409,8 +409,8 @@ export default function Header({
               ))}
             </nav>
 
-            {/* Far Right spacer to keep center nav links mathematically centered */}
-            <div className="w-[60px]" />
+            {/* Far Right spacer on desktop to keep center nav links visually centered */}
+            <div className="hidden md:block shrink-0 w-[36px] sm:w-[48px]" />
           </div>
         </div>
       </header>

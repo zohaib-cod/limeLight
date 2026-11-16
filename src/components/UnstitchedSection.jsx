@@ -88,50 +88,41 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
               }}
             />
             {/* Visual Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent flex items-center p-[20px] sm:p-[45px] z-10">
-              <div className="max-w-[550px] relative">
-                {/* Watermark text behind headline */}
-                {banner.watermark && (
-                  <div className="absolute -top-[15px] sm:-top-[30px] -left-[5px] text-[40px] sm:text-[75px] lg:text-[95px] font-black uppercase tracking-wider text-white/20 select-none pointer-events-none leading-none z-0">
-                    {banner.watermark}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent flex items-center p-[20px] sm:p-[45px] z-10">
+              <div className="max-w-[550px] relative z-10">
+                {/* Badge */}
+                {banner.badge && (
+                  <span className="inline-block text-[10.5px] sm:text-[12px] font-medium text-white/90 tracking-[0.2em] uppercase mb-[6px] drop-shadow-sm bg-black/40 px-[8px] py-[3px] rounded-[3px] border border-white/10">
+                    {banner.badge}
+                  </span>
+                )}
+
+                {/* Title / Headline */}
+                <h3 className="text-[22px] sm:text-[32px] lg:text-[38px] font-bold text-white mb-[8px] leading-tight drop-shadow-md">
+                  {banner.title}
+                </h3>
+
+                {/* Subtitle */}
+                {banner.subtitle && (
+                  <p className="text-white/90 text-[12.5px] sm:text-[14px] leading-[20px] sm:leading-[24px] mb-[8px] hidden sm:block drop-shadow-sm max-w-[480px]">
+                    {banner.subtitle}
+                  </p>
+                )}
+
+                {/* Cursive script text */}
+                {banner.scriptText && (
+                  <div className="font-serif italic text-[#cec72e] text-[16px] sm:text-[22px] mb-[14px] tracking-wide drop-shadow-sm">
+                    {banner.scriptText}
                   </div>
                 )}
 
-                <div className="relative z-10">
-                  {/* Badge */}
-                  {banner.badge && (
-                    <span className="block text-[11px] sm:text-[12px] font-medium text-white tracking-[0.22em] uppercase mb-[6px] drop-shadow-sm">
-                      {banner.badge}
-                    </span>
-                  )}
-
-                  {/* Title / Headline */}
-                  <h3 className="text-[24px] sm:text-[34px] lg:text-[40px] font-bold text-white mb-[8px] leading-tight drop-shadow-md">
-                    {banner.title}
-                  </h3>
-
-                  {/* Subtitle */}
-                  {banner.subtitle && (
-                    <p className="text-white/85 text-[13px] sm:text-[14px] leading-[22px] mb-[8px] hidden sm:block drop-shadow-sm max-w-[480px]">
-                      {banner.subtitle}
-                    </p>
-                  )}
-
-                  {/* Cursive script text (matching screenshot "Style it your way.") */}
-                  {banner.scriptText && (
-                    <div className="font-serif italic text-white/95 text-[18px] sm:text-[24px] mb-[16px] tracking-wide drop-shadow-sm">
-                      {banner.scriptText}
-                    </div>
-                  )}
-
-                  {/* Button */}
-                  <a
-                    href={banner.buttonLink || '#unstitched-grid'}
-                    className="button-style-1 bg-[#121212] text-white hover:bg-black/90 inline-flex items-center text-[12px] sm:text-[13px] font-semibold px-[20px] py-[10px] rounded-[3px] shadow-sm tracking-wider uppercase transition-all duration-200"
-                  >
-                    {banner.buttonText || 'EXPLORE DESIGNS'}
-                  </a>
-                </div>
+                {/* Button */}
+                <a
+                  href={banner.buttonLink || '#unstitched-grid'}
+                  className="button-style-1 bg-[#121212] text-white hover:bg-black inline-flex items-center text-[12px] sm:text-[13px] font-semibold px-[20px] py-[9px] rounded-[3px] shadow-sm tracking-wider uppercase transition-all duration-200"
+                >
+                  {banner.buttonText || 'EXPLORE DESIGNS'}
+                </a>
               </div>
             </div>
           </div>
@@ -149,7 +140,7 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[15px] sm:gap-[24px]">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] sm:gap-[20px]">
           {products.map((product) => {
             const isWishlisted = wishlist.includes(product.id);
             return (
@@ -168,7 +159,7 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
 
                   {/* Discount Badge */}
                   {product.discount && (
-                    <div className="absolute top-[10px] left-[10px] bg-[#cf0c1d] text-white text-[11px] font-bold px-[8px] py-[3px] rounded-[3px] tracking-wider">
+                    <div className="absolute top-[8px] sm:top-[10px] left-[8px] sm:left-[10px] bg-[#cf0c1d] text-white text-[10px] sm:text-[11px] font-bold px-[6px] sm:px-[8px] py-[2px] sm:py-[3px] rounded-[3px] tracking-wider">
                       {product.discount}
                     </div>
                   )}
@@ -176,52 +167,52 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
                   {/* Wishlist Button */}
                   <button
                     onClick={() => onToggleWishlist(product.id)}
-                    className="absolute top-[10px] right-[10px] w-[34px] h-[34px] bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[#121212] hover:text-[#cf0c1d] hover:bg-white shadow-sm transition-colors"
+                    className="absolute top-[8px] sm:top-[10px] right-[8px] sm:right-[10px] w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[#121212] hover:text-[#cf0c1d] hover:bg-white shadow-sm transition-colors cursor-pointer"
                     aria-label="Wishlist"
                   >
                     <Heart
-                      size={17}
+                      size={16}
                       className={isWishlisted ? "fill-[#cf0c1d] text-[#cf0c1d]" : ""}
                     />
                   </button>
 
                   {/* Quick View & Add to Cart Overlay on Hover */}
-                  <div className="absolute inset-x-0 bottom-0 p-[10px] bg-gradient-to-t from-black/60 to-transparent flex gap-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <div className="absolute inset-x-0 bottom-0 p-[8px] sm:p-[10px] bg-gradient-to-t from-black/60 to-transparent flex gap-[6px] sm:gap-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <button
                       onClick={() => onQuickView(product)}
-                      className="flex-1 bg-white text-[#121212] text-[13px] py-[8px] font-medium flex items-center justify-center gap-[5px] hover:bg-[#f3f3f3] transition-colors rounded-[3px]"
+                      className="flex-1 bg-white text-[#121212] text-[12px] sm:text-[13px] py-[6px] sm:py-[8px] font-medium flex items-center justify-center gap-[4px] hover:bg-[#f3f3f3] transition-colors rounded-[3px] cursor-pointer"
                     >
-                      <Eye size={15} />
+                      <Eye size={14} />
                       <span>Quick View</span>
                     </button>
                     <button
                       onClick={() => onAddToCart(product)}
-                      className="bg-[#121212] text-white p-[8px] hover:bg-[#333333] transition-colors rounded-[3px]"
+                      className="bg-[#121212] text-white p-[6px] sm:p-[8px] hover:bg-[#333333] transition-colors rounded-[3px] cursor-pointer"
                       title="Add to Cart"
                     >
-                      <ShoppingBag size={16} />
+                      <ShoppingBag size={15} />
                     </button>
                   </div>
                 </div>
 
                 {/* Product Meta */}
-                <div className="p-[15px] flex-1 flex flex-col justify-between">
+                <div className="p-[10px] sm:p-[14px] flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-[11px] tracking-widest text-[#121212bf] uppercase block mb-[4px]">
+                    <span className="text-[10px] sm:text-[11px] tracking-widest text-[#121212bf] uppercase block mb-[3px] truncate">
                       {product.subCategory} • {product.fabric}
                     </span>
-                    <h4 className="text-[15px] font-medium text-[#121212] line-clamp-1 mb-[6px]">
+                    <h4 className="text-[13px] sm:text-[14px] font-medium text-[#121212] line-clamp-1 mb-[4px]">
                       {product.title}
                     </h4>
                   </div>
 
                   <div className="pt-[6px] border-t border-[#1212121a] flex items-center justify-between">
-                    <div className="flex items-baseline gap-[8px]">
-                      <span className="text-[16px] font-bold text-[#121212]">
+                    <div className="flex flex-wrap items-baseline gap-[6px]">
+                      <span className="text-[13px] sm:text-[15px] font-bold text-[#121212]">
                         Rs. {product.price.toLocaleString()}
                       </span>
                       {product.originalPrice && (
-                        <span className="text-[13px] text-[#121212b3] line-through">
+                        <span className="text-[11px] sm:text-[12px] text-[#121212b3] line-through">
                           Rs. {product.originalPrice.toLocaleString()}
                         </span>
                       )}
@@ -246,44 +237,38 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
               }}
             />
             {/* Visual Subtle Dark Overlay */}
-            <div className="absolute inset-0 bg-black/35 flex items-center justify-between p-[20px] sm:p-[45px] lg:p-[60px]">
-              {/* Center Content */}
-              <div className="mx-auto text-center max-w-[650px] z-10">
+            <div className="absolute inset-0 bg-black/45 flex flex-col md:flex-row items-center justify-between p-[20px] sm:p-[40px] lg:p-[50px] gap-[20px]">
+              {/* Content */}
+              <div className="text-center md:text-left max-w-[550px] z-10">
                 {wideBanner.badge && (
-                  <span className="text-white text-[11px] sm:text-[12px] tracking-[0.25em] uppercase font-medium block mb-[6px] drop-shadow-sm">
+                  <span className="text-white/90 text-[10px] sm:text-[11.5px] tracking-[0.25em] uppercase font-medium block mb-[6px] drop-shadow-sm">
                     {wideBanner.badge}
                   </span>
                 )}
-                <h3 className="text-white text-[20px] sm:text-[28px] lg:text-[32px] font-bold mb-[15px] uppercase tracking-wide drop-shadow-md leading-tight">
+                <h3 className="text-white text-[18px] sm:text-[26px] lg:text-[30px] font-bold mb-[12px] uppercase tracking-wide drop-shadow-md leading-tight">
                   {wideBanner.title}
                 </h3>
                 {wideBanner.buttonText && (
                   <a
                     href={wideBanner.buttonLink || '#unstitched'}
-                    className="button-primary bg-[#121212] text-white hover:bg-black inline-block text-[12px] sm:text-[13px] font-semibold px-[24px] py-[11px] rounded-[3px] shadow-sm uppercase tracking-wider transition-all duration-200"
+                    className="button-primary bg-[#121212] text-white hover:bg-black inline-block text-[12px] sm:text-[13px] font-semibold px-[20px] py-[9px] rounded-[3px] shadow-sm uppercase tracking-wider transition-all duration-200"
                   >
                     {wideBanner.buttonText}
                   </a>
                 )}
               </div>
 
-              {/* Right Side Watermark Typography & Secondary Button (Matching Screenshot) */}
-              <div className="hidden md:flex flex-col items-end text-right z-10 pr-[10px] select-none pointer-events-none">
-                <div className="font-serif text-white/50 text-[36px] lg:text-[52px] font-extrabold tracking-wider leading-none uppercase drop-shadow-sm">
-                  UNSTITCHED
-                </div>
-                <div className="text-white/45 text-[18px] lg:text-[26px] font-bold tracking-[0.35em] leading-none uppercase mt-[3px] drop-shadow-sm">
-                  EMBROIDERED
-                </div>
-                {wideBanner.secondaryBtnText && (
+              {/* Secondary CTA */}
+              {wideBanner.secondaryBtnText && (
+                <div className="z-10 shrink-0">
                   <a
                     href={wideBanner.secondaryBtnLink || '#unstitched'}
-                    className="mt-[15px] border border-white/70 hover:border-white text-white hover:bg-white hover:text-[#121212] text-[11px] lg:text-[12px] font-semibold px-[20px] py-[8px] rounded-[2px] tracking-widest uppercase transition-all duration-200 inline-block pointer-events-auto"
+                    className="border border-white/80 hover:border-white text-white hover:bg-white hover:text-[#121212] text-[11px] lg:text-[12px] font-semibold px-[20px] py-[9px] rounded-[2px] tracking-widest uppercase transition-all duration-200 inline-block"
                   >
                     {wideBanner.secondaryBtnText}
                   </a>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         )}
