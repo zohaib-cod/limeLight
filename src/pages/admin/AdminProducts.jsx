@@ -93,8 +93,9 @@ export default function AdminProducts() {
   // Toggle active status
   const handleToggleActive = async (product) => {
     try {
+      const targetId = product.id || product._id;
       const newStatus = !product.isActive;
-      const res = await fetch(`/api/products/${product.id}`, {
+      const res = await fetch(`/api/products/${targetId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isActive: newStatus })
@@ -105,10 +106,10 @@ export default function AdminProducts() {
           `Product "${product.title}" is now ${newStatus ? 'visible' : 'hidden'} on storefront.`
         );
         setProducts(prev =>
-          prev.map(p => (p.id === product.id ? { ...p, isActive: newStatus } : p))
+          prev.map(p => ((p.id === targetId || p._id === targetId) ? { ...p, isActive: newStatus } : p))
         );
         setFilteredProducts(prev =>
-          prev.map(p => (p.id === product.id ? { ...p, isActive: newStatus } : p))
+          prev.map(p => ((p.id === targetId || p._id === targetId) ? { ...p, isActive: newStatus } : p))
         );
       }
     } catch (err) {
@@ -118,18 +119,19 @@ export default function AdminProducts() {
 
   // Delete product
   const handleDelete = async (product) => {
+    const targetId = product.id || product._id;
     if (!window.confirm(`Are you sure you want to permanently delete "${product.title}"?`)) {
       return;
     }
     try {
       setActionLoading(true);
-      const res = await fetch(`/api/products/${product.id}`, {
+      const res = await fetch(`/api/products/${targetId}`, {
         method: 'DELETE'
       });
       if (res.ok) {
         showFeedback('success', `Product "${product.title}" deleted.`);
-        setProducts(prev => prev.filter(p => p.id !== product.id));
-        setFilteredProducts(prev => prev.filter(p => p.id !== product.id));
+        setProducts(prev => prev.filter(p => p.id !== targetId && p._id !== targetId));
+        setFilteredProducts(prev => prev.filter(p => p.id !== targetId && p._id !== targetId));
       } else {
         const err = await res.json();
         showFeedback('error', err.error || 'Failed to delete product.');
@@ -315,7 +317,7 @@ export default function AdminProducts() {
             const isRTW = product.category?.toLowerCase() === 'ready to wear';
             return (
               <div
-                key={product.id}
+                key={product.id || product._id}
                 className="bg-white rounded-[8px] border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
               >
                 {/* Product Image & Badges */}
@@ -435,7 +437,7 @@ export default function AdminProducts() {
 
                       <div className="flex items-center gap-[6px]">
                         <button
-                          onClick={() => navigate(`/admin/products/edit/${product.id}`)}
+                          onClick={() => navigate(`/admin/products/edit/${product.id || product._id}`)}
                           className="p-[6px] text-gray-600 hover:text-black hover:bg-gray-100 rounded-[4px] transition-colors cursor-pointer"
                           title="Edit product"
                         >
