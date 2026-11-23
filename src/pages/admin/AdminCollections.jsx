@@ -25,7 +25,7 @@ import {
 const COLLECTION_PRESETS = [
   {
     name: 'Winter Velvet (Neon Club)',
-    url: 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468265/limelight/products/pqcakr8lqfcwiep69tpi.jpg',
     title: 'WINTER VELVET',
     count: '48 Designs',
     tagline: 'Regal textures & opulent hues',
@@ -34,7 +34,7 @@ const COLLECTION_PRESETS = [
   },
   {
     name: 'Co-Ord Sets (Rack Hangers)',
-    url: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468266/limelight/products/dm9m39psmk0kaoltg2sl.jpg',
     title: 'CO-ORD SETS',
     count: '32 Sets',
     tagline: 'Effortless modern silhouettes',
@@ -43,7 +43,7 @@ const COLLECTION_PRESETS = [
   },
   {
     name: 'Embroidered Organza (Studio)',
-    url: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468267/limelight/products/wjpooq3nwwowkcwvmlsf.jpg',
     title: 'EMBROIDERED ORGANZA',
     count: '24 Luxury Suits',
     tagline: 'Intricate metallic thread embroidery',
@@ -52,7 +52,7 @@ const COLLECTION_PRESETS = [
   },
   {
     name: 'Warm Khaddar & Karandi (Flatlay)',
-    url: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468268/limelight/products/fqconilr6vvym1wiutor.jpg',
     title: 'WARM KHADDAR & KARANDI',
     count: '65 Articles',
     tagline: 'Timeless warmth for winter days',
@@ -615,7 +615,7 @@ export default function AdminCollections() {
                           type="url"
                           value={formData.image}
                           onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                          placeholder="https://images.unsplash.com/..."
+                          placeholder="https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg"
                           className="w-full pl-[32px] pr-[10px] py-[8px] text-[12px] border border-gray-300 rounded-[5px] focus:outline-none focus:border-[#121212] bg-white"
                         />
                       </div>

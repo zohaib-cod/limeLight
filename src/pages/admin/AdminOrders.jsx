@@ -221,7 +221,7 @@ export default function AdminOrders() {
           price: 5490,
           quantity: 1,
           selectedSize: 'M',
-          image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80'
+          image: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg'
         }
       ],
       subtotal: 5490,

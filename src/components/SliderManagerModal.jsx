@@ -381,7 +381,7 @@ export default function SliderManagerModal({
                         className="w-full h-full object-cover max-h-[160px]"
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80';
+                          e.target.src = 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg';
                         }}
                       />
                       <span className="absolute bottom-[6px] right-[6px] bg-black/70 text-white text-[10px] px-[6px] py-[2px] rounded">
@@ -593,7 +593,7 @@ export default function SliderManagerModal({
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80';
+                          e.target.src = 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg';
                         }}
                       />
                     </div>

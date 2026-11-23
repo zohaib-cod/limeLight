@@ -20,19 +20,19 @@ import {
 const PRESET_IMAGES = [
   {
     name: 'Unstitched Top Editorial',
-    url: 'https://www.limelight.pk/cdn/shop/files/unstitched_jpg.jpg?v=1789646203&width=1920'
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468256/limelight/products/vjsl0kwf5brmmt39d5qu.jpg'
   },
   {
     name: 'Unstitched Embroidered (Wide)',
-    url: 'https://www.limelight.pk/cdn/shop/files/Unstitched_Embroidered_1425_x_445.jpg?v=1778751852'
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468263/limelight/products/pyqxtr8aazfj9uqpbivj.jpg'
   },
   {
     name: 'Limelight RTW Pret Main',
-    url: 'https://www.limelight.pk/cdn/shop/files/Web_RTW_Main.jpg?v=1778494519'
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468259/limelight/products/hm2htjcsqo4ia2g0cv0b.jpg'
   },
   {
     name: 'Limelight Western Co-Ords',
-    url: 'https://www.limelight.pk/cdn/shop/files/coords_jpg.jpg?v=1789646276&width=1920'
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468257/limelight/products/cwygrr1yik37o2gpohnb.jpg'
   }
 ];
 
@@ -57,7 +57,7 @@ export default function AdminBanners() {
     buttonLink: '#unstitched-grid',
     secondaryBtnText: 'SHOP NOW',
     secondaryBtnLink: '#unstitched',
-    imageUrl: 'https://www.limelight.pk/cdn/shop/files/unstitched_jpg.jpg?v=1789646203&width=1920',
+    imageUrl: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468256/limelight/products/vjsl0kwf5brmmt39d5qu.jpg',
     isActive: true
   });
 

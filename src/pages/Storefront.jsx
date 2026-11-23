@@ -15,16 +15,7 @@ import CheckoutModal from '../components/CheckoutModal';
 import UserAuthModal from '../components/UserAuthModal';
 
 export default function Storefront() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: "un-1",
-      title: "3 Piece Embroidered Velvet Suit",
-      price: 8990,
-      quantity: 1,
-      image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80",
-      selectedSize: "Unstitched"
-    }
-  ]);
+  const [cartItems, setCartItems] = useState([]);
   const [wishlist, setWishlist] = useState(["rtw-1"]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);

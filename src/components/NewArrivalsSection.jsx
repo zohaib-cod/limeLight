@@ -72,7 +72,7 @@ export default function NewArrivalsSection({ onQuickView, onAddToCart, onToggleW
                     loading="lazy"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80';
+                      e.target.src = 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg';
                     }}
                   />
 

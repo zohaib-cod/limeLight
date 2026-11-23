@@ -1,11 +1,11 @@
 export const ASSETS = {
   whatsappIcon: "https://www.limelight.pk/cdn/shop/t/298/assets/whatsapp-i.svg?v=31862181380226329931792158283",
-  heroBanner: "https://www.limelight.pk/cdn/shop/files/BANNERS_FOR_WEB_jpg_ff_jpg.jpg?v=1789713515&width=1920",
-  unstitchedMain: "https://www.limelight.pk/cdn/shop/files/unstitched_jpg.jpg?v=1789646203&width=1920",
-  coordsBanner: "https://www.limelight.pk/cdn/shop/files/coords_jpg.jpg?v=1789646276&width=1920",
-  rtwMain: "https://www.limelight.pk/cdn/shop/files/Web_RTW_Main.jpg?v=1778494519",
-  unstitchedEmbroidered: "https://www.limelight.pk/cdn/shop/files/Unstitched_Embroidered_1425_x_445.jpg?v=1778751852",
-  fragranceBanner: "https://www.limelight.pk/cdn/shop/files/1200x330-fragrance_b99da147-fcb8-4288-8a43-c5200c958016.png?v=1747989638&width=2000",
+  heroBanner: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg",
+  unstitchedMain: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468256/limelight/products/vjsl0kwf5brmmt39d5qu.jpg",
+  coordsBanner: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468257/limelight/products/cwygrr1yik37o2gpohnb.jpg",
+  rtwMain: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468259/limelight/products/hm2htjcsqo4ia2g0cv0b.jpg",
+  unstitchedEmbroidered: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468263/limelight/products/pyqxtr8aazfj9uqpbivj.jpg",
+  fragranceBanner: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468264/limelight/products/qop4zbqqf0onvv9lu2px.jpg",
 };
 
 export const ANNOUNCEMENTS = [
@@ -28,119 +28,1019 @@ export const NAV_LINKS = [
 
 export const UNSTITCHED_PRODUCTS = [
   {
-    id: "un-1",
-    title: "3 Piece Embroidered Velvet Suit",
-    category: "Unstitched",
-    subCategory: "3 Piece",
-    price: 8990,
-    originalPrice: 11990,
-    discount: "25% OFF",
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80",
-    fabric: "Velvet & Chiffon",
-    pieces: "Shirt + Trouser + Embroidered Dupatta",
-    color: "Deep Emerald",
-    sku: "U3P-24-EMB-01"
+    "id": "prod-un-101",
+    "title": "3 Piece Embroidered Lawn Suit - Design 01",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Pure Lawn & Chiffon",
+    "pieces": "Shirt + Trouser + Embroidered Chiffon Dupatta",
+    "color": "Sky Blue & Emerald",
+    "price": 6490,
+    "originalPrice": 7990,
+    "discount": "19% OFF",
+    "sku": "UN-24-001",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468255/limelight/products/pazcw526oimgstxjuzg1.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.458Z",
+    "updatedAt": "2026-11-23T21:11:44.459Z"
   },
   {
-    id: "un-2",
-    title: "2 Piece Printed Khaddar Suit",
-    category: "Unstitched",
-    subCategory: "2 Piece",
-    price: 3490,
-    originalPrice: 4290,
-    discount: "18% OFF",
-    image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80",
-    fabric: "Warm Khaddar",
-    pieces: "Shirt + Woolen Shawl",
-    color: "Mustard Gold",
-    sku: "U2P-24-KHD-09"
+    "id": "prod-un-102",
+    "title": "2 Piece Printed Lawn Suit - Design 02",
+    "category": "Unstitched",
+    "subCategory": "2 Piece",
+    "fabric": "Printed Fine Lawn",
+    "pieces": "Shirt + Dyed Trouser",
+    "color": "Mustard Gold & Royal Blue",
+    "price": 3690,
+    "originalPrice": 4490,
+    "discount": "18% OFF",
+    "sku": "UN-24-002",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468256/limelight/products/vjsl0kwf5brmmt39d5qu.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468256/limelight/products/vjsl0kwf5brmmt39d5qu.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468257/limelight/products/hyvpl2oiqlhzbdf8chlr.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.459Z",
+    "updatedAt": "2026-11-23T21:11:44.459Z"
   },
   {
-    id: "un-3",
-    title: "2 Piece Embroidered Karandi Suit",
-    category: "Unstitched",
-    subCategory: "2 Piece",
-    price: 4990,
-    originalPrice: 5990,
-    discount: "16% OFF",
-    image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80",
-    fabric: "Karandi",
-    pieces: "Shirt + Trouser",
-    color: "Ruby Red",
-    sku: "U2P-24-KRN-14"
+    "id": "prod-un-103",
+    "title": "3 Piece Luxury Chiffon Ensemble - Design 03",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Embroidered Chiffon",
+    "pieces": "Shirt + Silk Trouser + Organza Dupatta",
+    "color": "Dusty Pink & Sage",
+    "price": 8990,
+    "originalPrice": 10990,
+    "discount": "18% OFF",
+    "sku": "UN-24-003",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468257/limelight/products/cwygrr1yik37o2gpohnb.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468257/limelight/products/cwygrr1yik37o2gpohnb.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468258/limelight/products/agzsuxbzcfs57trleuuu.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.459Z",
+    "updatedAt": "2026-11-23T21:11:44.459Z"
   },
   {
-    id: "un-4",
-    title: "1 Piece Printed Cambric Shirt",
-    category: "Unstitched",
-    subCategory: "1 Piece",
-    price: 1890,
-    originalPrice: 2290,
-    discount: "17% OFF",
-    image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80",
-    fabric: "Cambric Cotton",
-    pieces: "Unstitched Shirt Piece 3m",
-    color: "Powder Blue & White",
-    sku: "U1P-24-CAM-05"
+    "id": "prod-un-106",
+    "title": "3 Piece Embroidered Velvet Suit - Design 06",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Velvet & Zari",
+    "pieces": "Embroidered Velvet Shirt + Trouser + Shawl",
+    "color": "Royal Ruby & Gold",
+    "price": 9490,
+    "originalPrice": 11990,
+    "discount": "21% OFF",
+    "sku": "UN-24-006",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468263/limelight/products/pyqxtr8aazfj9uqpbivj.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468263/limelight/products/pyqxtr8aazfj9uqpbivj.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.459Z",
+    "updatedAt": "2026-11-23T21:11:44.459Z"
+  },
+  {
+    "id": "prod-un-107",
+    "title": "2 Piece Embroidered Khaddar Suit - Design 07",
+    "category": "Unstitched",
+    "subCategory": "2 Piece",
+    "fabric": "Warm Khaddar",
+    "pieces": "Shirt + Woolen Shawl",
+    "color": "Charcoal & Amber",
+    "price": 4590,
+    "originalPrice": 5490,
+    "discount": "16% OFF",
+    "sku": "UN-24-007",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468264/limelight/products/qop4zbqqf0onvv9lu2px.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468264/limelight/products/qop4zbqqf0onvv9lu2px.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468265/limelight/products/ltweohbuyjs2zhcwbung.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.459Z",
+    "updatedAt": "2026-11-23T21:11:44.459Z"
+  },
+  {
+    "id": "prod-un-108",
+    "title": "1 Piece Digital Printed Shirt - Design 08",
+    "category": "Unstitched",
+    "subCategory": "1 Piece",
+    "fabric": "Digital Printed Cambric",
+    "pieces": "Unstitched Shirt 3m",
+    "color": "Pastel Lilac",
+    "price": 1990,
+    "originalPrice": 2490,
+    "discount": "20% OFF",
+    "sku": "UN-24-008",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468265/limelight/products/pqcakr8lqfcwiep69tpi.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468265/limelight/products/pqcakr8lqfcwiep69tpi.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.459Z",
+    "updatedAt": "2026-11-23T21:11:44.459Z"
+  },
+  {
+    "id": "prod-un-112",
+    "title": "3 Piece Embroidered Karandi Suit - Design 12",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Pure Karandi",
+    "pieces": "Shirt + Trouser + Karandi Shawl",
+    "color": "Deep Plum & Beige",
+    "price": 7490,
+    "originalPrice": 8990,
+    "discount": "17% OFF",
+    "sku": "UN-24-012",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468269/limelight/products/s9uf7fcjbwj2cohb8rh7.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468269/limelight/products/s9uf7fcjbwj2cohb8rh7.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-113",
+    "title": "3 Piece Embroidered Lawn Suit - Design 13",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Pure Lawn & Chiffon",
+    "pieces": "Shirt + Trouser + Embroidered Chiffon Dupatta",
+    "color": "Sky Blue & Emerald",
+    "price": 6490,
+    "originalPrice": 7990,
+    "discount": "19% OFF",
+    "sku": "UN-24-013",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468270/limelight/products/fortmr7iconwcdksozs9.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468270/limelight/products/fortmr7iconwcdksozs9.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468272/limelight/products/gzusbx3f8jnfdm3mxtff.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-114",
+    "title": "2 Piece Printed Lawn Suit - Design 14",
+    "category": "Unstitched",
+    "subCategory": "2 Piece",
+    "fabric": "Printed Fine Lawn",
+    "pieces": "Shirt + Dyed Trouser",
+    "color": "Mustard Gold & Royal Blue",
+    "price": 3690,
+    "originalPrice": 4490,
+    "discount": "18% OFF",
+    "sku": "UN-24-014",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468273/limelight/products/upuqz5frkmo8iqjp3c9z.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468273/limelight/products/upuqz5frkmo8iqjp3c9z.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-115",
+    "title": "3 Piece Luxury Chiffon Ensemble - Design 15",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Embroidered Chiffon",
+    "pieces": "Shirt + Silk Trouser + Organza Dupatta",
+    "color": "Dusty Pink & Sage",
+    "price": 8990,
+    "originalPrice": 10990,
+    "discount": "18% OFF",
+    "sku": "UN-24-015",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468273/limelight/products/au0qg4qohp4amydcwi1e.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468273/limelight/products/au0qg4qohp4amydcwi1e.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-118",
+    "title": "3 Piece Embroidered Velvet Suit - Design 18",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Velvet & Zari",
+    "pieces": "Embroidered Velvet Shirt + Trouser + Shawl",
+    "color": "Royal Ruby & Gold",
+    "price": 9490,
+    "originalPrice": 11990,
+    "discount": "21% OFF",
+    "sku": "UN-24-018",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468275/limelight/products/egff9lsbnlq4rxgrc6p4.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468275/limelight/products/egff9lsbnlq4rxgrc6p4.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-119",
+    "title": "2 Piece Embroidered Khaddar Suit - Design 19",
+    "category": "Unstitched",
+    "subCategory": "2 Piece",
+    "fabric": "Warm Khaddar",
+    "pieces": "Shirt + Woolen Shawl",
+    "color": "Charcoal & Amber",
+    "price": 4590,
+    "originalPrice": 5490,
+    "discount": "16% OFF",
+    "sku": "UN-24-019",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468276/limelight/products/muxwqhwwvetd6ldlxxr7.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468276/limelight/products/muxwqhwwvetd6ldlxxr7.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-120",
+    "title": "1 Piece Digital Printed Shirt - Design 20",
+    "category": "Unstitched",
+    "subCategory": "1 Piece",
+    "fabric": "Digital Printed Cambric",
+    "pieces": "Unstitched Shirt 3m",
+    "color": "Pastel Lilac",
+    "price": 1990,
+    "originalPrice": 2490,
+    "discount": "20% OFF",
+    "sku": "UN-24-020",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468277/limelight/products/iaxsbxuv7ijnsldg63px.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468277/limelight/products/iaxsbxuv7ijnsldg63px.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-124",
+    "title": "3 Piece Embroidered Karandi Suit - Design 24",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Pure Karandi",
+    "pieces": "Shirt + Trouser + Karandi Shawl",
+    "color": "Deep Plum & Beige",
+    "price": 7490,
+    "originalPrice": 8990,
+    "discount": "17% OFF",
+    "sku": "UN-24-024",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468281/limelight/products/uszampnoe8xfkxp9xuvf.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468281/limelight/products/uszampnoe8xfkxp9xuvf.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468282/limelight/products/sjyfxjdzvjliz293mifk.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-125",
+    "title": "3 Piece Embroidered Lawn Suit - Design 25",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Pure Lawn & Chiffon",
+    "pieces": "Shirt + Trouser + Embroidered Chiffon Dupatta",
+    "color": "Sky Blue & Emerald",
+    "price": 6490,
+    "originalPrice": 7990,
+    "discount": "19% OFF",
+    "sku": "UN-24-025",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468283/limelight/products/w7cqtiued5q6j4nyvqbz.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468283/limelight/products/w7cqtiued5q6j4nyvqbz.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-126",
+    "title": "2 Piece Printed Lawn Suit - Design 26",
+    "category": "Unstitched",
+    "subCategory": "2 Piece",
+    "fabric": "Printed Fine Lawn",
+    "pieces": "Shirt + Dyed Trouser",
+    "color": "Mustard Gold & Royal Blue",
+    "price": 3690,
+    "originalPrice": 4490,
+    "discount": "18% OFF",
+    "sku": "UN-24-026",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468284/limelight/products/szuu0ewmpipyywhkpzus.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468284/limelight/products/szuu0ewmpipyywhkpzus.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468284/limelight/products/vhaqjbl41jrei38e8trt.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-127",
+    "title": "3 Piece Luxury Chiffon Ensemble - Design 27",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Embroidered Chiffon",
+    "pieces": "Shirt + Silk Trouser + Organza Dupatta",
+    "color": "Dusty Pink & Sage",
+    "price": 8990,
+    "originalPrice": 10990,
+    "discount": "18% OFF",
+    "sku": "UN-24-027",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468285/limelight/products/pogrrpqjpph67k6gcsv9.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468285/limelight/products/pogrrpqjpph67k6gcsv9.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468286/limelight/products/xzolxo3jhrzerwpy8pd8.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468287/limelight/products/knwuvu0l9v5d2k2k18vo.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-130",
+    "title": "3 Piece Embroidered Velvet Suit - Design 30",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Velvet & Zari",
+    "pieces": "Embroidered Velvet Shirt + Trouser + Shawl",
+    "color": "Royal Ruby & Gold",
+    "price": 9490,
+    "originalPrice": 11990,
+    "discount": "21% OFF",
+    "sku": "UN-24-030",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468290/limelight/products/xd0qvb2hf5qz6fqfowut.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468290/limelight/products/xd0qvb2hf5qz6fqfowut.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468291/limelight/products/rtcvd1zam98euvafxwxy.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-131",
+    "title": "2 Piece Embroidered Khaddar Suit - Design 31",
+    "category": "Unstitched",
+    "subCategory": "2 Piece",
+    "fabric": "Warm Khaddar",
+    "pieces": "Shirt + Woolen Shawl",
+    "color": "Charcoal & Amber",
+    "price": 4590,
+    "originalPrice": 5490,
+    "discount": "16% OFF",
+    "sku": "UN-24-031",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468291/limelight/products/p7hvs9ryjvypgxxxayoz.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468291/limelight/products/p7hvs9ryjvypgxxxayoz.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468292/limelight/products/oo2xw2llshjmbq42kpa2.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-132",
+    "title": "1 Piece Digital Printed Shirt - Design 32",
+    "category": "Unstitched",
+    "subCategory": "1 Piece",
+    "fabric": "Digital Printed Cambric",
+    "pieces": "Unstitched Shirt 3m",
+    "color": "Pastel Lilac",
+    "price": 1990,
+    "originalPrice": 2490,
+    "discount": "20% OFF",
+    "sku": "UN-24-032",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468293/limelight/products/ux70gcvrtfpryscektcw.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468293/limelight/products/ux70gcvrtfpryscektcw.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-136",
+    "title": "3 Piece Embroidered Karandi Suit - Design 36",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Pure Karandi",
+    "pieces": "Shirt + Trouser + Karandi Shawl",
+    "color": "Deep Plum & Beige",
+    "price": 7490,
+    "originalPrice": 8990,
+    "discount": "17% OFF",
+    "sku": "UN-24-036",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468298/limelight/products/axfyrrkccvmyjign4t42.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468298/limelight/products/axfyrrkccvmyjign4t42.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468299/limelight/products/oiog3jgudj2s0ttxmps1.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-137",
+    "title": "3 Piece Embroidered Lawn Suit - Design 37",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Pure Lawn & Chiffon",
+    "pieces": "Shirt + Trouser + Embroidered Chiffon Dupatta",
+    "color": "Sky Blue & Emerald",
+    "price": 6490,
+    "originalPrice": 7990,
+    "discount": "19% OFF",
+    "sku": "UN-24-037",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468300/limelight/products/x4oq53mx8kumwfileaiy.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468300/limelight/products/x4oq53mx8kumwfileaiy.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468300/limelight/products/dc3dgdn7fddb44dulpyd.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-138",
+    "title": "2 Piece Printed Lawn Suit - Design 38",
+    "category": "Unstitched",
+    "subCategory": "2 Piece",
+    "fabric": "Printed Fine Lawn",
+    "pieces": "Shirt + Dyed Trouser",
+    "color": "Mustard Gold & Royal Blue",
+    "price": 3690,
+    "originalPrice": 4490,
+    "discount": "18% OFF",
+    "sku": "UN-24-038",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468301/limelight/products/fklx0iqxpzzaimorxelz.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468301/limelight/products/fklx0iqxpzzaimorxelz.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468302/limelight/products/i3vymkzyc7hcvh3z3rtv.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-un-139",
+    "title": "3 Piece Luxury Chiffon Ensemble - Design 39",
+    "category": "Unstitched",
+    "subCategory": "3 Piece",
+    "fabric": "Embroidered Chiffon",
+    "pieces": "Shirt + Silk Trouser + Organza Dupatta",
+    "color": "Dusty Pink & Sage",
+    "price": 8990,
+    "originalPrice": 10990,
+    "discount": "18% OFF",
+    "sku": "UN-24-039",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468303/limelight/products/ujwmwg4ztgddff0lwphh.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468303/limelight/products/ujwmwg4ztgddff0lwphh.jpg"
+    ],
+    "fit": "",
+    "sizes": [],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
   }
 ];
 
 export const RTW_PRODUCTS = [
   {
-    id: "rtw-1",
-    title: "2 Piece Printed Co-Ord Set",
-    category: "Ready To Wear",
-    subCategory: "Co-Ords",
-    price: 5490,
-    originalPrice: 6490,
-    discount: "15% OFF",
-    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80",
-    fabric: "Linen Viscose Blend",
-    fit: "Relaxed Boxy Fit",
-    sizes: ["XS", "S", "M", "L", "XL"],
-    color: "Terracotta Print"
+    "id": "prod-rtw-104",
+    "title": "Printed Cambric Kurti - Design 04",
+    "category": "Ready To Wear",
+    "subCategory": "Pret Kurti",
+    "fabric": "Cambric Cotton",
+    "pieces": "Single Pret Kurti",
+    "color": "Teal & Coral Floral",
+    "price": 3290,
+    "originalPrice": 3890,
+    "discount": "15% OFF",
+    "sku": "RTW-24-004",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468259/limelight/products/hm2htjcsqo4ia2g0cv0b.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468259/limelight/products/hm2htjcsqo4ia2g0cv0b.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468260/limelight/products/az9p9noooavhiazyvnbw.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468260/limelight/products/rsff32fvqpazbyqywhcd.jpg"
+    ],
+    "fit": "Straight Cut",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.459Z",
+    "updatedAt": "2026-11-23T21:11:44.459Z"
   },
   {
-    id: "rtw-2",
-    title: "Embroidered Jacquard Kurti",
-    category: "Ready To Wear",
-    subCategory: "Pret Kurti",
-    price: 4290,
-    originalPrice: 4990,
-    discount: "14% OFF",
-    image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80",
-    fabric: "Woven Jacquard",
-    fit: "Straight Cut with Slits",
-    sizes: ["S", "M", "L"],
-    color: "Ivory & Antique Gold"
+    "id": "prod-rtw-105",
+    "title": "2 Piece Co-Ord Set - Design 05",
+    "category": "Ready To Wear",
+    "subCategory": "Co-Ords",
+    "fabric": "Linen Viscose Blend",
+    "pieces": "Top + Trouser",
+    "color": "Olive Green",
+    "price": 5290,
+    "originalPrice": 6290,
+    "discount": "16% OFF",
+    "sku": "RTW-24-005",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468261/limelight/products/ulsktx6xtz1m0vqhyem9.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468261/limelight/products/ulsktx6xtz1m0vqhyem9.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468262/limelight/products/vtaafwpfldjmasybjxyi.jpg"
+    ],
+    "fit": "Relaxed Fit",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.459Z",
+    "updatedAt": "2026-11-23T21:11:44.459Z"
   },
   {
-    id: "rtw-3",
-    title: "Solid Everyday Casual Kurta",
-    category: "Ready To Wear",
-    subCategory: "Casual",
-    price: 2990,
-    originalPrice: 3490,
-    discount: "14% OFF",
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80",
-    fabric: "Slub Cotton",
-    fit: "A-Line Flare",
-    sizes: ["XS", "S", "M", "L"],
-    color: "Sage Green"
+    "id": "prod-rtw-109",
+    "title": "2 Piece Pret Jacquard Suit - Design 09",
+    "category": "Ready To Wear",
+    "subCategory": "2 Piece Pret",
+    "fabric": "Woven Jacquard",
+    "pieces": "Kurta + Trouser",
+    "color": "Midnight Blue",
+    "price": 5890,
+    "originalPrice": 6990,
+    "discount": "16% OFF",
+    "sku": "RTW-24-009",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468266/limelight/products/dm9m39psmk0kaoltg2sl.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468266/limelight/products/dm9m39psmk0kaoltg2sl.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468267/limelight/products/wjpooq3nwwowkcwvmlsf.jpg"
+    ],
+    "fit": "A-Line Cut",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.459Z",
+    "updatedAt": "2026-11-23T21:11:44.459Z"
   },
   {
-    id: "rtw-4",
-    title: "3 Piece Festive Silk Ensemble",
-    category: "Ready To Wear",
-    subCategory: "Formal",
-    price: 12990,
-    originalPrice: 15990,
-    discount: "18% OFF",
-    image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80",
-    fabric: "Raw Silk & Organza",
-    fit: "Royal Anarkali Cut",
-    sizes: ["S", "M", "L"],
-    color: "Midnight Navy"
+    "id": "prod-rtw-110",
+    "title": "3 Piece Embroidered Organza Pret Suit - Design 10",
+    "category": "Ready To Wear",
+    "subCategory": "3 Piece Pret",
+    "fabric": "Organza & Silk",
+    "pieces": "Embroidered Shirt + Slip + Trouser + Dupatta",
+    "color": "Ivory & Pale Gold",
+    "price": 12490,
+    "originalPrice": 14990,
+    "discount": "17% OFF",
+    "sku": "RTW-24-010",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468267/limelight/products/ozcimbrs17zzr6tfe8rs.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468267/limelight/products/ozcimbrs17zzr6tfe8rs.jpg"
+    ],
+    "fit": "Flared Anarkali",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.459Z",
+    "updatedAt": "2026-11-23T21:11:44.459Z"
+  },
+  {
+    "id": "prod-rtw-111",
+    "title": "Everyday Solid Kurta - Design 11",
+    "category": "Ready To Wear",
+    "subCategory": "Pret Kurti",
+    "fabric": "Slub Cotton",
+    "pieces": "Single Casual Kurti",
+    "color": "Terracotta",
+    "price": 2790,
+    "originalPrice": 3290,
+    "discount": "15% OFF",
+    "sku": "RTW-24-011",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468268/limelight/products/fqconilr6vvym1wiutor.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468268/limelight/products/fqconilr6vvym1wiutor.jpg"
+    ],
+    "fit": "Classic Cut",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-rtw-116",
+    "title": "Printed Cambric Kurti - Design 16",
+    "category": "Ready To Wear",
+    "subCategory": "Pret Kurti",
+    "fabric": "Cambric Cotton",
+    "pieces": "Single Pret Kurti",
+    "color": "Teal & Coral Floral",
+    "price": 3290,
+    "originalPrice": 3890,
+    "discount": "15% OFF",
+    "sku": "RTW-24-016",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468274/limelight/products/izkgkkyn9nzjfcqgf6xl.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468274/limelight/products/izkgkkyn9nzjfcqgf6xl.jpg"
+    ],
+    "fit": "Straight Cut",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-rtw-117",
+    "title": "2 Piece Co-Ord Set - Design 17",
+    "category": "Ready To Wear",
+    "subCategory": "Co-Ords",
+    "fabric": "Linen Viscose Blend",
+    "pieces": "Top + Trouser",
+    "color": "Olive Green",
+    "price": 5290,
+    "originalPrice": 6290,
+    "discount": "16% OFF",
+    "sku": "RTW-24-017",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468275/limelight/products/yiwtezmvjczst5y5jaju.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468275/limelight/products/yiwtezmvjczst5y5jaju.jpg"
+    ],
+    "fit": "Relaxed Fit",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-rtw-121",
+    "title": "2 Piece Pret Jacquard Suit - Design 21",
+    "category": "Ready To Wear",
+    "subCategory": "2 Piece Pret",
+    "fabric": "Woven Jacquard",
+    "pieces": "Kurta + Trouser",
+    "color": "Midnight Blue",
+    "price": 5890,
+    "originalPrice": 6990,
+    "discount": "16% OFF",
+    "sku": "RTW-24-021",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468278/limelight/products/sdusbysqj4xjpwxakyyg.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468278/limelight/products/sdusbysqj4xjpwxakyyg.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468278/limelight/products/vgfblxrmkkbbd8hyfbfl.jpg"
+    ],
+    "fit": "A-Line Cut",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-rtw-122",
+    "title": "3 Piece Embroidered Organza Pret Suit - Design 22",
+    "category": "Ready To Wear",
+    "subCategory": "3 Piece Pret",
+    "fabric": "Organza & Silk",
+    "pieces": "Embroidered Shirt + Slip + Trouser + Dupatta",
+    "color": "Ivory & Pale Gold",
+    "price": 12490,
+    "originalPrice": 14990,
+    "discount": "17% OFF",
+    "sku": "RTW-24-022",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468279/limelight/products/pmepwr1kbi2bq8ehodq1.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468279/limelight/products/pmepwr1kbi2bq8ehodq1.jpg"
+    ],
+    "fit": "Flared Anarkali",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-rtw-123",
+    "title": "Everyday Solid Kurta - Design 23",
+    "category": "Ready To Wear",
+    "subCategory": "Pret Kurti",
+    "fabric": "Slub Cotton",
+    "pieces": "Single Casual Kurti",
+    "color": "Terracotta",
+    "price": 2790,
+    "originalPrice": 3290,
+    "discount": "15% OFF",
+    "sku": "RTW-24-023",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468280/limelight/products/sqn7cqvigma2list3bzw.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468280/limelight/products/sqn7cqvigma2list3bzw.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468281/limelight/products/fspgvbtzjgsydcb4zjaq.jpg"
+    ],
+    "fit": "Classic Cut",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-rtw-128",
+    "title": "Printed Cambric Kurti - Design 28",
+    "category": "Ready To Wear",
+    "subCategory": "Pret Kurti",
+    "fabric": "Cambric Cotton",
+    "pieces": "Single Pret Kurti",
+    "color": "Teal & Coral Floral",
+    "price": 3290,
+    "originalPrice": 3890,
+    "discount": "15% OFF",
+    "sku": "RTW-24-028",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468287/limelight/products/xkqujtuigr8tytyjsifv.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468287/limelight/products/xkqujtuigr8tytyjsifv.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468288/limelight/products/ufflsfh0jkmckcztsunr.jpg"
+    ],
+    "fit": "Straight Cut",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-rtw-129",
+    "title": "2 Piece Co-Ord Set - Design 29",
+    "category": "Ready To Wear",
+    "subCategory": "Co-Ords",
+    "fabric": "Linen Viscose Blend",
+    "pieces": "Top + Trouser",
+    "color": "Olive Green",
+    "price": 5290,
+    "originalPrice": 6290,
+    "discount": "16% OFF",
+    "sku": "RTW-24-029",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468289/limelight/products/fbo4kril87mb8ptegyzv.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468289/limelight/products/fbo4kril87mb8ptegyzv.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468289/limelight/products/qaedrwywve4km2txresu.jpg"
+    ],
+    "fit": "Relaxed Fit",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-rtw-133",
+    "title": "2 Piece Pret Jacquard Suit - Design 33",
+    "category": "Ready To Wear",
+    "subCategory": "2 Piece Pret",
+    "fabric": "Woven Jacquard",
+    "pieces": "Kurta + Trouser",
+    "color": "Midnight Blue",
+    "price": 5890,
+    "originalPrice": 6990,
+    "discount": "16% OFF",
+    "sku": "RTW-24-033",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468294/limelight/products/vjdqdpxadn6w0bxzs7v1.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468294/limelight/products/vjdqdpxadn6w0bxzs7v1.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468295/limelight/products/sy5ineqez1ogqtp74kcq.jpg"
+    ],
+    "fit": "A-Line Cut",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-rtw-134",
+    "title": "3 Piece Embroidered Organza Pret Suit - Design 34",
+    "category": "Ready To Wear",
+    "subCategory": "3 Piece Pret",
+    "fabric": "Organza & Silk",
+    "pieces": "Embroidered Shirt + Slip + Trouser + Dupatta",
+    "color": "Ivory & Pale Gold",
+    "price": 12490,
+    "originalPrice": 14990,
+    "discount": "17% OFF",
+    "sku": "RTW-24-034",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468295/limelight/products/d611c1r2ezsyl0mepk3u.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468295/limelight/products/d611c1r2ezsyl0mepk3u.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468296/limelight/products/k7otptdbtleurr2wkcod.jpg"
+    ],
+    "fit": "Flared Anarkali",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
+  },
+  {
+    "id": "prod-rtw-135",
+    "title": "Everyday Solid Kurta - Design 35",
+    "category": "Ready To Wear",
+    "subCategory": "Pret Kurti",
+    "fabric": "Slub Cotton",
+    "pieces": "Single Casual Kurti",
+    "color": "Terracotta",
+    "price": 2790,
+    "originalPrice": 3290,
+    "discount": "15% OFF",
+    "sku": "RTW-24-035",
+    "image": "https://res.cloudinary.com/antxd4tm/image/upload/v1795468297/limelight/products/vng5mwqlsb2dq4s44vft.jpg",
+    "images": [
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468297/limelight/products/vng5mwqlsb2dq4s44vft.jpg",
+      "https://res.cloudinary.com/antxd4tm/image/upload/v1795468298/limelight/products/suenozn782y4wzgmgao0.jpg"
+    ],
+    "fit": "Classic Cut",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "isActive": true,
+    "inStock": true,
+    "createdAt": "2026-11-23T21:11:44.460Z",
+    "updatedAt": "2026-11-23T21:11:44.460Z"
   }
 ];
 
@@ -150,28 +1050,28 @@ export const COLLECTIONS_DATA = [
   {
     title: "WINTER VELVET",
     tagline: "Regal textures & opulent hues",
-    image: "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=80",
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468265/limelight/products/pqcakr8lqfcwiep69tpi.jpg",
     count: "48 Designs",
     linkText: "EXPLORE VELVET"
   },
   {
     title: "CO-ORD SETS",
     tagline: "Effortless modern silhouettes",
-    image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80",
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468266/limelight/products/dm9m39psmk0kaoltg2sl.jpg",
     count: "32 Sets",
     linkText: "SHOP CO-ORDS"
   },
   {
     title: "EMBROIDERED ORGANZA",
     tagline: "Intricate metallic thread embroidery",
-    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80",
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468267/limelight/products/wjpooq3nwwowkcwvmlsf.jpg",
     count: "24 Luxury Suits",
     linkText: "VIEW FESTIVE"
   },
   {
     title: "WARM KHADDAR & KARANDI",
     tagline: "Timeless warmth for winter days",
-    image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80",
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468268/limelight/products/fqconilr6vvym1wiutor.jpg",
     count: "65 Articles",
     linkText: "SHOP KHADDAR"
   }
@@ -180,23 +1080,23 @@ export const COLLECTIONS_DATA = [
 export const FRAGRANCES = [
   {
     id: "frag-1",
-    name: "AURA - Eau de Parfum",
+    name: "AURA - Luxury Fragrance Edit",
     volume: "100ml / 3.4 FL OZ",
     price: 3890,
     originalPrice: 4490,
     notes: "Top: Bergamot & Mandarin | Heart: Jasmine Sambac | Base: Amberwood & Vanilla",
     badge: "BESTSELLER",
-    image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468277/limelight/products/iaxsbxuv7ijnsldg63px.jpg"
   },
   {
     id: "frag-2",
-    name: "MYSTIQUE - Body Mist",
+    name: "MYSTIQUE - Signature Body Mist",
     volume: "250ml / 8.4 FL OZ",
     price: 1990,
     originalPrice: 2290,
     notes: "Top: Red Berries | Heart: Pink Peony | Base: White Musk",
     badge: "NEW",
-    image: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468278/limelight/products/vgfblxrmkkbbd8hyfbfl.jpg"
   },
   {
     id: "frag-3",
@@ -206,7 +1106,7 @@ export const FRAGRANCES = [
     originalPrice: 4890,
     notes: "Top: Turkish Rose | Heart: Saffron Spice | Base: Oud Wood & Tonka",
     badge: "LIMITED",
-    image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468280/limelight/products/sqn7cqvigma2list3bzw.jpg"
   },
   {
     id: "frag-4",
@@ -216,7 +1116,7 @@ export const FRAGRANCES = [
     originalPrice: 4290,
     notes: "Top: Italian Lemon & Black Pepper | Heart: Cardamom | Base: Vetiver & Cedar",
     badge: "MEN'S CHOICE",
-    image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468281/limelight/products/uszampnoe8xfkxp9xuvf.jpg"
   }
 ];
 
@@ -231,7 +1131,7 @@ export const MEN_PRODUCTS = [
     discount: "15% OFF",
     fabric: "100% Egyptian Giza Cotton Latha (4.5 Meters)",
     color: "Crisp Pure White",
-    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468283/limelight/products/w7cqtiued5q6j4nyvqbz.jpg"
   },
   {
     id: "men-2",
@@ -243,7 +1143,7 @@ export const MEN_PRODUCTS = [
     discount: "15% OFF",
     fabric: "Blended Wash & Wear with Thread Neck Embroidery",
     color: "Midnight Navy",
-    image: "https://images.unsplash.com/photo-1622445268462-337f1688c49c?auto=format&fit=crop&w=800&q=80"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468284/limelight/products/vhaqjbl41jrei38e8trt.jpg"
   },
   {
     id: "men-3",
@@ -253,21 +1153,21 @@ export const MEN_PRODUCTS = [
     price: 4990,
     originalPrice: 5990,
     discount: "16% OFF",
-    fabric: "Structured Wool-Blend Tweed with Metal Buttons",
-    color: "Charcoal Heather",
-    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
+    fabric: "Textured Tropical Wool Blend",
+    color: "Jet Black",
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468286/limelight/products/xzolxo3jhrzerwpy8pd8.jpg"
   },
   {
     id: "men-4",
-    title: "Traditional Men's Woolen Shawl",
+    title: "Pure Woolen Men's Winter Shawl",
     category: "Men",
     subCategory: "Shawls",
-    price: 4290,
-    originalPrice: 4990,
-    discount: "14% OFF",
-    fabric: "Pure Lambswool with Jacquard Border",
-    color: "Warm Camel / Beige",
-    image: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=800&q=80"
+    price: 5490,
+    originalPrice: 6490,
+    discount: "15% OFF",
+    fabric: "Warm Merino Wool with Four-Sided Border",
+    color: "Camel Brown",
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468287/limelight/products/xkqujtuigr8tytyjsifv.jpg"
   }
 ];
 
@@ -280,7 +1180,7 @@ export const ACCESSORIES_PRODUCTS = [
     originalPrice: 4290,
     discount: "14% OFF",
     color: "Jet Black with Gold Hardware",
-    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468289/limelight/products/fbo4kril87mb8ptegyzv.jpg"
   },
   {
     id: "acc-2",
@@ -290,7 +1190,7 @@ export const ACCESSORIES_PRODUCTS = [
     originalPrice: 3490,
     discount: "14% OFF",
     color: "Maroon with Tilla Dabka Work",
-    image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468290/limelight/products/xd0qvb2hf5qz6fqfowut.jpg"
   },
   {
     id: "acc-3",
@@ -300,7 +1200,7 @@ export const ACCESSORIES_PRODUCTS = [
     originalPrice: 2990,
     discount: "17% OFF",
     color: "Gold & Pearl Accents",
-    image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468291/limelight/products/p7hvs9ryjvypgxxxayoz.jpg"
   },
   {
     id: "acc-4",
@@ -310,46 +1210,40 @@ export const ACCESSORIES_PRODUCTS = [
     originalPrice: 2490,
     discount: "20% OFF",
     color: "Multicolor Baroque Floral",
-    image: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=800&q=80"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468293/limelight/products/ux70gcvrtfpryscektcw.jpg"
   }
 ];
 
 export const NEW_ARRIVALS = [
   {
     id: "na-1",
-    title: "Embroidered Velvet Shawl 3 Piece Suit",
+    title: "3 Piece Embroidered Velvet Suit",
     category: "Unstitched",
-    price: 9990,
-    originalPrice: 12990,
-    discount: "23% OFF",
-    badge: "JUST ARRIVED",
-    image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80",
-    fabric: "Premium Micro Velvet with Golden Zari Work",
-    sku: "NA-VLV-301"
+    price: 8990,
+    originalPrice: 11990,
+    discount: "25% OFF",
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468270/limelight/products/fortmr7iconwcdksozs9.jpg",
+    badge: "BESTSELLER"
   },
   {
     id: "na-2",
-    title: "Contemporary Minimalist Co-Ord Set",
+    title: "Solid Everyday Casual Kurta",
     category: "Ready To Wear",
-    price: 5990,
-    originalPrice: 6990,
+    price: 2990,
+    originalPrice: 3490,
     discount: "14% OFF",
-    badge: "TRENDING",
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80",
-    fabric: "Super Fine Slub Twill",
-    sku: "NA-CRD-104"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468273/limelight/products/upuqz5frkmo8iqjp3c9z.jpg",
+    badge: "TRENDING"
   },
   {
     id: "na-3",
-    title: "Festive Raw Silk Jacquard Kurti",
+    title: "Embroidered Jacquard Kurti",
     category: "Ready To Wear",
-    price: 4690,
-    originalPrice: 5490,
-    discount: "15% OFF",
-    badge: "NEW IN",
-    image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80",
-    fabric: "Self Weave Jacquard",
-    sku: "NA-JAC-202"
+    price: 4290,
+    originalPrice: 4990,
+    discount: "14% OFF",
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468274/limelight/products/izkgkkyn9nzjfcqgf6xl.jpg",
+    badge: "NEW"
   },
   {
     id: "na-4",
@@ -358,10 +1252,8 @@ export const NEW_ARRIVALS = [
     price: 3290,
     originalPrice: 3890,
     discount: "15% OFF",
-    badge: "SELLING FAST",
-    image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80",
-    fabric: "Faux Suede with Metal Clasp",
-    sku: "NA-BAG-508"
+    image: "https://res.cloudinary.com/antxd4tm/image/upload/v1795468275/limelight/products/egff9lsbnlq4rxgrc6p4.jpg",
+    badge: "SELLING FAST"
   }
 ];
 

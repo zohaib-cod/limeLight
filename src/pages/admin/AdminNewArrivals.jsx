@@ -40,7 +40,7 @@ const CATEGORY_OPTIONS = [
 const NEW_ARRIVALS_PRESETS = [
   {
     name: 'Embroidered Velvet Shawl',
-    url: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468270/limelight/products/fortmr7iconwcdksozs9.jpg',
     title: 'Embroidered Velvet Shawl 3 Piece Suit',
     category: 'Unstitched',
     badge: 'JUST ARRIVED',
@@ -50,7 +50,7 @@ const NEW_ARRIVALS_PRESETS = [
   },
   {
     name: 'Contemporary Minimalist Co-Ord',
-    url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468273/limelight/products/upuqz5frkmo8iqjp3c9z.jpg',
     title: 'Contemporary Minimalist Co-Ord Set',
     category: 'Ready To Wear',
     badge: 'TRENDING',
@@ -60,7 +60,7 @@ const NEW_ARRIVALS_PRESETS = [
   },
   {
     name: 'Festive Raw Silk Kurti',
-    url: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468274/limelight/products/izkgkkyn9nzjfcqgf6xl.jpg',
     title: 'Festive Raw Silk Jacquard Kurti',
     category: 'Ready To Wear',
     badge: 'NEW IN',
@@ -70,7 +70,7 @@ const NEW_ARRIVALS_PRESETS = [
   },
   {
     name: 'Laser-Cut Festive Clutch',
-    url: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468275/limelight/products/egff9lsbnlq4rxgrc6p4.jpg',
     title: 'Laser-Cut Festive Evening Clutch',
     category: 'Accessories',
     badge: 'SELLING FAST',
@@ -771,7 +771,7 @@ export default function AdminNewArrivals() {
                           type="url"
                           value={formData.image}
                           onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                          placeholder="https://images.unsplash.com/..."
+                          placeholder="https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg"
                           className="w-full pl-[32px] pr-[10px] py-[8px] text-[12px] border border-gray-300 rounded-[5px] focus:outline-none focus:border-[#121212] bg-white"
                         />
                       </div>

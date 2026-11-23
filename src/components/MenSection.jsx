@@ -21,7 +21,7 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
         <div className="mb-[30px] sm:mb-[35px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[12px] sm:gap-[20px]">
           <div className="relative rounded-[6px] overflow-hidden shadow-soft group h-[180px] sm:h-[220px]">
             <img
-              src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"
+              src="https://res.cloudinary.com/antxd4tm/image/upload/v1795468295/limelight/products/sy5ineqez1ogqtp74kcq.jpg"
               alt="Men Unstitched Latha"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -33,7 +33,7 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
 
           <div className="relative rounded-[6px] overflow-hidden shadow-soft group h-[180px] sm:h-[220px]">
             <img
-              src="https://images.unsplash.com/photo-1622445268462-337f1688c49c?auto=format&fit=crop&w=800&q=80"
+              src="https://res.cloudinary.com/antxd4tm/image/upload/v1795468296/limelight/products/k7otptdbtleurr2wkcod.jpg"
               alt="Men Embroidered Kurta"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -45,7 +45,7 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
 
           <div className="relative rounded-[6px] overflow-hidden shadow-soft group h-[180px] sm:h-[220px] sm:col-span-2 md:col-span-1">
             <img
-              src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
+              src="https://res.cloudinary.com/antxd4tm/image/upload/v1795468298/limelight/products/suenozn782y4wzgmgao0.jpg"
               alt="Men Waistcoats and Shawls"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />

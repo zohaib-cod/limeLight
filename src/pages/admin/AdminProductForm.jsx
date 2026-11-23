@@ -25,28 +25,28 @@ import {
 const UNSTITCHED_PRESETS = [
   {
     name: '3 Piece Velvet Emerald',
-    url: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468298/limelight/products/axfyrrkccvmyjign4t42.jpg',
     fabric: 'Velvet & Chiffon',
     pieces: 'Shirt + Trouser + Embroidered Dupatta',
     subCategory: '3 Piece'
   },
   {
     name: '2 Piece Khaddar Gold',
-    url: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468300/limelight/products/x4oq53mx8kumwfileaiy.jpg',
     fabric: 'Warm Khaddar',
     pieces: 'Shirt + Woolen Shawl',
     subCategory: '2 Piece'
   },
   {
     name: '2 Piece Karandi Ruby',
-    url: 'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468301/limelight/products/fklx0iqxpzzaimorxelz.jpg',
     fabric: 'Karandi',
     pieces: 'Shirt + Trouser',
     subCategory: '2 Piece'
   },
   {
     name: '1 Piece Cambric Blue',
-    url: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468303/limelight/products/ujwmwg4ztgddff0lwphh.jpg',
     fabric: 'Cambric Cotton',
     pieces: 'Unstitched Shirt Piece 3m',
     subCategory: '1 Piece'
@@ -56,7 +56,7 @@ const UNSTITCHED_PRESETS = [
 const RTW_PRESETS = [
   {
     name: '2 Piece Co-Ord Yellow',
-    url: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468255/limelight/products/pazcw526oimgstxjuzg1.jpg',
     fabric: 'Linen Viscose Blend',
     fit: 'Relaxed Boxy Fit',
     subCategory: 'Co-Ords',
@@ -64,7 +64,7 @@ const RTW_PRESETS = [
   },
   {
     name: 'Jacquard Kurti Blue',
-    url: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468257/limelight/products/hyvpl2oiqlhzbdf8chlr.jpg',
     fabric: 'Woven Jacquard',
     fit: 'Straight Cut with Slits',
     subCategory: 'Pret Kurti',
@@ -72,7 +72,7 @@ const RTW_PRESETS = [
   },
   {
     name: 'Everyday Kurta Sage',
-    url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468258/limelight/products/agzsuxbzcfs57trleuuu.jpg',
     fabric: 'Slub Cotton',
     fit: 'A-Line Flare',
     subCategory: 'Pret Kurti',
@@ -80,7 +80,7 @@ const RTW_PRESETS = [
   },
   {
     name: 'Festive Silk Ensemble',
-    url: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80',
+    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468260/limelight/products/az9p9noooavhiazyvnbw.jpg',
     fabric: 'Raw Silk & Organza',
     fit: 'Royal Anarkali Cut',
     subCategory: '3 Piece Pret',
@@ -714,7 +714,7 @@ export default function AdminProductForm() {
                     type="url"
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    placeholder="https://images.unsplash.com/..."
+                    placeholder="https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg"
                     className="w-full pl-[36px] pr-[12px] py-[9px] text-[13px] border border-gray-300 rounded-[6px] focus:outline-none focus:border-[#121212]"
                   />
                 </div>

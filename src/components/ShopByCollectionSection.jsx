@@ -60,7 +60,7 @@ export default function ShopByCollectionSection({ onSelectCollection }) {
                   loading="lazy"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = COLLECTIONS_DATA[idx % COLLECTIONS_DATA.length]?.image || 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=80';
+                    e.target.src = COLLECTIONS_DATA[idx % COLLECTIONS_DATA.length]?.image || 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468265/limelight/products/pqcakr8lqfcwiep69tpi.jpg';
                   }}
                 />
               </div>
