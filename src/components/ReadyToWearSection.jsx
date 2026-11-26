@@ -27,7 +27,8 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
     imageUrl: ASSETS.coordsBanner,
     isActive: true
   });
-  const [products, setProducts] = useState(RTW_PRODUCTS);
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
   useEffect(() => {
     // Fetch RTW Pret Banner
@@ -42,11 +43,18 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
       .then(data => { if (data) setCoordsBanner(data); })
       .catch(e => console.warn('Using default RTW Coords banner:', e));
 
-    // Fetch dynamic RTW products
+    // Fetch dynamic RTW products (even if empty [])
     fetch('/api/products?category=Ready%20To%20Wear')
-      .then(res => res.ok ? res.json() : null)
-      .then(data => { if (Array.isArray(data) && data.length > 0) setProducts(data); })
-      .catch(e => console.warn('Using default RTW products:', e));
+      .then(res => {
+        if (res.ok) return res.json();
+        throw new Error('RTW fetch failed');
+      })
+      .then(data => { setProducts(Array.isArray(data) ? data : []); })
+      .catch(e => {
+        console.warn('Using default RTW products:', e);
+        setProducts(RTW_PRODUCTS);
+      })
+      .finally(() => setLoadingProducts(false));
   }, []);
 
   const handleSelectSize = (productId, size) => {
@@ -165,14 +173,26 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
         </div>
 
         {/* RTW Product Grid */}
+        {loadingProducts ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[8px] xs:gap-[12px] sm:gap-[24px]">
+            {[1, 2, 3, 4].map((n) => (
+              <div key={n} className="aspect-[3/4] rounded-[6px] bg-gray-100 dark:bg-[#1f1f1f] animate-pulse" />
+            ))}
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-[40px] text-[#121212bf] dark:text-gray-400 border border-dashed border-[#1212121a] dark:border-white/10 rounded-[6px]">
+            <p className="text-[14px]">No Ready To Wear products currently published.</p>
+          </div>
+        ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[8px] xs:gap-[12px] sm:gap-[24px]">
           {products.map((product) => {
-            const isWishlisted = wishlist.includes(product.id);
-            const chosenSize = selectedSizes[product.id] || product.sizes?.[0];
+            const pid = product.id || product._id;
+            const isWishlisted = wishlist.includes(pid);
+            const chosenSize = selectedSizes[pid] || product.sizes?.[0];
 
             return (
               <div
-                key={product.id}
+                key={pid}
                 className="group flex flex-col bg-white dark:bg-[#181818] border border-[#1212121a] dark:border-white/10 rounded-[6px] overflow-hidden shadow-soft hover:shadow-modal transition-all duration-300"
               >
                 {/* Image & Quick Action */}
@@ -193,7 +213,7 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
 
                   {/* Wishlist Button */}
                   <button
-                    onClick={() => onToggleWishlist(product.id)}
+                    onClick={() => onToggleWishlist(pid)}
                     className="absolute top-[8px] sm:top-[10px] right-[8px] sm:right-[10px] w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] bg-white/90 dark:bg-[#1a1a1a]/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[#121212] dark:text-white hover:text-[#cf0c1d] hover:bg-white dark:hover:bg-[#252525] shadow-sm transition-colors cursor-pointer"
                     aria-label="Wishlist"
                   >
@@ -206,14 +226,14 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
                   {/* Quick View Button */}
                   <div className="absolute inset-x-0 bottom-0 p-[8px] sm:p-[10px] bg-gradient-to-t from-black/60 to-transparent flex gap-[6px] sm:gap-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <button
-                      onClick={() => onQuickView({ ...product, selectedSize: chosenSize })}
+                      onClick={() => onQuickView({ ...product, id: pid, selectedSize: chosenSize })}
                       className="flex-1 bg-white dark:bg-[#252525] text-[#121212] dark:text-white text-[12px] sm:text-[13px] py-[6px] sm:py-[8px] font-medium flex items-center justify-center gap-[4px] hover:bg-[#f3f3f3] dark:hover:bg-[#333] transition-colors rounded-[3px] cursor-pointer"
                     >
                       <Eye size={14} />
                       <span className="hidden xs:inline">Quick View</span>
                     </button>
                     <button
-                      onClick={() => onAddToCart({ ...product, selectedSize: chosenSize })}
+                      onClick={() => onAddToCart({ ...product, id: pid, selectedSize: chosenSize })}
                       className="bg-[#121212] dark:bg-white text-white dark:text-black p-[6px] sm:p-[8px] hover:bg-[#333333] dark:hover:bg-gray-200 transition-colors rounded-[3px] cursor-pointer shrink-0"
                       title="Add to Bag"
                     >
@@ -239,7 +259,7 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
                         {product.sizes.map((s) => (
                           <button
                             key={s}
-                            onClick={() => handleSelectSize(product.id, s)}
+                            onClick={() => handleSelectSize(pid, s)}
                             className={`min-w-[24px] sm:min-w-[26px] h-[20px] sm:h-[22px] px-[4px] text-[10px] sm:text-[11px] rounded-[3px] border transition-colors cursor-pointer ${
                               chosenSize === s
                                 ? 'bg-[#121212] text-white border-[#121212] dark:bg-white dark:text-black dark:border-white'
@@ -256,11 +276,11 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
                   <div className="pt-[6px] sm:pt-[8px] border-t border-[#1212121a] dark:border-white/10 flex items-center justify-between">
                     <div className="flex flex-wrap items-baseline gap-[4px] sm:gap-[8px]">
                       <span className="text-[12px] xs:text-[13px] sm:text-[16px] font-bold text-[#121212] dark:text-white">
-                        Rs. {product.price.toLocaleString()}
+                        Rs. {Number(product.price || 0).toLocaleString()}
                       </span>
                       {product.originalPrice && (
                         <span className="text-[10px] xs:text-[11px] sm:text-[13px] text-[#121212b3] dark:text-gray-400 line-through">
-                          Rs. {product.originalPrice.toLocaleString()}
+                          Rs. {Number(product.originalPrice).toLocaleString()}
                         </span>
                       )}
                     </div>
@@ -270,6 +290,7 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
             );
           })}
         </div>
+        )}
       </div>
     </section>
   );

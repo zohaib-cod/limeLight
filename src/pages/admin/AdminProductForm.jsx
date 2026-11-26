@@ -203,15 +203,16 @@ export default function AdminProductForm() {
   const handleCategorySwitch = (newCat) => {
     if (newCat === formData.category) return;
     const isRTW = newCat === 'Ready To Wear';
+    const isMen = newCat.toLowerCase() === 'men';
     setFormData(prev => ({
       ...prev,
       category: newCat,
-      subCategory: isRTW ? 'Co-Ords' : '3 Piece',
-      fabric: isRTW ? (prev.fabric || 'Linen Viscose Blend') : (prev.fabric || 'Velvet & Chiffon'),
-      pieces: isRTW ? 'Top + Bottom' : 'Shirt + Trouser + Embroidered Dupatta',
-      fit: isRTW ? (prev.fit || 'Relaxed Boxy Fit') : '',
-      sizes: isRTW ? (prev.sizes && prev.sizes.length > 0 ? prev.sizes : ['XS', 'S', 'M', 'L', 'XL']) : [],
-      sku: isRTW ? `RTW-24-${Date.now().toString().slice(-4)}` : `U3P-24-${Date.now().toString().slice(-4)}`
+      subCategory: isRTW ? 'Co-Ords' : (isMen ? 'Kurta' : '3 Piece'),
+      fabric: isRTW ? (prev.fabric || 'Linen Viscose Blend') : (isMen ? (prev.fabric || 'Cotton Wash & Wear') : (prev.fabric || 'Velvet & Chiffon')),
+      pieces: isRTW ? 'Top + Bottom' : (isMen ? 'Stitched Kurta' : 'Shirt + Trouser + Embroidered Dupatta'),
+      fit: (isRTW || isMen) ? (prev.fit || 'Standard Fit') : '',
+      sizes: (isRTW || isMen) ? (prev.sizes && prev.sizes.length > 0 ? prev.sizes : ['S', 'M', 'L', 'XL']) : [],
+      sku: `${newCat.slice(0, 3).toUpperCase()}-24-${Date.now().toString().slice(-4)}`
     }));
   };
 
@@ -288,7 +289,7 @@ export default function AdminProductForm() {
       submitData.append('isActive', formData.isActive);
       submitData.append('inStock', formData.inStock);
 
-      if (formData.category === 'Ready To Wear' && formData.sizes) {
+      if (formData.sizes && formData.sizes.length > 0) {
         submitData.append('sizes', JSON.stringify(formData.sizes));
       }
 
@@ -333,6 +334,8 @@ export default function AdminProductForm() {
   }
 
   const isRTW = formData.category === 'Ready To Wear';
+  const isMen = formData.category?.toLowerCase() === 'men';
+  const showSizes = isRTW || isMen || (Array.isArray(formData.sizes) && formData.sizes.length > 0);
 
   return (
     <div className="space-y-[28px] font-assistant">
@@ -526,23 +529,23 @@ export default function AdminProductForm() {
             <label className="block text-[13px] font-bold text-gray-700">
               Select Target Collection / Section *
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-[12px]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-[12px]">
               <button
                 type="button"
                 onClick={() => handleCategorySwitch('Unstitched')}
                 className={`p-[14px] rounded-[6px] border-2 text-left transition-all flex items-start gap-[12px] cursor-pointer ${
-                  !isRTW
+                  formData.category === 'Unstitched'
                     ? 'border-[#121212] bg-gray-50/70 shadow-xs'
                     : 'border-gray-200 hover:border-gray-300 bg-white'
                 }`}
               >
-                <div className={`p-[8px] rounded-[6px] ${!isRTW ? 'bg-[#121212] text-white' : 'bg-gray-100 text-gray-600'}`}>
+                <div className={`p-[8px] rounded-[6px] ${formData.category === 'Unstitched' ? 'bg-[#121212] text-white' : 'bg-gray-100 text-gray-600'}`}>
                   <Scissors size={20} />
                 </div>
                 <div>
                   <div className="flex items-center gap-[6px]">
                     <span className="text-[14px] font-bold text-[#121212]">Unstitched Fabrics</span>
-                    {!isRTW && <Check size={16} className="text-[#23ac95]" />}
+                    {formData.category === 'Unstitched' && <Check size={16} className="text-[#23ac95]" />}
                   </div>
                   <p className="text-[11px] text-gray-500 mt-[2px]">
                     3-Piece, 2-Piece, Karandi, Khaddar, and Velvet fabric suits
@@ -569,6 +572,29 @@ export default function AdminProductForm() {
                   </div>
                   <p className="text-[11px] text-gray-500 mt-[2px]">
                     Western Co-Ords, Pret Kurtis, stitched casuals, and sizes (XS-XL)
+                  </p>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleCategorySwitch('Men')}
+                className={`p-[14px] rounded-[6px] border-2 text-left transition-all flex items-start gap-[12px] cursor-pointer ${
+                  formData.category.toLowerCase() === 'men'
+                    ? 'border-[#121212] bg-gray-50/70 shadow-xs'
+                    : 'border-gray-200 hover:border-gray-300 bg-white'
+                }`}
+              >
+                <div className={`p-[8px] rounded-[6px] ${formData.category.toLowerCase() === 'men' ? 'bg-[#121212] text-white' : 'bg-gray-100 text-gray-600'}`}>
+                  <Tag size={20} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-[6px]">
+                    <span className="text-[14px] font-bold text-[#121212]">Men Collection</span>
+                    {formData.category.toLowerCase() === 'men' && <Check size={16} className="text-[#23ac95]" />}
+                  </div>
+                  <p className="text-[11px] text-gray-500 mt-[2px]">
+                    Men Unstitched Latha, Embroidered Kurtas, Waistcoats & Shawls
                   </p>
                 </div>
               </button>
@@ -859,8 +885,8 @@ export default function AdminProductForm() {
               )}
             </div>
 
-            {/* Sizing Chips for Ready To Wear */}
-            {isRTW && (
+            {/* Sizing Chips for Ready To Wear / Men */}
+            {showSizes && (
               <div className="bg-purple-50/60 border border-purple-200/80 rounded-[6px] p-[14px] space-y-[8px]">
                 <div className="flex items-center justify-between">
                   <label className="text-[12px] font-bold text-purple-950 uppercase tracking-wider flex items-center gap-[6px]">

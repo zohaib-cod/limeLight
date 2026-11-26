@@ -3,20 +3,28 @@ import { ArrowUpRight } from 'lucide-react';
 import { COLLECTIONS_DATA } from '../data/products';
 
 export default function ShopByCollectionSection({ onSelectCollection }) {
-  const [collections, setCollections] = useState(COLLECTIONS_DATA);
+  const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('/api/collections')
-      .then(res => res.ok ? res.json() : null)
+      .then(res => {
+        if (res.ok) return res.json();
+        throw new Error('Collections fetch failed');
+      })
       .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          setCollections(data);
-        }
+        setCollections(Array.isArray(data) ? data : []);
       })
       .catch(err => {
         console.warn('Using default curated collections:', err);
-      });
+        setCollections(COLLECTIONS_DATA);
+      })
+      .finally(() => setLoading(false));
   }, []);
+
+  if (!loading && collections.length === 0) {
+    return null;
+  }
 
   return (
     <section className="shopify-section section py-[50px] bg-transparent border-t border-[#1212121a] dark:border-white/10" id="collections">

@@ -1,8 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Eye, ShoppingBag, Heart } from 'lucide-react';
 import { MEN_PRODUCTS } from '../data/products';
 
 export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist, wishlist }) {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/products?category=Men')
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error('Failed to load Men products');
+      })
+      .then((data) => {
+        setProducts(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.warn('Using fallback Men products:', err);
+        setProducts(MEN_PRODUCTS);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  // Hide section if there are no active Men products in database
+  if (loading || !products || products.length === 0) {
+    return null;
+  }
+
   return (
     <section className="shopify-section section py-[50px] bg-transparent border-t border-[#1212121a] dark:border-white/10" id="men">
       <div className="max-w-[1600px] mx-auto px-[15px] sm:px-[30px]">
@@ -17,52 +43,14 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
           <div className="w-[50px] h-[2px] bg-[#121212] dark:bg-white/40 mx-auto mt-[10px]" />
         </div>
 
-        {/* Feature Split Banner for Men */}
-        <div className="mb-[30px] sm:mb-[35px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[12px] sm:gap-[20px]">
-          <div className="relative rounded-[6px] overflow-hidden shadow-soft group h-[180px] sm:h-[220px]">
-            <img
-              src="https://res.cloudinary.com/antxd4tm/image/upload/v1795468295/limelight/products/sy5ineqez1ogqtp74kcq.jpg"
-              alt="Men Unstitched Latha"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-[14px] sm:p-[20px] text-white">
-              <span className="text-[9.5px] sm:text-[11px] uppercase tracking-wider text-white/80">PURE EGYPTIAN COTTON</span>
-              <h4 className="text-[15px] sm:text-[18px] font-bold">UNSTITCHED LATHA</h4>
-            </div>
-          </div>
-
-          <div className="relative rounded-[6px] overflow-hidden shadow-soft group h-[180px] sm:h-[220px]">
-            <img
-              src="https://res.cloudinary.com/antxd4tm/image/upload/v1795468296/limelight/products/k7otptdbtleurr2wkcod.jpg"
-              alt="Men Embroidered Kurta"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-[14px] sm:p-[20px] text-white">
-              <span className="text-[9.5px] sm:text-[11px] uppercase tracking-wider text-white/80">STITCHED KURTA PAJAMA</span>
-              <h4 className="text-[15px] sm:text-[18px] font-bold">EMBROIDERED KURTAS</h4>
-            </div>
-          </div>
-
-          <div className="relative rounded-[6px] overflow-hidden shadow-soft group h-[180px] sm:h-[220px] sm:col-span-2 md:col-span-1">
-            <img
-              src="https://res.cloudinary.com/antxd4tm/image/upload/v1795468298/limelight/products/suenozn782y4wzgmgao0.jpg"
-              alt="Men Waistcoats and Shawls"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-[14px] sm:p-[20px] text-white">
-              <span className="text-[9.5px] sm:text-[11px] uppercase tracking-wider text-white/80">WARM ACCESSORIES</span>
-              <h4 className="text-[15px] sm:text-[18px] font-bold">WAISTCOATS & SHAWLS</h4>
-            </div>
-          </div>
-        </div>
-
-        {/* Product Cards Grid */}
+        {/* Product Cards Grid (Dynamic from MongoDB) */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-[8px] xs:gap-[12px] sm:gap-[20px]">
-          {MEN_PRODUCTS.map((product) => {
-            const isWishlisted = wishlist.includes(product.id);
+          {products.map((product) => {
+            const pid = product.id || product._id;
+            const isWishlisted = wishlist.includes(pid);
             return (
               <div
-                key={product.id}
+                key={pid}
                 className="group flex flex-col bg-white dark:bg-[#181818] border border-[#1212121a] dark:border-white/10 rounded-[6px] overflow-hidden shadow-soft hover:shadow-modal transition-all duration-300"
               >
                 <div className="relative aspect-[3/4] overflow-hidden bg-[#f3f3f3] dark:bg-[#222222]">
@@ -80,7 +68,7 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
                   )}
 
                   <button
-                    onClick={() => onToggleWishlist(product.id)}
+                    onClick={() => onToggleWishlist(pid)}
                     className="absolute top-[8px] sm:top-[10px] right-[8px] sm:right-[10px] w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] bg-white/90 dark:bg-[#1a1a1a]/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[#121212] dark:text-white hover:text-[#cf0c1d] hover:bg-white dark:hover:bg-[#252525] shadow-sm transition-colors cursor-pointer"
                     aria-label="Wishlist"
                   >
@@ -89,14 +77,14 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
 
                   <div className="absolute inset-x-0 bottom-0 p-[8px] sm:p-[10px] bg-gradient-to-t from-black/60 to-transparent flex gap-[6px] sm:gap-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <button
-                      onClick={() => onQuickView(product)}
+                      onClick={() => onQuickView({ ...product, id: pid })}
                       className="flex-1 bg-white dark:bg-[#252525] text-[#121212] dark:text-white text-[12px] sm:text-[13px] py-[6px] sm:py-[8px] font-medium flex items-center justify-center gap-[4px] hover:bg-[#f3f3f3] dark:hover:bg-[#333] transition-colors rounded-[3px] cursor-pointer"
                     >
                       <Eye size={14} />
                       <span className="hidden xs:inline">Quick View</span>
                     </button>
                     <button
-                      onClick={() => onAddToCart(product)}
+                      onClick={() => onAddToCart({ ...product, id: pid })}
                       className="bg-[#121212] dark:bg-white text-white dark:text-black p-[6px] sm:p-[8px] hover:bg-[#333333] dark:hover:bg-gray-200 transition-colors rounded-[3px] cursor-pointer shrink-0"
                       title="Add to Bag"
                     >
@@ -108,7 +96,7 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
                 <div className="p-[8px] xs:p-[10px] sm:p-[14px] flex-1 flex flex-col justify-between">
                   <div>
                     <span className="text-[9.5px] sm:text-[11px] tracking-widest text-[#121212bf] dark:text-gray-400 uppercase block mb-[2px] sm:mb-[3px] truncate">
-                      {product.subCategory} • {product.color}
+                      {product.subCategory}{product.color ? ` • ${product.color}` : ''}
                     </span>
                     <h4 className="text-[12px] xs:text-[13px] sm:text-[14px] font-medium text-[#121212] dark:text-gray-100 line-clamp-1 mb-[4px]">
                       {product.title}
@@ -121,11 +109,11 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
                   <div className="pt-[6px] border-t border-[#1212121a] dark:border-white/10 flex items-center justify-between">
                     <div className="flex flex-wrap items-baseline gap-[4px] sm:gap-[6px]">
                       <span className="text-[12px] xs:text-[13px] sm:text-[15px] font-bold text-[#121212] dark:text-white">
-                        Rs. {product.price.toLocaleString()}
+                        Rs. {Number(product.price || 0).toLocaleString()}
                       </span>
                       {product.originalPrice && (
                         <span className="text-[10px] xs:text-[11px] sm:text-[12px] text-[#121212b3] dark:text-gray-400 line-through">
-                          Rs. {product.originalPrice.toLocaleString()}
+                          Rs. {Number(product.originalPrice).toLocaleString()}
                         </span>
                       )}
                     </div>
@@ -139,4 +127,3 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
     </section>
   );
 }
-

@@ -11,6 +11,7 @@ import {
 
 export default function SearchModal({ isOpen, onClose, onQuickView, onAddToCart }) {
   const [searchTerm, setSearchTerm] = useState('');
+  const [liveCatalog, setLiveCatalog] = useState([]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -20,16 +21,42 @@ export default function SearchModal({ isOpen, onClose, onQuickView, onAddToCart 
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    Promise.all([
+      fetch('/api/products').then(r => (r.ok ? r.json() : null)),
+      fetch('/api/new-arrivals').then(r => (r.ok ? r.json() : null))
+    ])
+      .then(([prods, na]) => {
+        const merged = [];
+        const seen = new Set();
+        const pushUnique = (item) => {
+          if (!item) return;
+          const key = item.id || item._id || item.title;
+          if (!seen.has(key)) {
+            seen.add(key);
+            merged.push({ ...item, id: item.id || item._id });
+          }
+        };
+        if (Array.isArray(prods)) prods.forEach(pushUnique);
+        if (Array.isArray(na)) na.forEach(pushUnique);
+        setLiveCatalog(merged);
+      })
+      .catch(() => {
+        setLiveCatalog([
+          ...UNSTITCHED_PRODUCTS,
+          ...RTW_PRODUCTS,
+          ...MEN_PRODUCTS,
+          ...ACCESSORIES_PRODUCTS,
+          ...FRAGRANCES.map(f => ({ ...f, title: f.name, category: "Fragrances" })),
+          ...NEW_ARRIVALS
+        ]);
+      });
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
-  const allCatalog = [
-    ...UNSTITCHED_PRODUCTS,
-    ...RTW_PRODUCTS,
-    ...MEN_PRODUCTS,
-    ...ACCESSORIES_PRODUCTS,
-    ...FRAGRANCES.map(f => ({ ...f, title: f.name, category: "Fragrances" })),
-    ...NEW_ARRIVALS
-  ];
+  const allCatalog = liveCatalog;
 
   const results = searchTerm.trim()
     ? allCatalog.filter((item) =>

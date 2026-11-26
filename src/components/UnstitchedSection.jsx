@@ -27,7 +27,8 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
     imageUrl: ASSETS.unstitchedEmbroidered,
     isActive: true
   });
-  const [products, setProducts] = useState(UNSTITCHED_PRODUCTS);
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
   useEffect(() => {
     // Fetch top banner
@@ -56,19 +57,21 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
         console.warn('Using default wide banner:', err);
       });
 
-    // Fetch dynamic products
+    // Fetch dynamic products directly from API (even if empty [])
     fetch('/api/products?category=Unstitched')
       .then(res => {
         if (res.ok) return res.json();
         throw new Error('Products fetch failed');
       })
       .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          setProducts(data);
-        }
+        setProducts(Array.isArray(data) ? data : []);
       })
       .catch(err => {
         console.warn('Using default unstitched products:', err);
+        setProducts(UNSTITCHED_PRODUCTS);
+      })
+      .finally(() => {
+        setLoadingProducts(false);
       });
   }, []);
 
@@ -140,12 +143,24 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
         </div>
 
         {/* Product Cards Grid */}
+        {loadingProducts ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[8px] xs:gap-[12px] sm:gap-[20px]">
+            {[1, 2, 3, 4].map((n) => (
+              <div key={n} className="aspect-[3/4] rounded-[6px] bg-gray-100 dark:bg-[#1f1f1f] animate-pulse" />
+            ))}
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-[40px] text-[#121212bf] dark:text-gray-400 border border-dashed border-[#1212121a] dark:border-white/10 rounded-[6px]">
+            <p className="text-[14px]">No unstitched products currently published.</p>
+          </div>
+        ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[8px] xs:gap-[12px] sm:gap-[20px]">
           {products.map((product) => {
-            const isWishlisted = wishlist.includes(product.id);
+            const pid = product.id || product._id;
+            const isWishlisted = wishlist.includes(pid);
             return (
               <div
-                key={product.id}
+                key={pid}
                 className="group flex flex-col bg-white dark:bg-[#181818] border border-[#1212121a] dark:border-white/10 rounded-[6px] overflow-hidden shadow-soft hover:shadow-modal transition-all duration-300"
               >
                 {/* Image Container */}
@@ -166,7 +181,7 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
 
                   {/* Wishlist Button */}
                   <button
-                    onClick={() => onToggleWishlist(product.id)}
+                    onClick={() => onToggleWishlist(pid)}
                     className="absolute top-[8px] sm:top-[10px] right-[8px] sm:right-[10px] w-[30px] sm:w-[34px] h-[30px] sm:h-[34px] bg-white/90 dark:bg-[#1a1a1a]/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[#121212] dark:text-white hover:text-[#cf0c1d] hover:bg-white dark:hover:bg-[#252525] shadow-sm transition-colors cursor-pointer"
                     aria-label="Wishlist"
                   >
@@ -179,14 +194,14 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
                   {/* Quick View & Add to Cart Overlay on Hover */}
                   <div className="absolute inset-x-0 bottom-0 p-[8px] sm:p-[10px] bg-gradient-to-t from-black/60 to-transparent flex gap-[6px] sm:gap-[8px] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <button
-                      onClick={() => onQuickView(product)}
+                      onClick={() => onQuickView({ ...product, id: pid })}
                       className="flex-1 bg-white dark:bg-[#252525] text-[#121212] dark:text-white text-[12px] sm:text-[13px] py-[6px] sm:py-[8px] font-medium flex items-center justify-center gap-[4px] hover:bg-[#f3f3f3] dark:hover:bg-[#333] transition-colors rounded-[3px] cursor-pointer"
                     >
                       <Eye size={14} />
                       <span className="hidden xs:inline">Quick View</span>
                     </button>
                     <button
-                      onClick={() => onAddToCart(product)}
+                      onClick={() => onAddToCart({ ...product, id: pid })}
                       className="bg-[#121212] dark:bg-white text-white dark:text-black p-[6px] sm:p-[8px] hover:bg-[#333333] dark:hover:bg-gray-200 transition-colors rounded-[3px] cursor-pointer shrink-0"
                       title="Add to Cart"
                     >
@@ -209,11 +224,11 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
                   <div className="pt-[6px] border-t border-[#1212121a] dark:border-white/10 flex items-center justify-between">
                     <div className="flex flex-wrap items-baseline gap-[4px] sm:gap-[6px]">
                       <span className="text-[12px] xs:text-[13px] sm:text-[15px] font-bold text-[#121212] dark:text-white">
-                        Rs. {product.price.toLocaleString()}
+                        Rs. {Number(product.price || 0).toLocaleString()}
                       </span>
                       {product.originalPrice && (
                         <span className="text-[10px] xs:text-[11px] sm:text-[12px] text-[#121212b3] dark:text-gray-400 line-through">
-                          Rs. {product.originalPrice.toLocaleString()}
+                          Rs. {Number(product.originalPrice).toLocaleString()}
                         </span>
                       )}
                     </div>
@@ -223,6 +238,7 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
             );
           })}
         </div>
+        )}
 
         {/* Mid-section Wide Image Highlight (Dynamic via Backend API) */}
         {wideBanner.isActive !== false && (

@@ -41,7 +41,7 @@ export default function CategoryPage() {
 
   // Store Modals & User state
   const [cartItems, setCartItems] = useState([]);
-  const [wishlist, setWishlist] = useState(["rtw-1"]);
+  const [wishlist, setWishlist] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
@@ -70,7 +70,7 @@ export default function CategoryPage() {
         setLoading(true);
         const [navRes, prodRes] = await Promise.all([
           fetch('/api/navigation?all=true'),
-          fetch('/api/products?all=true')
+          fetch('/api/products')
         ]);
 
         let loadedRoutes = [];
@@ -83,10 +83,8 @@ export default function CategoryPage() {
 
         if (prodRes.ok) {
           loadedProducts = await prodRes.json();
-        }
-
-        // Combine fallback data if products list is minimal
-        if (!loadedProducts || loadedProducts.length === 0) {
+        } else {
+          // Only fallback if backend API is unavailable
           loadedProducts = [
             ...UNSTITCHED_PRODUCTS,
             ...READY_TO_WEAR_PRODUCTS,
@@ -94,7 +92,7 @@ export default function CategoryPage() {
           ];
         }
 
-        setAllProducts(loadedProducts);
+        setAllProducts(Array.isArray(loadedProducts) ? loadedProducts : []);
 
         // Find matching route by slug or name
         const cleanSlug = (slug || '').toLowerCase().trim();

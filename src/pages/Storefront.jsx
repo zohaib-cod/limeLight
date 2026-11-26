@@ -16,7 +16,7 @@ import UserAuthModal from '../components/UserAuthModal';
 
 export default function Storefront() {
   const [cartItems, setCartItems] = useState([]);
-  const [wishlist, setWishlist] = useState(["rtw-1"]);
+  const [wishlist, setWishlist] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);

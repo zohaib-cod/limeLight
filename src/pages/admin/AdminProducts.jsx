@@ -20,7 +20,7 @@ import {
   Scissors
 } from 'lucide-react';
 
-const CATEGORIES = ['All', 'Unstitched', 'Ready To Wear'];
+const DEFAULT_CATEGORIES = ['All', 'Unstitched', 'Ready To Wear', 'Men'];
 
 export default function AdminProducts() {
   const navigate = useNavigate();
@@ -31,6 +31,19 @@ export default function AdminProducts() {
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [feedback, setFeedback] = useState(null);
+
+  const categories = React.useMemo(() => {
+    const set = new Set(DEFAULT_CATEGORIES);
+    products.forEach(p => {
+      if (p.category && p.category.trim()) {
+        const matchedExisting = Array.from(set).find(
+          c => c.toLowerCase() === p.category.trim().toLowerCase()
+        );
+        if (!matchedExisting) set.add(p.category.trim());
+      }
+    });
+    return Array.from(set);
+  }, [products]);
 
   const loadProducts = async () => {
     try {
@@ -68,6 +81,9 @@ export default function AdminProducts() {
           p.fabric?.toLowerCase().includes(q) ||
           p.sku?.toLowerCase().includes(q) ||
           p.subCategory?.toLowerCase().includes(q) ||
+          p.category?.toLowerCase().includes(q) ||
+          p.color?.toLowerCase().includes(q) ||
+          p.id?.toLowerCase().includes(q) ||
           p.fit?.toLowerCase().includes(q)
       );
     }
@@ -243,13 +259,11 @@ export default function AdminProducts() {
       <div className="bg-white p-[18px] rounded-[8px] border border-gray-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-[16px]">
         {/* Category Pills */}
         <div className="flex items-center gap-[8px] w-full sm:w-auto overflow-x-auto pb-[4px] sm:pb-0">
-          {CATEGORIES.map((cat) => {
+          {categories.map((cat) => {
             const count =
               cat === 'All'
                 ? products.length
-                : cat === 'Unstitched'
-                ? unstitchedCount
-                : rtwCount;
+                : products.filter(p => p.category?.toLowerCase() === cat.toLowerCase()).length;
             return (
               <button
                 key={cat}
