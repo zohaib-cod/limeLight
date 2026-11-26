@@ -224,8 +224,7 @@ export default function AdminSliders() {
                     alt={slide.title}
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg';
+                      e.target.style.display = 'none';
                     }}
                   />
                   {slide.isActive === false && (

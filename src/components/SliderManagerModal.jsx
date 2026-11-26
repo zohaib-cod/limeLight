@@ -23,14 +23,14 @@ export default function SliderManagerModal({
 
   // Form state
   const [formData, setFormData] = useState({
-    badge: 'WINTER VOLUME 2026',
-    scriptText: 'Signature',
-    title: 'UNSTITCHED & READY TO WEAR',
-    subtitle: 'Discover rich textures, intricate embroideries, and statement silhouettes tailored for the contemporary winter wardrobe.',
-    primaryBtnText: 'SHOP UNSTITCHED',
-    primaryBtnLink: '#unstitched',
-    secondaryBtnText: 'VIEW READY TO WEAR',
-    secondaryBtnLink: '#ready-to-wear',
+    badge: '',
+    scriptText: '',
+    title: '',
+    subtitle: '',
+    primaryBtnText: '',
+    primaryBtnLink: '',
+    secondaryBtnText: '',
+    secondaryBtnLink: '',
     imageUrl: '',
     isActive: true
   });
@@ -39,14 +39,14 @@ export default function SliderManagerModal({
 
   const resetForm = () => {
     setFormData({
-      badge: 'WINTER VOLUME 2026',
-      scriptText: 'Signature',
-      title: 'UNSTITCHED & READY TO WEAR',
-      subtitle: 'Discover rich textures, intricate embroideries, and statement silhouettes tailored for the contemporary winter wardrobe.',
-      primaryBtnText: 'SHOP UNSTITCHED',
-      primaryBtnLink: '#unstitched',
-      secondaryBtnText: 'VIEW READY TO WEAR',
-      secondaryBtnLink: '#ready-to-wear',
+      badge: '',
+      scriptText: '',
+      title: '',
+      subtitle: '',
+      primaryBtnText: '',
+      primaryBtnLink: '',
+      secondaryBtnText: '',
+      secondaryBtnLink: '',
       imageUrl: '',
       isActive: true
     });
@@ -67,13 +67,13 @@ export default function SliderManagerModal({
     setIsAddingNew(true);
     setFormData({
       badge: slide.badge || '',
-      scriptText: slide.scriptText || 'Signature',
+      scriptText: slide.scriptText || '',
       title: slide.title || '',
       subtitle: slide.subtitle || '',
-      primaryBtnText: slide.primaryBtnText || 'SHOP NOW',
-      primaryBtnLink: slide.primaryBtnLink || '#unstitched',
-      secondaryBtnText: slide.secondaryBtnText || 'EXPLORE',
-      secondaryBtnLink: slide.secondaryBtnLink || '#ready-to-wear',
+      primaryBtnText: slide.primaryBtnText || '',
+      primaryBtnLink: slide.primaryBtnLink || '',
+      secondaryBtnText: slide.secondaryBtnText || '',
+      secondaryBtnLink: slide.secondaryBtnLink || '',
       imageUrl: slide.imageUrl || '',
       isActive: slide.isActive !== false
     });
@@ -380,8 +380,7 @@ export default function SliderManagerModal({
                         alt="Preview"
                         className="w-full h-full object-cover max-h-[160px]"
                         onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg';
+                          e.target.style.display = 'none';
                         }}
                       />
                       <span className="absolute bottom-[6px] right-[6px] bg-black/70 text-white text-[10px] px-[6px] py-[2px] rounded">
@@ -592,8 +591,7 @@ export default function SliderManagerModal({
                         alt={slide.title}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg';
+                          e.target.style.display = 'none';
                         }}
                       />
                     </div>

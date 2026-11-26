@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, X, ShoppingBag, Eye, ArrowRight } from 'lucide-react';
-import {
-  UNSTITCHED_PRODUCTS,
-  RTW_PRODUCTS,
-  MEN_PRODUCTS,
-  ACCESSORIES_PRODUCTS,
-  FRAGRANCES,
-  NEW_ARRIVALS
-} from '../data/products';
+import { Search, X, ShoppingBag, Eye } from 'lucide-react';
 
 export default function SearchModal({ isOpen, onClose, onQuickView, onAddToCart }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,8 +16,8 @@ export default function SearchModal({ isOpen, onClose, onQuickView, onAddToCart 
   useEffect(() => {
     if (!isOpen) return;
     Promise.all([
-      fetch('/api/products').then(r => (r.ok ? r.json() : null)),
-      fetch('/api/new-arrivals').then(r => (r.ok ? r.json() : null))
+      fetch('/api/products').then(r => (r.ok ? r.json() : [])),
+      fetch('/api/new-arrivals').then(r => (r.ok ? r.json() : []))
     ])
       .then(([prods, na]) => {
         const merged = [];
@@ -43,14 +35,7 @@ export default function SearchModal({ isOpen, onClose, onQuickView, onAddToCart 
         setLiveCatalog(merged);
       })
       .catch(() => {
-        setLiveCatalog([
-          ...UNSTITCHED_PRODUCTS,
-          ...RTW_PRODUCTS,
-          ...MEN_PRODUCTS,
-          ...ACCESSORIES_PRODUCTS,
-          ...FRAGRANCES.map(f => ({ ...f, title: f.name, category: "Fragrances" })),
-          ...NEW_ARRIVALS
-        ]);
+        setLiveCatalog([]);
       });
   }, [isOpen]);
 
@@ -62,12 +47,19 @@ export default function SearchModal({ isOpen, onClose, onQuickView, onAddToCart 
     ? allCatalog.filter((item) =>
         item.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.subCategory?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.fabric?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.color?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : [];
 
-  const quickTags = ['Velvet', 'Co-Ord', 'Khaddar', 'Karandi', 'Mist', 'Latha', 'Shawl', 'Pret'];
+  const quickTags = Array.from(
+    new Set(
+      liveCatalog
+        .flatMap(item => [item.category, item.subCategory])
+        .filter(Boolean)
+    )
+  ).slice(0, 8);
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">

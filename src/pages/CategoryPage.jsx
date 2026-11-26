@@ -21,7 +21,6 @@ import CheckoutModal from '../components/CheckoutModal';
 import UserAuthModal from '../components/UserAuthModal';
 import ShoppingAssistantWidget from '../components/ShoppingAssistantWidget';
 import SearchModal from '../components/SearchModal';
-import { UNSTITCHED_PRODUCTS, READY_TO_WEAR_PRODUCTS, MEN_PRODUCTS } from '../data/products';
 
 export default function CategoryPage() {
   const { slug } = useParams();
@@ -84,12 +83,7 @@ export default function CategoryPage() {
         if (prodRes.ok) {
           loadedProducts = await prodRes.json();
         } else {
-          // Only fallback if backend API is unavailable
-          loadedProducts = [
-            ...UNSTITCHED_PRODUCTS,
-            ...READY_TO_WEAR_PRODUCTS,
-            ...MEN_PRODUCTS
-          ];
+          loadedProducts = [];
         }
 
         setAllProducts(Array.isArray(loadedProducts) ? loadedProducts : []);

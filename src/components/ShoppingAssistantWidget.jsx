@@ -16,23 +16,37 @@ import {
 const INITIAL_MESSAGE = {
   id: 'init-1',
   role: 'assistant',
-  content: `Assalam-o-Alaikum! 👗 Welcome to Zimal Collection (www.zimalcollection.com)! I'm your AI Fashion & Personal Shopping Stylist.\n\nMain aapko winter velvet collections, ready to wear kurtis, co-ords, sizing aur store policies mein guide kar sakti hoon. Aaj aap kya dekhna chahte hain?`
+  content: `Assalam-o-Alaikum! I'm your AI Fashion & Personal Shopping Stylist. Tell me what you're looking for from our live store catalog.`
 };
-
-const QUICK_PROMPTS = [
-  '🌟 Winter Velvet suits dikhayein',
-  '👗 Trendy Co-Ord Sets under Rs. 6,000',
-  '🧵 3-Piece unstitched suits for weddings',
-  '📦 Free Shipping & Delivery time kya hai?'
-];
 
 export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([INITIAL_MESSAGE]);
+  const [quickPrompts, setQuickPrompts] = useState([]);
+  const [storeWhatsapp, setStoreWhatsapp] = useState('');
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    Promise.all([
+      fetch('/api/navigation').then(r => (r.ok ? r.json() : [])).catch(() => []),
+      fetch('/api/settings').then(r => (r.ok ? r.json() : null)).catch(() => null)
+    ]).then(([navRoutes, settings]) => {
+      if (Array.isArray(navRoutes) && navRoutes.length > 0) {
+        setQuickPrompts(
+          navRoutes
+            .filter(r => r.isActive !== false && r.name)
+            .slice(0, 4)
+            .map(r => `Show ${r.name} items`)
+        );
+      }
+      if (settings?.whatsappNumber) {
+        setStoreWhatsapp(settings.whatsappNumber);
+      }
+    });
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -93,7 +107,9 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
       const fallbackMessage = {
         id: `bot-${Date.now()}`,
         role: 'assistant',
-        content: `Assalam-o-Alaikum! Zimal Collection helpline par rabta karne ke liye hamara official WhatsApp **+92 345 7867016** hamesha dastiyab hai. Nationwide orders par **Free Delivery over Rs. 2,490** di ja rahi hai. Aap www.zimalcollection.com catalog se koi bhi suit dekh sakte hain!`
+        content: storeWhatsapp
+          ? `Assalam-o-Alaikum! Abhi assistant server reachable nahi hai. Madad ke liye hamare official WhatsApp **${storeWhatsapp}** par rabta karein.`
+          : `Assalam-o-Alaikum! Abhi assistant server reachable nahi hai. Thodi dair baad dubara koshish karein.`
       };
       setMessages(prev => [...prev, fallbackMessage]);
     } finally {
@@ -288,13 +304,13 @@ export default function ShoppingAssistantWidget({ onAddToCart, onQuickView }) {
           </div>
 
           {/* Quick Prompts (shown when only initial message exists or on idle) */}
-          {messages.length <= 3 && !isTyping && (
+          {messages.length <= 3 && !isTyping && quickPrompts.length > 0 && (
             <div className="p-[10px] bg-white dark:bg-[#181818] border-t border-gray-100 dark:border-white/10">
               <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-[6px]">
                 Suggestions:
               </span>
               <div className="flex flex-wrap gap-[6px]">
-                {QUICK_PROMPTS.map((prompt, idx) => (
+                {quickPrompts.map((prompt, idx) => (
                   <button
                     key={idx}
                     type="button"

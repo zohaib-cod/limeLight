@@ -20,8 +20,6 @@ import {
   Scissors
 } from 'lucide-react';
 
-const DEFAULT_CATEGORIES = ['All', 'Unstitched', 'Ready To Wear', 'Men'];
-
 export default function AdminProducts() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -33,7 +31,7 @@ export default function AdminProducts() {
   const [feedback, setFeedback] = useState(null);
 
   const categories = React.useMemo(() => {
-    const set = new Set(DEFAULT_CATEGORIES);
+    const set = new Set(['All']);
     products.forEach(p => {
       if (p.category && p.category.trim()) {
         const matchedExisting = Array.from(set).find(
@@ -341,8 +339,7 @@ export default function AdminProducts() {
                     alt={product.title}
                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg';
+                      e.target.style.display = 'none';
                     }}
                   />
 

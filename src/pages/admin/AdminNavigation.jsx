@@ -76,11 +76,11 @@ export default function AdminNavigation() {
   const [settings, setSettings] = useState({
     logoType: 'text',
     textLogo: {
-      part1: 'ZIMAL ',
-      part2: 'COLLECTION',
+      part1: '',
+      part2: '',
       part1Color: '#23ac95',
       part2Color: '#cec72e',
-      singleText: 'www.zimalcollection.com',
+      singleText: '',
       letterSpacing: '0.22em',
       fontSize: '22px'
     },
@@ -88,10 +88,10 @@ export default function AdminNavigation() {
     subnavBg: '#000000',
     imageLogo: {
       url: '',
-      alt: 'Zimal Collection Official (www.zimalcollection.com)',
+      alt: '',
       height: 34
     },
-    whatsappNumber: '+92 345 7867016'
+    whatsappNumber: ''
   });
   const [savingSettings, setSavingSettings] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
@@ -1239,9 +1239,9 @@ export default function AdminNavigation() {
               </label>
               <input
                 type="text"
-                value={settings.whatsappNumber || '+92 345 7867016'}
+                value={settings.whatsappNumber || ''}
                 onChange={(e) => setSettings(prev => ({ ...prev, whatsappNumber: e.target.value }))}
-                placeholder="+92 345 7867016"
+                placeholder="+92 ..."
                 className="w-full px-[12px] py-[10px] text-[14px] font-bold border border-gray-300 rounded focus:outline-none focus:border-[#121212]"
               />
               <p className="text-[11px] text-gray-500 mt-[4px]">
@@ -1287,27 +1287,29 @@ export default function AdminNavigation() {
                     className="object-contain"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = 'https://placehold.co/180x45/121212/ffffff?text=ZIMAL';
+                      e.target.style.display = 'none';
                     }}
                   />
                 ) : (
                   <div className="flex flex-col items-center leading-none">
                     <div className="tracking-[0.2em] text-[24px] font-extrabold uppercase font-visbyBold">
                       <span style={{ color: settings.textLogo?.part1Color || '#23ac95' }}>
-                        {settings.textLogo?.part1 || 'ZIMAL '}
+                        {settings.textLogo?.part1 || ''}
                       </span>
                       <span style={{ color: settings.textLogo?.part2Color || '#cec72e' }}>
-                        {settings.textLogo?.part2 || 'COLLECTION'}
+                        {settings.textLogo?.part2 || ''}
                       </span>
                     </div>
-                    <span
-                      style={{
-                        color: isColorLight(settings.headerBg) ? 'rgba(18, 18, 18, 0.7)' : 'rgba(255, 255, 255, 0.7)'
-                      }}
-                      className="text-[9.5px] tracking-[0.22em] font-medium mt-[4px] lowercase font-mono"
-                    >
-                      www.zimalcollection.com
-                    </span>
+                    {settings.textLogo?.singleText && (
+                      <span
+                        style={{
+                          color: isColorLight(settings.headerBg) ? 'rgba(18, 18, 18, 0.7)' : 'rgba(255, 255, 255, 0.7)'
+                        }}
+                        className="text-[9.5px] tracking-[0.22em] font-medium mt-[4px] lowercase font-mono"
+                      >
+                        {settings.textLogo.singleText}
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
@@ -1337,7 +1339,7 @@ export default function AdminNavigation() {
               <div className="p-[12px] bg-white/5 rounded-[6px] text-[12px] text-white/80 space-y-[4px]">
                 <div className="flex items-center gap-[6px]">
                   <Phone size={14} className="text-[#25D366]" />
-                  <span>WhatsApp Hotline: <strong>{settings.whatsappNumber || '+92 345 7867016'}</strong></span>
+                  <span>WhatsApp Hotline: <strong>{settings.whatsappNumber || 'Not set'}</strong></span>
                 </div>
                 <p className="text-[11px] text-white/50">
                   Changes save immediately to the backend and reflect on the public customer storefront.

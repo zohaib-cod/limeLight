@@ -33,7 +33,7 @@ export default function Storefront() {
   });
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
-  // Dynamic Homepage Sections State (Order & Enabled)
+  // Dynamic Homepage Sections State (Order & Enabled from API)
   const [sections, setSections] = useState(() => {
     try {
       const saved = localStorage.getItem('limelight_sections');
@@ -44,23 +44,16 @@ export default function Storefront() {
         }
       }
     } catch (e) {
-      // fallback
+      // ignore
     }
-    return [
-      { id: "hero", enabled: true },
-      { id: "unstitched", enabled: true },
-      { id: "rtw", enabled: true },
-      { id: "collections", enabled: true },
-      { id: "men", enabled: true },
-      { id: "new-arrivals", enabled: true }
-    ];
+    return [];
   });
 
   useEffect(() => {
     fetch('/api/sections')
-      .then(res => res.ok ? res.json() : null)
+      .then(res => (res.ok ? res.json() : null))
       .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
+        if (Array.isArray(data)) {
           setSections(data);
           try {
             localStorage.setItem('limelight_sections', JSON.stringify(data));
@@ -282,52 +275,15 @@ export default function Storefront() {
         onOpenAuth={() => setIsAuthOpen(true)}
       />
 
-      {/* Dynamic Sections (Reorderable via Admin Panel) */}
+      {/* Dynamic Sections (Reorderable & Enabled via Admin Panel / API) */}
       <main className="flex-1 w-full">
-        {Array.isArray(sections) && sections.length > 0 ? (
-          sections
-            .filter(s => s && s.enabled !== false)
-            .map(sec => (
-              <React.Fragment key={sec.id}>
-                {renderSection(sec.id)}
-              </React.Fragment>
-            ))
-        ) : (
-          <>
-            <Hero />
-            <UnstitchedSection
-              onQuickView={setQuickViewProduct}
-              onAddToCart={handleAddToCart}
-              onToggleWishlist={handleToggleWishlist}
-              wishlist={wishlist}
-            />
-            <ReadyToWearSection
-              onQuickView={setQuickViewProduct}
-              onAddToCart={handleAddToCart}
-              onToggleWishlist={handleToggleWishlist}
-              wishlist={wishlist}
-            />
-            <ShopByCollectionSection
-              onSelectCollection={(title) => {
-                showToast(`Exploring collection: ${title}`);
-                const el = document.getElementById('new-arrivals');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-            />
-            <MenSection
-              onQuickView={setQuickViewProduct}
-              onAddToCart={handleAddToCart}
-              onToggleWishlist={handleToggleWishlist}
-              wishlist={wishlist}
-            />
-            <NewArrivalsSection
-              onQuickView={setQuickViewProduct}
-              onAddToCart={handleAddToCart}
-              onToggleWishlist={handleToggleWishlist}
-              wishlist={wishlist}
-            />
-          </>
-        )}
+        {Array.isArray(sections) && sections
+          .filter(s => s && s.enabled !== false)
+          .map(sec => (
+            <React.Fragment key={sec.id}>
+              {renderSection(sec.id)}
+            </React.Fragment>
+          ))}
       </main>
 
       {/* Section 8: Footer - "Customer Care" */}

@@ -26,74 +26,50 @@ import {
   Link as LinkIcon
 } from 'lucide-react';
 
-const DEFAULT_FOOTER_CONFIG = {
+const EMPTY_FOOTER_SHAPE = {
   newsletter: {
-    eyebrow: "STAY CONNECTED WITH WWW.ZIMALCOLLECTION.COM",
-    title: "SUBSCRIBE TO OUR NEWSLETTER",
-    description: "Subscribe to be the first to receive updates on new seasonal collections, limited pret drops, and exclusive seasonal promotions.",
-    placeholder: "Enter your email address",
-    buttonText: "SUBSCRIBE",
-    successMessage: "Thank you for subscribing to Zimal Collection updates! Check your inbox for your welcome voucher."
+    eyebrow: "",
+    title: "",
+    description: "",
+    placeholder: "",
+    buttonText: "",
+    successMessage: ""
   },
   customerCare: {
-    title: "CUSTOMER CARE",
-    links: [
-      { label: "Contact Us", url: "#customer-care" },
-      { label: "Shipping & Handling", url: "/category/new-in" },
-      { label: "Exchange & Returns Policy", url: "/category/women" },
-      { label: "Frequently Asked Questions", url: "#customer-care" },
-      { label: "Track Your Order", url: "#track-order" },
-      { label: "Store Locator", url: "#store-locator" }
-    ]
+    title: "",
+    links: []
   },
   information: {
-    title: "INFORMATION",
-    links: [
-      { label: "About Zimal Collection", url: "/category/women" },
-      { label: "Our Craft & Heritage", url: "/category/unstitched" },
-      { label: "Careers & Job Openings", url: "#careers" },
-      { label: "Privacy Policy", url: "#privacy" },
-      { label: "Terms & Conditions", url: "#terms" },
-      { label: "Fabric Care Instructions", url: "#fabric-care" }
-    ]
+    title: "",
+    links: []
   },
   contact: {
-    title: "CONTACT US",
-    uan: "+92 345 7867016",
-    timings: "Monday - Saturday: 9:00 AM - 6:00 PM",
-    whatsapp: "+92 345 7867016",
-    email: "online@zimalcollection.com",
-    address: "Zimal Collection Flagship Store, Pakistan"
+    title: "",
+    uan: "",
+    timings: "",
+    whatsapp: "",
+    email: "",
+    address: ""
   },
   connect: {
-    title: "CONNECT & PAYMENTS",
-    description: "Follow our official social accounts for style inspirations and daily looks:",
+    title: "",
+    description: "",
     socialLinks: {
-      instagram: "https://instagram.com/zimalcollection",
-      facebook: "https://facebook.com/zimalcollection",
-      youtube: "https://youtube.com/@zimalcollection"
+      instagram: "",
+      facebook: "",
+      youtube: ""
     },
-    paymentMethods: [
-      "VISA",
-      "Mastercard",
-      "PayPak",
-      "UnionPay",
-      "COD (Cash on Delivery)"
-    ]
+    paymentMethods: []
   },
   bottomBar: {
-    copyright: "© 2026 www.zimalcollection.com. All rights reserved. Registered Trademark.",
-    links: [
-      { label: "Privacy Policy", url: "#privacy" },
-      { label: "Terms of Service", url: "#terms" },
-      { label: "Sitemap", url: "#sitemap" }
-    ]
+    copyright: "",
+    links: []
   }
 };
 
 export default function AdminFooter() {
   const [activeTab, setActiveTab] = useState('newsletter'); // 'newsletter' | 'contact' | 'links'
-  const [footer, setFooter] = useState(DEFAULT_FOOTER_CONFIG);
+  const [footer, setFooter] = useState(EMPTY_FOOTER_SHAPE);
   const [subscribers, setSubscribers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -174,7 +150,7 @@ export default function AdminFooter() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to reset footer');
 
-      setFooter(data.footer || DEFAULT_FOOTER_CONFIG);
+      setFooter(data.footer || EMPTY_FOOTER_SHAPE);
       localStorage.setItem('limelight_footer', JSON.stringify(data.footer));
       window.dispatchEvent(new CustomEvent('limelight_footer_change', { detail: data.footer }));
 
@@ -717,7 +693,7 @@ export default function AdminFooter() {
                     ...prev,
                     contact: { ...prev.contact, email: e.target.value }
                   }))}
-                  placeholder="online@limelight.pk"
+                  placeholder="online@zimalcollection.com"
                   className="w-full px-[12px] py-[9px] text-[13px] border border-gray-300 rounded focus:outline-none focus:border-[#121212]"
                 />
               </div>
@@ -734,7 +710,7 @@ export default function AdminFooter() {
                     ...prev,
                     contact: { ...prev.contact, address: e.target.value }
                   }))}
-                  placeholder="Limelight Head Office, Lahore, Pakistan"
+                  placeholder="Zimal Collection Flagship Store, Pakistan"
                   className="w-full px-[12px] py-[9px] text-[13px] border border-gray-300 rounded focus:outline-none focus:border-[#121212]"
                 />
               </div>

@@ -1,93 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, ShoppingBag, Heart } from 'lucide-react';
-import { ASSETS, UNSTITCHED_PRODUCTS } from '../data/products';
 
 export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWishlist, wishlist }) {
-  const [banner, setBanner] = useState({
-    id: "unstitched",
-    badge: "LUXURY WINTER EDIT",
-    watermark: "UNSTITCHED",
-    title: "UNSTITCHED FABRICS",
-    subtitle: "Tailor your distinctive look with our finest unstitched velvets, warm karandi, and embroidered khaddar fabrics.",
-    scriptText: "Style it your way.",
-    buttonText: "EXPLORE DESIGNS",
-    buttonLink: "#unstitched-grid",
-    imageUrl: ASSETS.unstitchedMain,
-    isActive: true
-  });
-  const [wideBanner, setWideBanner] = useState({
-    id: "unstitched-wide",
-    badge: "EMBROIDERED EMBELLISHMENTS",
-    watermark: "UNSTITCHED EMBROIDERED",
-    title: "SIGNATURE WINTER SHAWLS & SUITS",
-    buttonText: "VIEW FULL COLLECTION",
-    buttonLink: "#unstitched",
-    secondaryBtnText: "SHOP NOW",
-    secondaryBtnLink: "#unstitched",
-    imageUrl: ASSETS.unstitchedEmbroidered,
-    isActive: true
-  });
+  const [banner, setBanner] = useState(null);
+  const [wideBanner, setWideBanner] = useState(null);
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
   useEffect(() => {
-    // Fetch top banner
     fetch('/api/banners/unstitched')
-      .then(res => {
-        if (res.ok) return res.json();
-        throw new Error('Banner not found');
-      })
+      .then(res => (res.ok ? res.json() : null))
       .then(data => {
-        if (data) setBanner(data);
+        if (data && typeof data === 'object') setBanner(data);
       })
       .catch(err => {
-        console.warn('Using default unstitched banner:', err);
+        console.warn('Could not load unstitched banner:', err);
       });
 
-    // Fetch wide embroidered banner
     fetch('/api/banners/unstitched-wide')
-      .then(res => {
-        if (res.ok) return res.json();
-        throw new Error('Wide banner not found');
-      })
+      .then(res => (res.ok ? res.json() : null))
       .then(data => {
-        if (data) setWideBanner(data);
+        if (data && typeof data === 'object') setWideBanner(data);
       })
       .catch(err => {
-        console.warn('Using default wide banner:', err);
+        console.warn('Could not load wide banner:', err);
       });
 
-    // Fetch dynamic products directly from API (even if empty [])
     fetch('/api/products?category=Unstitched')
-      .then(res => {
-        if (res.ok) return res.json();
-        throw new Error('Products fetch failed');
-      })
+      .then(res => (res.ok ? res.json() : []))
       .then(data => {
         setProducts(Array.isArray(data) ? data : []);
       })
       .catch(err => {
-        console.warn('Using default unstitched products:', err);
-        setProducts(UNSTITCHED_PRODUCTS);
+        console.warn('Failed to fetch unstitched products:', err);
+        setProducts([]);
       })
       .finally(() => {
         setLoadingProducts(false);
       });
   }, []);
 
+  if (!loadingProducts && !banner && !wideBanner && products.length === 0) {
+    return null;
+  }
+
   return (
     <section className="shopify-section section py-[50px] bg-transparent" id="unstitched">
       <div className="max-w-[1600px] mx-auto px-[15px] sm:px-[30px]">
-        {/* Editorial Top Banner for Unstitched (Dynamic via Backend API) */}
-        {banner.isActive !== false && (
+        {banner && banner.isActive !== false && banner.imageUrl && (
           <div className="mb-[35px] overflow-hidden rounded-[8px] shadow-soft relative group">
             <img
-              src={banner.imageUrl || ASSETS.unstitchedMain}
-              alt={banner.title || "Limelight Unstitched Collection"}
+              src={banner.imageUrl}
+              alt={banner.title || "Unstitched Collection"}
               className="w-full h-[240px] sm:h-[360px] lg:h-[430px] object-cover transition-transform duration-700 group-hover:scale-[1.01]"
               onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = ASSETS.unstitchedMain;
+                e.target.style.display = 'none';
               }}
             />
             {/* Visual Gradient Overlay */}
@@ -241,15 +208,14 @@ export default function UnstitchedSection({ onQuickView, onAddToCart, onToggleWi
         )}
 
         {/* Mid-section Wide Image Highlight (Dynamic via Backend API) */}
-        {wideBanner.isActive !== false && (
+        {wideBanner && wideBanner.isActive !== false && wideBanner.imageUrl && (
           <div className="mt-[40px] overflow-hidden rounded-[8px] shadow-soft relative group">
             <img
-              src={wideBanner.imageUrl || ASSETS.unstitchedEmbroidered}
-              alt={wideBanner.title || "Limelight Unstitched Embroidered"}
+              src={wideBanner.imageUrl}
+              alt={wideBanner.title || "Unstitched Embroidered"}
               className="w-full h-[220px] sm:h-[300px] lg:h-[360px] object-cover transition-transform duration-700 group-hover:scale-[1.01]"
               onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = ASSETS.unstitchedEmbroidered;
+                e.target.style.display = 'none';
               }}
             />
             {/* Visual Subtle Dark Overlay */}

@@ -198,35 +198,48 @@ export default function AdminOrders() {
     }
   };
 
-  // Seed sample test order
+  // Seed sample test order (picks live product from catalog API)
   const handleAddSampleOrder = async () => {
     const sampleId = `LM-${Math.floor(100000 + Math.random() * 900000)}`;
+    let firstProduct = null;
+    try {
+      const pRes = await fetch('/api/products');
+      if (pRes.ok) {
+        const list = await pRes.json();
+        if (Array.isArray(list) && list.length > 0) firstProduct = list[0];
+      }
+    } catch (e) {}
+    if (!firstProduct) {
+      alert('Please add at least one product first to create a test order.');
+      return;
+    }
+    const unitPrice = firstProduct.price || 0;
     const sample = {
       id: sampleId,
       createdAt: new Date().toISOString(),
       customer: {
-        name: 'Fatima Zahra',
-        phone: '0321-4567890',
-        email: 'fatima@example.com',
-        address: 'House # 18, Street 4, F-7/2',
-        city: 'Islamabad',
-        province: 'Islamabad Capital Territory',
-        notes: 'Deliver in afternoon after 2 PM'
+        name: 'Test Customer',
+        phone: '',
+        email: 'customer@example.com',
+        address: '',
+        city: '',
+        province: '',
+        notes: ''
       },
       items: [
         {
-          id: 'rtw-1',
-          title: '2 Piece Printed Co-Ord Set',
-          category: 'Ready To Wear',
-          price: 5490,
+          id: firstProduct.id,
+          title: firstProduct.title,
+          category: firstProduct.category,
+          price: unitPrice,
           quantity: 1,
-          selectedSize: 'M',
-          image: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg'
+          selectedSize: firstProduct.sizes?.[0] || 'Standard',
+          image: firstProduct.image || ''
         }
       ],
-      subtotal: 5490,
+      subtotal: unitPrice,
       shipping: 0,
-      total: 5490,
+      total: unitPrice,
       paymentMethod: 'Cash on Delivery',
       status: 'Pending',
       source: 'Direct Order (Demo)'

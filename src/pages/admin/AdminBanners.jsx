@@ -17,25 +17,6 @@ import {
   Info
 } from 'lucide-react';
 
-const PRESET_IMAGES = [
-  {
-    name: 'Unstitched Top Editorial',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468256/limelight/products/vjsl0kwf5brmmt39d5qu.jpg'
-  },
-  {
-    name: 'Unstitched Embroidered (Wide)',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468263/limelight/products/pyqxtr8aazfj9uqpbivj.jpg'
-  },
-  {
-    name: 'Limelight RTW Pret Main',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468259/limelight/products/hm2htjcsqo4ia2g0cv0b.jpg'
-  },
-  {
-    name: 'Limelight Western Co-Ords',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468257/limelight/products/cwygrr1yik37o2gpohnb.jpg'
-  }
-];
-
 export default function AdminBanners() {
   const [banners, setBanners] = useState([]);
   const [selectedBannerId, setSelectedBannerId] = useState('unstitched');
@@ -47,17 +28,17 @@ export default function AdminBanners() {
   const [formData, setFormData] = useState({
     id: 'unstitched',
     section: 'unstitched',
-    sectionName: 'Unstitched Section',
-    badge: 'LUXURY WINTER EDIT',
-    watermark: 'UNSTITCHED',
-    title: 'UNSTITCHED FABRICS',
-    subtitle: 'Tailor your distinctive look with our finest unstitched velvets, warm karandi, and embroidered khaddar fabrics.',
-    scriptText: 'Style it your way.',
-    buttonText: 'EXPLORE DESIGNS',
-    buttonLink: '#unstitched-grid',
-    secondaryBtnText: 'SHOP NOW',
-    secondaryBtnLink: '#unstitched',
-    imageUrl: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468256/limelight/products/vjsl0kwf5brmmt39d5qu.jpg',
+    sectionName: '',
+    badge: '',
+    watermark: '',
+    title: '',
+    subtitle: '',
+    scriptText: '',
+    buttonText: '',
+    buttonLink: '',
+    secondaryBtnText: '',
+    secondaryBtnLink: '',
+    imageUrl: '',
     isActive: true
   });
 
@@ -148,7 +129,7 @@ export default function AdminBanners() {
   };
 
   // Current display image in preview
-  const displayImage = filePreview || formData.imageUrl || PRESET_IMAGES[0].url;
+  const displayImage = filePreview || formData.imageUrl || '';
 
   // Submit / Save
   const handleSave = async (e) => {
@@ -329,15 +310,16 @@ export default function AdminBanners() {
 
           {/* Banner Card Preview Container */}
           <div className="overflow-hidden rounded-[8px] shadow-md relative group bg-neutral-900 min-h-[220px]">
-            <img
-              src={displayImage}
-              alt={formData.title || 'Preview Banner'}
-              className="w-full h-[220px] sm:h-[340px] lg:h-[390px] object-cover transition-transform duration-700 group-hover:scale-[1.01]"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = PRESET_IMAGES[0].url;
-              }}
-            />
+            {displayImage && (
+              <img
+                src={displayImage}
+                alt={formData.title || 'Preview Banner'}
+                className="w-full h-[220px] sm:h-[340px] lg:h-[390px] object-cover transition-transform duration-700 group-hover:scale-[1.01]"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            )}
 
             {/* Visual Gradient/Content Overlay */}
             {formData.id === 'rtw-pret' ? (
@@ -349,11 +331,13 @@ export default function AdminBanners() {
                     </span>
                   )}
                   <h3 className="text-white text-[20px] sm:text-[24px] font-bold mb-[8px] leading-tight">
-                    {formData.title || 'DAILY CHIC & KURTIS'}
+                    {formData.title}
                   </h3>
-                  <div className="text-white text-[12px] sm:text-[13px] font-normal inline-flex">
-                    {formData.buttonText || 'SHOP PRET CASUALS →'}
-                  </div>
+                  {formData.buttonText && (
+                    <div className="text-white text-[12px] sm:text-[13px] font-normal inline-flex">
+                      {formData.buttonText}
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col items-end text-right select-none pb-[4px]">
@@ -378,11 +362,13 @@ export default function AdminBanners() {
                     </span>
                   )}
                   <h3 className="text-white text-[20px] sm:text-[24px] font-bold mb-[8px] leading-tight">
-                    {formData.title || 'WESTERN CO-ORDS'}
+                    {formData.title}
                   </h3>
-                  <div className="text-white text-[12px] sm:text-[13px] font-normal inline-flex">
-                    {formData.buttonText || 'DISCOVER CO-ORDS →'}
-                  </div>
+                  {formData.buttonText && (
+                    <div className="text-white text-[12px] sm:text-[13px] font-normal inline-flex">
+                      {formData.buttonText}
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col items-end text-right select-none pb-[4px]">
@@ -408,24 +394,32 @@ export default function AdminBanners() {
                     </span>
                   )}
                   <h3 className="text-white text-[20px] sm:text-[28px] lg:text-[32px] font-bold mb-[15px] uppercase tracking-wide drop-shadow-md leading-tight">
-                    {formData.title || 'SIGNATURE WINTER SHAWLS & SUITS'}
+                    {formData.title}
                   </h3>
-                  <div className="inline-block bg-[#121212] text-white text-[12px] sm:text-[13px] font-semibold px-[24px] py-[11px] rounded-[3px] shadow-sm uppercase tracking-wider">
-                    {formData.buttonText || 'VIEW FULL COLLECTION'}
-                  </div>
+                  {formData.buttonText && (
+                    <div className="inline-block bg-[#121212] text-white text-[12px] sm:text-[13px] font-semibold px-[24px] py-[11px] rounded-[3px] shadow-sm uppercase tracking-wider">
+                      {formData.buttonText}
+                    </div>
+                  )}
                 </div>
 
                 {/* Right Side Watermark Typography & Secondary Button */}
                 <div className="hidden md:flex flex-col items-end text-right z-10 pr-[10px] select-none">
-                  <div className="font-serif text-white/50 text-[36px] lg:text-[48px] font-extrabold tracking-wider leading-none uppercase drop-shadow-sm">
-                    UNSTITCHED
-                  </div>
-                  <div className="text-white/45 text-[18px] lg:text-[24px] font-bold tracking-[0.35em] leading-none uppercase mt-[3px] drop-shadow-sm">
-                    EMBROIDERED
-                  </div>
-                  <div className="mt-[15px] border border-white/70 text-white text-[11px] lg:text-[12px] font-semibold px-[20px] py-[8px] rounded-[2px] tracking-widest uppercase inline-block">
-                    {formData.secondaryBtnText || 'SHOP NOW'}
-                  </div>
+                  {formData.watermark && (
+                    <div className="font-serif text-white/50 text-[36px] lg:text-[48px] font-extrabold tracking-wider leading-none uppercase drop-shadow-sm">
+                      {formData.watermark}
+                    </div>
+                  )}
+                  {formData.subtitle && (
+                    <div className="text-white/45 text-[18px] lg:text-[24px] font-bold tracking-[0.35em] leading-none uppercase mt-[3px] drop-shadow-sm">
+                      {formData.subtitle}
+                    </div>
+                  )}
+                  {formData.secondaryBtnText && (
+                    <div className="mt-[15px] border border-white/70 text-white text-[11px] lg:text-[12px] font-semibold px-[20px] py-[8px] rounded-[2px] tracking-widest uppercase inline-block">
+                      {formData.secondaryBtnText}
+                    </div>
+                  )}
                 </div>
               </div>
             ) : (
@@ -447,9 +441,11 @@ export default function AdminBanners() {
                     )}
 
                     {/* Title / Headline */}
-                    <h3 className="text-[22px] sm:text-[32px] lg:text-[38px] font-bold text-white mb-[8px] leading-tight drop-shadow-md">
-                      {formData.title || 'UNSTITCHED FABRICS'}
-                    </h3>
+                    {formData.title && (
+                      <h3 className="text-[22px] sm:text-[32px] lg:text-[38px] font-bold text-white mb-[8px] leading-tight drop-shadow-md">
+                        {formData.title}
+                      </h3>
+                    )}
 
                     {/* Subtitle */}
                     {formData.subtitle && (
@@ -599,44 +595,12 @@ export default function AdminBanners() {
                     type="url"
                     value={formData.imageUrl}
                     onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                    placeholder="https://www.limelight.pk/cdn/shop/files/..."
+                    placeholder="https://example.com/banner.jpg"
                     className="w-full pl-[36px] pr-[12px] py-[10px] text-[13px] border border-gray-300 rounded-[6px] focus:outline-none focus:border-[#121212]"
                   />
                 </div>
               </div>
             )}
-
-            {/* Quick Presets */}
-            <div>
-              <span className="text-[12px] font-semibold text-gray-500 block mb-[8px]">
-                Or select official Limelight presets:
-              </span>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-[8px]">
-                {PRESET_IMAGES.map((preset, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => {
-                      setSelectedFile(null);
-                      setFilePreview(null);
-                      setFormData({ ...formData, imageUrl: preset.url });
-                    }}
-                    className={`p-[8px] rounded-[6px] border text-left text-[11px] font-medium transition-colors flex items-center gap-[6px] cursor-pointer ${
-                      formData.imageUrl === preset.url && !selectedFile
-                        ? 'border-[#121212] bg-[#121212] text-white'
-                        : 'border-gray-200 bg-gray-50 hover:bg-gray-100 text-gray-700'
-                    }`}
-                  >
-                    <img
-                      src={preset.url}
-                      alt={preset.name}
-                      className="w-[28px] h-[28px] object-cover rounded-[3px] shrink-0"
-                    />
-                    <span className="truncate">{preset.name}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
 
             {/* Status Active Toggle */}
             <div className="pt-[14px] border-t border-gray-100 flex items-center justify-between">

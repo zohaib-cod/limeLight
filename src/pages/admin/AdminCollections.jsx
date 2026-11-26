@@ -22,45 +22,6 @@ import {
   MoveDown
 } from 'lucide-react';
 
-const COLLECTION_PRESETS = [
-  {
-    name: 'Winter Velvet (Neon Club)',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468265/limelight/products/pqcakr8lqfcwiep69tpi.jpg',
-    title: 'WINTER VELVET',
-    count: '48 Designs',
-    tagline: 'Regal textures & opulent hues',
-    linkText: 'EXPLORE VELVET',
-    linkUrl: '#unstitched'
-  },
-  {
-    name: 'Co-Ord Sets (Rack Hangers)',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468266/limelight/products/dm9m39psmk0kaoltg2sl.jpg',
-    title: 'CO-ORD SETS',
-    count: '32 Sets',
-    tagline: 'Effortless modern silhouettes',
-    linkText: 'SHOP CO-ORDS',
-    linkUrl: '#ready-to-wear'
-  },
-  {
-    name: 'Embroidered Organza (Studio)',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468267/limelight/products/wjpooq3nwwowkcwvmlsf.jpg',
-    title: 'EMBROIDERED ORGANZA',
-    count: '24 Luxury Suits',
-    tagline: 'Intricate metallic thread embroidery',
-    linkText: 'VIEW FESTIVE',
-    linkUrl: '#unstitched'
-  },
-  {
-    name: 'Warm Khaddar & Karandi (Flatlay)',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468268/limelight/products/fqconilr6vvym1wiutor.jpg',
-    title: 'WARM KHADDAR & KARANDI',
-    count: '65 Articles',
-    tagline: 'Timeless warmth for winter days',
-    linkText: 'SHOP KHADDAR',
-    linkUrl: '#unstitched'
-  }
-];
-
 export default function AdminCollections() {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -116,12 +77,12 @@ export default function AdminCollections() {
   const handleOpenCreate = () => {
     setEditingItem(null);
     setFormData({
-      title: 'NEW CURATED COLLECTION',
-      count: '35 DESIGNS',
-      tagline: 'Contemporary winter aesthetics & silhouettes',
-      linkText: 'EXPLORE COLLECTION',
+      title: '',
+      count: '',
+      tagline: '',
+      linkText: 'EXPLORE NOW',
       linkUrl: '#collections',
-      image: COLLECTION_PRESETS[0].url,
+      image: '',
       isActive: true
     });
     setSelectedFile(null);
@@ -251,8 +212,12 @@ export default function AdminCollections() {
 
       if (selectedFile) {
         submitData.append('image', selectedFile);
+      } else if (formData.image) {
+        submitData.append('image', formData.image);
       } else {
-        submitData.append('image', formData.image || COLLECTION_PRESETS[0].url);
+        showFeedback('error', 'Collection image (upload or URL) is required.');
+        setActionLoading(false);
+        return;
       }
 
       const endpoint = editingItem ? `/api/collections/${editingItem.id}` : '/api/collections';
@@ -277,7 +242,7 @@ export default function AdminCollections() {
     }
   };
 
-  const previewImage = filePreview || formData.image || COLLECTION_PRESETS[0].url;
+  const previewImage = filePreview || formData.image || '';
 
   return (
     <div className="space-y-[28px] font-assistant">
@@ -376,8 +341,7 @@ export default function AdminCollections() {
                   alt={col.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = COLLECTION_PRESETS[idx % COLLECTION_PRESETS.length].url;
+                    e.target.style.display = 'none';
                   }}
                 />
 
@@ -499,16 +463,17 @@ export default function AdminCollections() {
                     <span className="text-[10px] text-gray-400">Aspect 4:5</span>
                   </div>
 
-                  <div className="group relative overflow-hidden rounded-[6px] shadow-soft bg-white border border-gray-200 aspect-[4/5]">
-                    <img
-                      src={previewImage}
-                      alt={formData.title}
-                      className="w-full h-full object-cover transition-transform duration-700"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = COLLECTION_PRESETS[0].url;
-                      }}
-                    />
+                  <div className="group relative overflow-hidden rounded-[6px] shadow-soft bg-gray-100 border border-gray-200 aspect-[4/5]">
+                    {previewImage && (
+                      <img
+                        src={previewImage}
+                        alt={formData.title}
+                        className="w-full h-full object-cover transition-transform duration-700"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-[18px] text-white">
                       {formData.count && (
                         <span className="text-[11px] text-white/80 tracking-[0.15em] uppercase block mb-[3px] font-medium">
@@ -615,51 +580,11 @@ export default function AdminCollections() {
                           type="url"
                           value={formData.image}
                           onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                          placeholder="https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg"
+                          placeholder="https://example.com/collection.jpg"
                           className="w-full pl-[32px] pr-[10px] py-[8px] text-[12px] border border-gray-300 rounded-[5px] focus:outline-none focus:border-[#121212] bg-white"
                         />
                       </div>
                     )}
-
-                    {/* Presets */}
-                    <div>
-                      <span className="text-[10px] font-semibold text-gray-500 block mb-[4px]">
-                        Quick Curated Presets:
-                      </span>
-                      <div className="grid grid-cols-2 gap-[6px]">
-                        {COLLECTION_PRESETS.map((preset, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            onClick={() => {
-                              setSelectedFile(null);
-                              setFilePreview(null);
-                              setFormData({
-                                ...formData,
-                                image: preset.url,
-                                title: preset.title,
-                                count: preset.count,
-                                tagline: preset.tagline,
-                                linkText: preset.linkText,
-                                linkUrl: preset.linkUrl
-                              });
-                            }}
-                            className={`p-[5px] rounded-[4px] border text-left text-[10px] font-medium transition-colors flex items-center gap-[6px] cursor-pointer ${
-                              formData.image === preset.url && !selectedFile
-                                ? 'border-[#121212] bg-[#121212] text-white'
-                                : 'border-gray-200 bg-white hover:bg-gray-100 text-gray-700'
-                            }`}
-                          >
-                            <img
-                              src={preset.url}
-                              alt={preset.name}
-                              className="w-[20px] h-[20px] object-cover rounded-[2px] shrink-0"
-                            />
-                            <span className="truncate">{preset.name}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
                   </div>
 
                   {/* Text Fields */}

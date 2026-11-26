@@ -37,49 +37,6 @@ const CATEGORY_OPTIONS = [
   'Accessories'
 ];
 
-const NEW_ARRIVALS_PRESETS = [
-  {
-    name: 'Embroidered Velvet Shawl',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468270/limelight/products/fortmr7iconwcdksozs9.jpg',
-    title: 'Embroidered Velvet Shawl 3 Piece Suit',
-    category: 'Unstitched',
-    badge: 'JUST ARRIVED',
-    price: 9990,
-    originalPrice: 12990,
-    fabric: 'Premium Micro Velvet with Golden Zari Work'
-  },
-  {
-    name: 'Contemporary Minimalist Co-Ord',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468273/limelight/products/upuqz5frkmo8iqjp3c9z.jpg',
-    title: 'Contemporary Minimalist Co-Ord Set',
-    category: 'Ready To Wear',
-    badge: 'TRENDING',
-    price: 5990,
-    originalPrice: 6990,
-    fabric: 'Super Fine Slub Twill'
-  },
-  {
-    name: 'Festive Raw Silk Kurti',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468274/limelight/products/izkgkkyn9nzjfcqgf6xl.jpg',
-    title: 'Festive Raw Silk Jacquard Kurti',
-    category: 'Ready To Wear',
-    badge: 'NEW IN',
-    price: 4690,
-    originalPrice: 5490,
-    fabric: 'Self Weave Jacquard'
-  },
-  {
-    name: 'Laser-Cut Festive Clutch',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468275/limelight/products/egff9lsbnlq4rxgrc6p4.jpg',
-    title: 'Laser-Cut Festive Evening Clutch',
-    category: 'Accessories',
-    badge: 'SELLING FAST',
-    price: 3290,
-    originalPrice: 3890,
-    fabric: 'Faux Suede with Metal Clasp'
-  }
-];
-
 export default function AdminNewArrivals() {
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -174,15 +131,15 @@ export default function AdminNewArrivals() {
   const handleOpenCreate = () => {
     setEditingItem(null);
     setFormData({
-      title: 'Embroidered Velvet Shawl 3 Piece Suit',
+      title: '',
       category: 'Unstitched',
-      badge: 'JUST ARRIVED',
-      fabric: 'Premium Micro Velvet with Golden Zari Work',
-      price: '9990',
-      originalPrice: '12990',
-      discount: '23% OFF',
-      sku: `NA-VLV-${Date.now().toString().slice(-4)}`,
-      image: NEW_ARRIVALS_PRESETS[0].url,
+      badge: 'NEW IN',
+      fabric: '',
+      price: '',
+      originalPrice: '',
+      discount: '',
+      sku: `NA-${Date.now().toString().slice(-4)}`,
+      image: '',
       isActive: true,
       inStock: true
     });
@@ -329,8 +286,12 @@ export default function AdminNewArrivals() {
 
       if (selectedFile) {
         submitData.append('image', selectedFile);
+      } else if (formData.image) {
+        submitData.append('image', formData.image);
       } else {
-        submitData.append('image', formData.image || NEW_ARRIVALS_PRESETS[0].url);
+        showFeedback('error', 'Product image (upload or URL) is required.');
+        setActionLoading(false);
+        return;
       }
 
       const endpoint = editingItem ? `/api/new-arrivals/${editingItem.id}` : '/api/new-arrivals';
@@ -355,7 +316,7 @@ export default function AdminNewArrivals() {
     }
   };
 
-  const previewImage = filePreview || formData.image || NEW_ARRIVALS_PRESETS[0].url;
+  const previewImage = filePreview || formData.image || '';
 
   return (
     <div className="space-y-[28px] font-assistant">
@@ -479,8 +440,7 @@ export default function AdminNewArrivals() {
                   alt={item.title}
                   className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = NEW_ARRIVALS_PRESETS[0].url;
+                    e.target.style.display = 'none';
                   }}
                 />
 
@@ -627,16 +587,17 @@ export default function AdminNewArrivals() {
                     <span className="text-[10px] text-gray-400">Storefront View</span>
                   </div>
 
-                  <div className="group relative overflow-hidden rounded-[6px] shadow-soft bg-white border border-gray-200 aspect-[3/4]">
-                    <img
-                      src={previewImage}
-                      alt={formData.title}
-                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = NEW_ARRIVALS_PRESETS[0].url;
-                      }}
-                    />
+                  <div className="group relative overflow-hidden rounded-[6px] shadow-soft bg-gray-100 border border-gray-200 aspect-[3/4]">
+                    {previewImage && (
+                      <img
+                        src={previewImage}
+                        alt={formData.title}
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    )}
 
                     {formData.badge && (
                       <span className="absolute top-[10px] left-[10px] bg-[#cf0c1d] text-white text-[10px] font-bold px-[8px] py-[3px] rounded-[3px] tracking-wider shadow-xs">
@@ -771,52 +732,11 @@ export default function AdminNewArrivals() {
                           type="url"
                           value={formData.image}
                           onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                          placeholder="https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg"
+                          placeholder="https://example.com/product.jpg"
                           className="w-full pl-[32px] pr-[10px] py-[8px] text-[12px] border border-gray-300 rounded-[5px] focus:outline-none focus:border-[#121212] bg-white"
                         />
                       </div>
                     )}
-
-                    {/* Presets */}
-                    <div>
-                      <span className="text-[10px] font-semibold text-gray-500 block mb-[4px]">
-                        Quick Presets:
-                      </span>
-                      <div className="grid grid-cols-2 gap-[6px]">
-                        {NEW_ARRIVALS_PRESETS.map((preset, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            onClick={() => {
-                              setSelectedFile(null);
-                              setFilePreview(null);
-                              setFormData({
-                                ...formData,
-                                image: preset.url,
-                                title: preset.title,
-                                category: preset.category,
-                                badge: preset.badge,
-                                price: preset.price.toString(),
-                                originalPrice: preset.originalPrice.toString(),
-                                fabric: preset.fabric
-                              });
-                            }}
-                            className={`p-[5px] rounded-[4px] border text-left text-[10px] font-medium transition-colors flex items-center gap-[6px] cursor-pointer ${
-                              formData.image === preset.url && !selectedFile
-                                ? 'border-[#121212] bg-[#121212] text-white'
-                                : 'border-gray-200 bg-white hover:bg-gray-100 text-gray-700'
-                            }`}
-                          >
-                            <img
-                              src={preset.url}
-                              alt={preset.name}
-                              className="w-[20px] h-[20px] object-cover rounded-[2px] shrink-0"
-                            />
-                            <span className="truncate">{preset.name}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
                   </div>
 
                   {/* Core Details */}

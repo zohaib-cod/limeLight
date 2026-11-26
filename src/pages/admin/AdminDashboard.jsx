@@ -98,7 +98,7 @@ export default function AdminDashboard() {
             className="bg-white/10 hover:bg-white/20 text-white font-medium px-[15px] py-[11px] text-[13px] rounded-[4px] border border-white/20 flex items-center gap-[6px] transition-colors"
           >
             <Package size={16} />
-            <span>Products ({stats?.totalProducts || 8})</span>
+            <span>Products ({stats?.totalProducts ?? 0})</span>
           </Link>
 
           <Link
@@ -106,7 +106,7 @@ export default function AdminDashboard() {
             className="bg-white/10 hover:bg-white/20 text-white font-medium px-[15px] py-[11px] text-[13px] rounded-[4px] border border-white/20 flex items-center gap-[6px] transition-colors"
           >
             <Bookmark size={16} />
-            <span>Collections ({stats?.totalCollections || 4})</span>
+            <span>Collections ({stats?.totalCollections ?? 0})</span>
           </Link>
 
           <Link
@@ -114,7 +114,7 @@ export default function AdminDashboard() {
             className="bg-[#cf0c1d] hover:bg-[#b00a18] text-white font-bold px-[15px] py-[11px] text-[13px] rounded-[4px] flex items-center gap-[6px] shadow-sm transition-colors cursor-pointer"
           >
             <Sparkles size={16} />
-            <span>New Arrivals ({stats?.totalNewArrivals || 4})</span>
+            <span>New Arrivals ({stats?.totalNewArrivals ?? 0})</span>
           </Link>
 
           <Link
@@ -130,7 +130,7 @@ export default function AdminDashboard() {
             className="bg-[#121212] hover:bg-black text-white font-bold px-[15px] py-[11px] text-[13px] rounded-[4px] border border-white/20 flex items-center gap-[6px] shadow-sm transition-colors cursor-pointer"
           >
             <ShoppingBag size={16} className="text-[#cec72e]" />
-            <span>Orders ({stats?.totalOrders || 0})</span>
+            <span>Orders ({stats?.totalOrders ?? 0})</span>
           </Link>
 
           <Link
@@ -138,7 +138,7 @@ export default function AdminDashboard() {
             className="bg-purple-900/60 hover:bg-purple-900 text-white font-bold px-[15px] py-[11px] text-[13px] rounded-[4px] border border-purple-400/30 flex items-center gap-[6px] shadow-sm transition-colors cursor-pointer"
           >
             <Users size={16} className="text-purple-300" />
-            <span>Customers ({stats?.totalUsers || 3})</span>
+            <span>Customers ({stats?.totalUsers ?? 0})</span>
           </Link>
 
           <Link
@@ -146,7 +146,7 @@ export default function AdminDashboard() {
             className="bg-[#23ac95] hover:bg-[#1c8c79] text-white font-bold px-[15px] py-[11px] text-[13px] rounded-[4px] border border-[#23ac95]/40 flex items-center gap-[6px] shadow-sm transition-colors cursor-pointer"
           >
             <Compass size={16} />
-            <span>Navigation & Logo ({stats?.totalRoutes || 5})</span>
+            <span>Navigation & Logo ({stats?.totalRoutes ?? 0})</span>
           </Link>
         </div>
       </div>
@@ -219,16 +219,16 @@ export default function AdminDashboard() {
             </span>
             <div className="flex items-baseline gap-[8px] mt-[4px]">
               <span className="text-[28px] font-extrabold text-[#121212]">
-                {stats?.totalProducts || 8}
+                {stats?.totalProducts ?? 0}
               </span>
               <span className="text-[12px] text-emerald-600 font-semibold">
-                ({stats?.activeProducts || 8} Active)
+                ({stats?.activeProducts ?? 0} Active)
               </span>
             </div>
             <div className="text-[11px] text-gray-500 mt-[2px] flex items-center gap-[6px]">
-              <span>Unstitched: <b className="text-gray-700">{stats?.unstitchedCount ?? 4}</b></span>
+              <span>Unstitched: <b className="text-gray-700">{stats?.unstitchedCount ?? 0}</b></span>
               <span>•</span>
-              <span>RTW: <b className="text-purple-700">{stats?.rtwCount ?? 4}</b></span>
+              <span>RTW: <b className="text-purple-700">{stats?.rtwCount ?? 0}</b></span>
             </div>
             <Link
               to="/admin/products"
@@ -251,10 +251,10 @@ export default function AdminDashboard() {
             </span>
             <div className="flex items-baseline gap-[8px] mt-[4px]">
               <span className="text-[28px] font-extrabold text-[#121212]">
-                {stats?.totalFeatures || 4}
+                {stats?.totalFeatures ?? 0}
               </span>
               <span className="text-[12px] text-emerald-600 font-semibold">
-                ({stats?.activeFeatures || 4} Active)
+                ({stats?.activeFeatures ?? 0} Active)
               </span>
             </div>
             <Link
@@ -278,14 +278,14 @@ export default function AdminDashboard() {
             </span>
             <div className="flex items-baseline gap-[8px] mt-[4px]">
               <span className="text-[28px] font-extrabold text-[#121212]">
-                {stats?.totalRoutes || 5}
+                {stats?.totalRoutes ?? 0}
               </span>
               <span className="text-[12px] text-[#23ac95] font-semibold">
                 Routes
               </span>
             </div>
-            <div className="text-[11px] text-gray-500 mt-[2px] truncate max-w-[130px]" title={stats?.whatsappNumber || '+92 345 7867016'}>
-              WA: <b>{stats?.whatsappNumber || '+92 345 7867016'}</b>
+            <div className="text-[11px] text-gray-500 mt-[2px] truncate max-w-[130px]" title={stats?.whatsappNumber || 'Not set'}>
+              WA: <b>{stats?.whatsappNumber || 'Not set'}</b>
             </div>
             <Link
               to="/admin/navigation"
@@ -360,8 +360,7 @@ export default function AdminDashboard() {
                     alt={slide.title}
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg';
+                      e.target.style.display = 'none';
                     }}
                   />
                 </div>
@@ -470,7 +469,7 @@ export default function AdminDashboard() {
               >
                 <div className="flex items-center gap-[8px] text-[13px] font-medium">
                   <Package size={16} className="text-[#23ac95] group-hover:text-[#cec72e]" />
-                  <span>Product Catalog ({stats?.totalProducts || 6} Items)</span>
+                  <span>Product Catalog ({stats?.totalProducts ?? 0} Items)</span>
                 </div>
                 <ChevronRight size={14} className="text-gray-400 group-hover:text-white" />
               </button>

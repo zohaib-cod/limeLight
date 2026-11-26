@@ -34,10 +34,10 @@ export default function AdminUsers() {
     name: '',
     email: '',
     phone: '',
-    password: 'password123',
-    city: 'Lahore',
+    password: '',
+    city: '',
     address: '',
-    province: 'Punjab'
+    province: ''
   });
 
   const loadUsers = async () => {

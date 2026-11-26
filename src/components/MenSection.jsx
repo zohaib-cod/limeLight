@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, ShoppingBag, Heart } from 'lucide-react';
-import { MEN_PRODUCTS } from '../data/products';
 
 export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist, wishlist }) {
   const [products, setProducts] = useState([]);
@@ -8,23 +7,19 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
 
   useEffect(() => {
     fetch('/api/products?category=Men')
-      .then((res) => {
-        if (res.ok) return res.json();
-        throw new Error('Failed to load Men products');
-      })
+      .then((res) => (res.ok ? res.json() : []))
       .then((data) => {
         setProducts(Array.isArray(data) ? data : []);
       })
       .catch((err) => {
-        console.warn('Using fallback Men products:', err);
-        setProducts(MEN_PRODUCTS);
+        console.warn('Failed to fetch Men products:', err);
+        setProducts([]);
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
 
-  // Hide section if there are no active Men products in database
   if (loading || !products || products.length === 0) {
     return null;
   }
@@ -32,7 +27,6 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
   return (
     <section className="shopify-section section py-[50px] bg-transparent border-t border-[#1212121a] dark:border-white/10" id="men">
       <div className="max-w-[1600px] mx-auto px-[15px] sm:px-[30px]">
-        {/* Section Heading */}
         <div className="text-center mb-[30px]">
           <h2 className="text-[13px] font-normal text-[#121212] dark:text-gray-300 tracking-[0.15em] uppercase mb-[6px]">
             SARTORIAL TRADITION & FINESSE
@@ -43,7 +37,6 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
           <div className="w-[50px] h-[2px] bg-[#121212] dark:bg-white/40 mx-auto mt-[10px]" />
         </div>
 
-        {/* Product Cards Grid (Dynamic from MongoDB) */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-[8px] xs:gap-[12px] sm:gap-[20px]">
           {products.map((product) => {
             const pid = product.id || product._id;
@@ -54,12 +47,14 @@ export default function MenSection({ onQuickView, onAddToCart, onToggleWishlist,
                 className="group flex flex-col bg-white dark:bg-[#181818] border border-[#1212121a] dark:border-white/10 rounded-[6px] overflow-hidden shadow-soft hover:shadow-modal transition-all duration-300"
               >
                 <div className="relative aspect-[3/4] overflow-hidden bg-[#f3f3f3] dark:bg-[#222222]">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
+                  {product.image && (
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  )}
 
                   {product.discount && (
                     <div className="absolute top-[8px] sm:top-[10px] left-[8px] sm:left-[10px] bg-[#cf0c1d] text-white text-[10px] sm:text-[11px] font-bold px-[6px] sm:px-[8px] py-[2px] sm:py-[3px] rounded-[3px] tracking-wider">

@@ -53,13 +53,13 @@ export default function AdminLayout() {
       name: 'Registered Customers',
       path: '/admin/users',
       icon: Users,
-      badge: stats ? `${stats.totalUsers || 3}` : '3'
+      badge: stats ? `${stats.totalUsers ?? 0}` : null
     },
     {
       name: 'Navigation & Branding',
       path: '/admin/navigation',
       icon: Compass,
-      badge: stats ? `${stats.totalRoutes || 5}` : '5'
+      badge: stats ? `${stats.totalRoutes ?? 0}` : null
     },
     {
       name: 'Footer & Newsletter',
@@ -83,25 +83,25 @@ export default function AdminLayout() {
       name: 'Feature Highlights',
       path: '/admin/features',
       icon: Sparkles,
-      badge: stats ? `${stats.totalFeatures || 4}` : '4'
+      badge: stats ? `${stats.totalFeatures ?? 0}` : null
     },
     {
       name: 'Section Banners',
       path: '/admin/banners',
       icon: Layers,
-      badge: stats ? `${stats.totalBanners || 1}` : '1'
+      badge: stats ? `${stats.totalBanners ?? 0}` : null
     },
     {
       name: 'Curated Collections',
       path: '/admin/collections',
       icon: Bookmark,
-      badge: stats ? `${stats.totalCollections || 4}` : '4'
+      badge: stats ? `${stats.totalCollections ?? 0}` : null
     },
     {
       name: 'New Arrivals',
       path: '/admin/new-arrivals',
       icon: Sparkles,
-      badge: stats ? `${stats.totalNewArrivals || 4}` : '4'
+      badge: stats ? `${stats.totalNewArrivals ?? 0}` : null
     },
     {
       name: 'Product Catalog',

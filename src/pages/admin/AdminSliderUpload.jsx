@@ -29,14 +29,14 @@ export default function AdminSliderUpload() {
   const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({
-    badge: 'WINTER VOLUME 2026',
-    scriptText: 'Signature',
-    title: 'UNSTITCHED & READY TO WEAR',
-    subtitle: 'Discover rich textures, intricate embroideries, and statement silhouettes tailored for the contemporary winter wardrobe. STYLE FOR EVERY OCCASION.',
-    primaryBtnText: 'SHOP UNSTITCHED',
-    primaryBtnLink: '#unstitched',
-    secondaryBtnText: 'VIEW READY TO WEAR',
-    secondaryBtnLink: '#ready-to-wear',
+    badge: '',
+    scriptText: '',
+    title: '',
+    subtitle: '',
+    primaryBtnText: '',
+    primaryBtnLink: '',
+    secondaryBtnText: '',
+    secondaryBtnLink: '',
     imageUrl: '',
     isActive: true
   });
@@ -53,13 +53,13 @@ export default function AdminSliderUpload() {
         .then(slide => {
           setFormData({
             badge: slide.badge || '',
-            scriptText: slide.scriptText || 'Signature',
+            scriptText: slide.scriptText || '',
             title: slide.title || '',
             subtitle: slide.subtitle || '',
-            primaryBtnText: slide.primaryBtnText || 'SHOP NOW',
-            primaryBtnLink: slide.primaryBtnLink || '#unstitched',
-            secondaryBtnText: slide.secondaryBtnText || 'EXPLORE',
-            secondaryBtnLink: slide.secondaryBtnLink || '#ready-to-wear',
+            primaryBtnText: slide.primaryBtnText || '',
+            primaryBtnLink: slide.primaryBtnLink || '',
+            secondaryBtnText: slide.secondaryBtnText || '',
+            secondaryBtnLink: slide.secondaryBtnLink || '',
             imageUrl: slide.imageUrl || '',
             isActive: slide.isActive !== false
           });
@@ -337,7 +337,7 @@ export default function AdminSliderUpload() {
                   setFormData({ ...formData, imageUrl: e.target.value });
                   setPreviewUrl(e.target.value);
                 }}
-                placeholder="https://www.limelight.pk/cdn/shop/files/BANNERS_FOR_WEB_jpg_ff_jpg.jpg"
+                placeholder="https://example.com/banner.jpg"
                 className="w-full text-[14px] p-[12px] bg-white border border-gray-300 rounded-[4px] outline-none focus:border-black"
               />
               <p className="text-[11px] text-gray-500 mt-[4px]">

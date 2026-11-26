@@ -22,72 +22,6 @@ import {
   Check
 } from 'lucide-react';
 
-const UNSTITCHED_PRESETS = [
-  {
-    name: '3 Piece Velvet Emerald',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468298/limelight/products/axfyrrkccvmyjign4t42.jpg',
-    fabric: 'Velvet & Chiffon',
-    pieces: 'Shirt + Trouser + Embroidered Dupatta',
-    subCategory: '3 Piece'
-  },
-  {
-    name: '2 Piece Khaddar Gold',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468300/limelight/products/x4oq53mx8kumwfileaiy.jpg',
-    fabric: 'Warm Khaddar',
-    pieces: 'Shirt + Woolen Shawl',
-    subCategory: '2 Piece'
-  },
-  {
-    name: '2 Piece Karandi Ruby',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468301/limelight/products/fklx0iqxpzzaimorxelz.jpg',
-    fabric: 'Karandi',
-    pieces: 'Shirt + Trouser',
-    subCategory: '2 Piece'
-  },
-  {
-    name: '1 Piece Cambric Blue',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468303/limelight/products/ujwmwg4ztgddff0lwphh.jpg',
-    fabric: 'Cambric Cotton',
-    pieces: 'Unstitched Shirt Piece 3m',
-    subCategory: '1 Piece'
-  }
-];
-
-const RTW_PRESETS = [
-  {
-    name: '2 Piece Co-Ord Yellow',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468255/limelight/products/pazcw526oimgstxjuzg1.jpg',
-    fabric: 'Linen Viscose Blend',
-    fit: 'Relaxed Boxy Fit',
-    subCategory: 'Co-Ords',
-    sizes: ['XS', 'S', 'M', 'L', 'XL']
-  },
-  {
-    name: 'Jacquard Kurti Blue',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468257/limelight/products/hyvpl2oiqlhzbdf8chlr.jpg',
-    fabric: 'Woven Jacquard',
-    fit: 'Straight Cut with Slits',
-    subCategory: 'Pret Kurti',
-    sizes: ['S', 'M', 'L']
-  },
-  {
-    name: 'Everyday Kurta Sage',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468258/limelight/products/agzsuxbzcfs57trleuuu.jpg',
-    fabric: 'Slub Cotton',
-    fit: 'A-Line Flare',
-    subCategory: 'Pret Kurti',
-    sizes: ['XS', 'S', 'M', 'L']
-  },
-  {
-    name: 'Festive Silk Ensemble',
-    url: 'https://res.cloudinary.com/antxd4tm/image/upload/v1795468260/limelight/products/az9p9noooavhiazyvnbw.jpg',
-    fabric: 'Raw Silk & Organza',
-    fit: 'Royal Anarkali Cut',
-    subCategory: '3 Piece Pret',
-    sizes: ['S', 'M', 'L']
-  }
-];
-
 const AVAILABLE_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'Free Size'];
 
 const UNSTITCHED_SUBCATEGORIES = ['3 Piece', '2 Piece', '1 Piece', 'Shawl Suit', 'Velvet Suit'];
@@ -253,9 +187,7 @@ export default function AdminProductForm() {
     }
   };
 
-  // Presets based on selected category
-  const activePresets = formData.category === 'Ready To Wear' ? RTW_PRESETS : UNSTITCHED_PRESETS;
-  const displayImage = filePreview || formData.image || activePresets[0].url;
+  const displayImage = filePreview || formData.image || '';
 
   // Submit
   const handleSubmit = async (e) => {
@@ -295,8 +227,12 @@ export default function AdminProductForm() {
 
       if (selectedFile) {
         submitData.append('image', selectedFile);
+      } else if (formData.image) {
+        submitData.append('image', formData.image);
       } else {
-        submitData.append('image', formData.image || activePresets[0].url);
+        showFeedback('error', 'Product image (upload or URL) is required.');
+        setSaving(false);
+        return;
       }
 
       const endpoint = isEditing ? `/api/products/${id}` : '/api/products';
@@ -423,16 +359,22 @@ export default function AdminProductForm() {
             {/* Exactly matches customer storefront cards */}
             <div className="group flex flex-col bg-white border border-[#1212121a] rounded-[6px] overflow-hidden shadow-soft hover:shadow-modal transition-all duration-300">
               {/* Image Container */}
-              <div className="relative aspect-[3/4] overflow-hidden bg-[#f3f3f3]">
-                <img
-                  src={displayImage}
-                  alt={formData.title || 'Product Preview'}
-                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = activePresets[0].url;
-                  }}
-                />
+              <div className="relative aspect-[3/4] overflow-hidden bg-[#f3f3f3] flex items-center justify-center">
+                {displayImage ? (
+                  <img
+                    src={displayImage}
+                    alt={formData.title || 'Product Preview'}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <div className="text-center text-gray-400 p-[20px]">
+                    <ImageIcon size={36} className="mx-auto mb-[6px] opacity-40" />
+                    <span className="text-[12px]">Upload product photo</span>
+                  </div>
+                )}
 
                 {/* Discount Badge (e.g. 15% OFF) */}
                 {formData.discount && (
@@ -740,52 +682,12 @@ export default function AdminProductForm() {
                     type="url"
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    placeholder="https://res.cloudinary.com/antxd4tm/image/upload/v1795468254/limelight/products/wxmrzxlgmlg2tetiiguu.jpg"
+                    placeholder="https://example.com/product.jpg"
                     className="w-full pl-[36px] pr-[12px] py-[9px] text-[13px] border border-gray-300 rounded-[6px] focus:outline-none focus:border-[#121212]"
                   />
                 </div>
               </div>
             )}
-
-            {/* Presets */}
-            <div>
-              <span className="text-[11px] font-semibold text-gray-500 block mb-[6px]">
-                Or select from {isRTW ? 'Ready To Wear' : 'Unstitched'} presets:
-              </span>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-[8px]">
-                {activePresets.map((preset, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => {
-                      setSelectedFile(null);
-                      setFilePreview(null);
-                      setFormData(prev => ({
-                        ...prev,
-                        image: preset.url,
-                        fabric: preset.fabric || prev.fabric,
-                        subCategory: preset.subCategory || prev.subCategory,
-                        fit: preset.fit || prev.fit,
-                        sizes: preset.sizes || prev.sizes,
-                        pieces: preset.pieces || prev.pieces
-                      }));
-                    }}
-                    className={`p-[6px] rounded-[6px] border text-left text-[11px] font-medium transition-colors flex items-center gap-[6px] cursor-pointer ${
-                      formData.image === preset.url && !selectedFile
-                        ? 'border-[#121212] bg-[#121212] text-white'
-                        : 'border-gray-200 bg-gray-50 hover:bg-gray-100 text-gray-700'
-                    }`}
-                  >
-                    <img
-                      src={preset.url}
-                      alt={preset.name}
-                      className="w-[26px] h-[26px] object-cover rounded-[3px] shrink-0"
-                    />
-                    <span className="truncate">{preset.name}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Card 2: Core Details */}

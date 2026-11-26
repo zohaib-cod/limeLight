@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, User, ShoppingBag, Phone, Menu, X, ChevronRight, Sun, Moon } from 'lucide-react';
-import { ASSETS } from '../data/products';
 import { useTheme } from '../context/ThemeContext';
 
 const WhatsAppIcon = ({ className = "w-[12px] h-[12px]" }) => (
@@ -10,113 +9,20 @@ const WhatsAppIcon = ({ className = "w-[12px] h-[12px]" }) => (
   </svg>
 );
 
-const DEFAULT_SETTINGS = {
+const INITIAL_SETTINGS_SHELL = {
   logoType: 'text',
   textLogo: {
-    part1: 'ZIMAL ',
-    part2: 'COLLECTION',
+    part1: '',
+    part2: '',
     color1: '#23ac95',
     color2: '#cec72e',
     fontSize: 22
   },
   headerBg: '#000000',
   subnavBg: '#000000',
-  imageLogo: {
-    url: '',
-    alt: 'Zimal Collection Official (www.zimalcollection.com)',
-    height: 36
-  },
-  whatsappNumber: '+92 345 7867016'
+  imageLogo: { url: '', alt: '', height: 36 },
+  whatsappNumber: ''
 };
-
-const DEFAULT_NAV = [
-  {
-    id: 'nav-1',
-    name: 'NEW IN',
-    href: '#new-arrivals',
-    isSale: false,
-    order: 1,
-    isActive: true
-  },
-  {
-    id: 'nav-2',
-    name: 'WOMEN',
-    href: '#unstitched',
-    isSale: false,
-    order: 2,
-    isActive: true,
-    hasDropdown: true,
-    columns: [
-      {
-        title: 'UNSTITCHED',
-        href: '#unstitched',
-        links: [
-          { label: '1 Piece (Printed/Embroidered)', href: '#unstitched' },
-          { label: '2 Piece (Shirt + Dupatta)', href: '#unstitched' },
-          { label: '3 Piece Embroidered Suits', href: '#unstitched' },
-          { label: 'Velvet & Karandi Shawls', href: '#unstitched' }
-        ]
-      },
-      {
-        title: 'READY TO WEAR',
-        href: '#ready-to-wear',
-        links: [
-          { label: 'Pret Casual Kurtis', href: '#ready-to-wear' },
-          { label: '2 Piece Co-Ord Sets', href: '#ready-to-wear' },
-          { label: 'Formal Jacquard Suits', href: '#ready-to-wear' },
-          { label: 'Solids & Basics', href: '#ready-to-wear' }
-        ]
-      },
-      {
-        title: 'SPECIAL EDITIONS',
-        href: '#collections',
-        links: [
-          { label: 'Winter Velvet Drop', href: '#collections' },
-          { label: 'Luxury Karandi Edit', href: '#collections' },
-          { label: 'Signature Co-Ords', href: '#collections' },
-          { label: 'Festive Pret Looks', href: '#collections' }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'nav-3',
-    name: 'MEN',
-    href: '#men',
-    isSale: false,
-    order: 3,
-    isActive: true,
-    hasDropdown: true,
-    columns: [
-      {
-        title: 'EASTERN WEAR',
-        href: '#men',
-        links: [
-          { label: 'Unstitched Latha & Cotton', href: '#men' },
-          { label: 'Embroidered Kurta Pajama', href: '#men' },
-          { label: 'Solid Casual Kurtas', href: '#men' },
-          { label: 'Waistcoats & Nehru Jackets', href: '#men' }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'nav-4',
-    name: 'GIRLS',
-    href: '#collections',
-    isSale: false,
-    order: 4,
-    isActive: true
-  },
-  {
-    id: 'nav-5',
-    name: 'SALE',
-    href: '#new-arrivals',
-    isSale: true,
-    order: 5,
-    isActive: true
-  }
-];
 
 const isColorLight = (hexColor) => {
   if (!hexColor || typeof hexColor !== 'string') return false;
@@ -144,22 +50,22 @@ export default function Header({
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [phoneModalOpen, setPhoneModalOpen] = useState(false);
 
-  // Settings & Navigation state
+  // Settings & Navigation state (API-driven, zero hardcoded navigation menus)
   const [settings, setSettings] = useState(() => {
     try {
       const cached = localStorage.getItem('limelight_settings');
-      return cached ? JSON.parse(cached) : DEFAULT_SETTINGS;
+      return cached ? JSON.parse(cached) : INITIAL_SETTINGS_SHELL;
     } catch {
-      return DEFAULT_SETTINGS;
+      return INITIAL_SETTINGS_SHELL;
     }
   });
 
   const [navItems, setNavItems] = useState(() => {
     try {
       const cached = localStorage.getItem('limelight_navigation');
-      return cached ? JSON.parse(cached) : DEFAULT_NAV;
+      return cached ? JSON.parse(cached) : [];
     } catch {
-      return DEFAULT_NAV;
+      return [];
     }
   });
 
@@ -180,11 +86,11 @@ export default function Header({
       })
       .catch(() => {});
 
-    // 2. Fetch navigation routes
+    // 2. Fetch navigation routes directly from API (even when empty [])
     fetch('/api/navigation')
       .then(res => (res.ok ? res.json() : null))
       .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
+        if (Array.isArray(data)) {
           setNavItems(data);
           try {
             localStorage.setItem('limelight_navigation', JSON.stringify(data));
@@ -218,7 +124,7 @@ export default function Header({
   }, []);
 
   // WhatsApp cleaned digits
-  const whatsappNumber = settings.whatsappNumber || '+92 345 7867016';
+  const whatsappNumber = settings.whatsappNumber || '';
   const cleanWaNumber = whatsappNumber.replace(/[^0-9]/g, '');
   const activeRoutes = navItems.filter(item => item.isActive !== false);
 
@@ -256,10 +162,9 @@ export default function Header({
       );
     }
 
-    let part1 = settings.textLogo?.part1;
-    let part2 = settings.textLogo?.part2;
-    if (!part1 || part1.trim() === 'LIME') part1 = 'ZIMAL ';
-    if (!part2 || part2.trim() === 'LIGHT') part2 = 'COLLECTION';
+    const part1 = settings.textLogo?.part1 ?? '';
+    const part2 = settings.textLogo?.part2 ?? '';
+    const subtitle = settings.textLogo?.singleText || '';
     const color1 = settings.textLogo?.part1Color || settings.textLogo?.color1 || '#23ac95';
     const color2 = settings.textLogo?.part2Color || settings.textLogo?.color2 || '#cec72e';
     const rawSize = settings.textLogo?.fontSize || 22;
@@ -290,16 +195,18 @@ export default function Header({
           <span style={{ color: color1 }}>{part1}</span>
           <span style={{ color: color2 }}>{part2}</span>
         </span>
-        <span
-          style={{ color: subtitleColor }}
-          className={`${
-            isDrawer
-              ? 'text-[6.5px] tracking-[0.05em]'
-              : 'text-[7.5px] xs:text-[8.5px] sm:text-[9.5px] tracking-[0.16em] sm:tracking-[0.22em]'
-          } font-medium mt-[2px] lowercase font-mono truncate max-w-full`}
-        >
-          www.zimalcollection.com
-        </span>
+        {subtitle && (
+          <span
+            style={{ color: subtitleColor }}
+            className={`${
+              isDrawer
+                ? 'text-[6.5px] tracking-[0.05em]'
+                : 'text-[7.5px] xs:text-[8.5px] sm:text-[9.5px] tracking-[0.16em] sm:tracking-[0.22em]'
+            } font-medium mt-[2px] lowercase font-mono truncate max-w-full`}
+          >
+            {subtitle}
+          </span>
+        )}
       </div>
     );
   };
@@ -321,7 +228,7 @@ export default function Header({
             <Link
               to="/"
               className="inline-flex items-center justify-center cursor-pointer max-w-full text-center"
-              title="Zimal Collection Official - www.zimalcollection.com"
+              title={settings.imageLogo?.alt || settings.textLogo?.singleText || 'Home'}
             >
               {renderLogo(false, true)}
             </Link>
@@ -414,29 +321,33 @@ export default function Header({
             <div className="max-w-[1600px] mx-auto px-[20px] sm:px-[30px] h-[50px] flex items-center justify-between gap-[10px]">
               {/* Left: Phone icon & WhatsApp icon */}
               <div className="flex items-center gap-[12px] shrink-0">
-                <button
-                  onClick={() => setPhoneModalOpen(true)}
-                  className={`hover:opacity-80 transition-opacity p-[3px] flex items-center cursor-pointer ${
-                    isLightHeader ? 'text-[#121212]' : 'text-white'
-                  }`}
-                  title={`Call Support (${whatsappNumber})`}
-                  aria-label="Phone Support"
-                >
-                  <Phone size={17} strokeWidth={1.7} />
-                </button>
+                {cleanWaNumber && (
+                  <>
+                    <button
+                      onClick={() => setPhoneModalOpen(true)}
+                      className={`hover:opacity-80 transition-opacity p-[3px] flex items-center cursor-pointer ${
+                        isLightHeader ? 'text-[#121212]' : 'text-white'
+                      }`}
+                      title={`Call Support (${whatsappNumber})`}
+                      aria-label="Phone Support"
+                    >
+                      <Phone size={17} strokeWidth={1.7} />
+                    </button>
 
-                <a
-                  href={`https://wa.me/${cleanWaNumber}?text=Hello%20Zimal%20Collection%20Customer%20Support`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-transform hover:scale-105 p-[2px] flex items-center"
-                  title={`Chat with Zimal Collection on WhatsApp (${whatsappNumber})`}
-                  aria-label="WhatsApp Support"
-                >
-                  <div className="w-[20px] h-[20px] bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-sm shrink-0">
-                    <WhatsAppIcon className="w-[12px] h-[12px] fill-white" />
-                  </div>
-                </a>
+                    <a
+                      href={`https://wa.me/${cleanWaNumber}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-transform hover:scale-105 p-[2px] flex items-center"
+                      title={`Chat on WhatsApp (${whatsappNumber})`}
+                      aria-label="WhatsApp Support"
+                    >
+                      <div className="w-[20px] h-[20px] bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+                        <WhatsAppIcon className="w-[12px] h-[12px] fill-white" />
+                      </div>
+                    </a>
+                  </>
+                )}
               </div>
 
               {/* Center: Dynamic Brand Logo */}
@@ -444,7 +355,7 @@ export default function Header({
                 <Link
                   to="/"
                   className="inline-flex items-center justify-center cursor-pointer max-w-full"
-                  title="Zimal Collection Official - www.zimalcollection.com"
+                  title={settings.imageLogo?.alt || settings.textLogo?.singleText || 'Home'}
                 >
                   {renderLogo(false, false)}
                 </Link>
@@ -752,9 +663,6 @@ export default function Header({
                   <X size={15} strokeWidth={2.4} />
                   <span>Close Menu</span>
                 </button>
-                <div className="text-[10.5px] text-center text-gray-500 dark:text-white/50">
-                  FREE Nationwide Delivery on orders above Rs. 2,490
-                </div>
               </div>
             </div>
           </div>
@@ -779,9 +687,9 @@ export default function Header({
             <div className="w-[42px] h-[42px] bg-[#121212] dark:bg-white text-white dark:text-[#121212] rounded-full flex items-center justify-center mb-[15px]">
               <Phone size={20} />
             </div>
-            <h4 className="text-[18px] font-bold mb-[6px]">Zimal Collection Customer Care</h4>
+            <h4 className="text-[18px] font-bold mb-[6px]">Customer Care</h4>
             <p className="text-[13px] text-[#121212bf] dark:text-gray-300 mb-[15px] leading-relaxed">
-              Our support team is available Monday through Saturday from 9:00 AM to 6:00 PM PKT.
+              Our support team is available during store hours.
             </p>
             <div className="bg-[#f3f3f3] dark:bg-white/5 p-[12px] rounded-[4px] mb-[15px] text-center border dark:border-white/10">
               <span className="text-[11px] text-[#121212bf] dark:text-gray-400 uppercase tracking-wider block">Official Helpline / WhatsApp</span>
@@ -797,7 +705,7 @@ export default function Header({
                 CALL NOW
               </a>
               <a
-                href={`https://wa.me/${cleanWaNumber}?text=Hello%20Zimal%20Collection%20Customer%20Support`}
+                href={`https://wa.me/${cleanWaNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 bg-[#25D366] text-white font-medium py-[10px] text-[13px] rounded-[3px] flex items-center justify-center gap-[6px] hover:bg-[#20ba59]"

@@ -1,61 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, ShoppingBag, Heart } from 'lucide-react';
-import { ASSETS, RTW_PRODUCTS } from '../data/products';
 
 export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleWishlist, wishlist }) {
   const [selectedSizes, setSelectedSizes] = useState({});
-  const [pretBanner, setPretBanner] = useState({
-    id: "rtw-pret",
-    badge: "PRET CASUALS",
-    watermark: "Ready to",
-    title: "DAILY CHIC & KURTIS",
-    buttonText: "SHOP PRET CASUALS →",
-    buttonLink: "#rtw-grid",
-    secondaryBtnText: "SHOP NOW",
-    secondaryBtnLink: "#rtw-grid",
-    imageUrl: ASSETS.rtwMain,
-    isActive: true
-  });
-  const [coordsBanner, setCoordsBanner] = useState({
-    id: "rtw-coords",
-    badge: "MODERN SILHOUETTES",
-    watermark: "CO-ORDS",
-    title: "WESTERN CO-ORDS",
-    subtitle: "MADE TO MATCH",
-    buttonText: "DISCOVER CO-ORDS →",
-    buttonLink: "#rtw-grid",
-    imageUrl: ASSETS.coordsBanner,
-    isActive: true
-  });
+  const [pretBanner, setPretBanner] = useState(null);
+  const [coordsBanner, setCoordsBanner] = useState(null);
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
   useEffect(() => {
-    // Fetch RTW Pret Banner
     fetch('/api/banners/rtw-pret')
-      .then(res => res.ok ? res.json() : null)
-      .then(data => { if (data) setPretBanner(data); })
-      .catch(e => console.warn('Using default RTW Pret banner:', e));
+      .then(res => (res.ok ? res.json() : null))
+      .then(data => { if (data && typeof data === 'object') setPretBanner(data); })
+      .catch(e => console.warn('Could not load RTW Pret banner:', e));
 
-    // Fetch RTW Coords Banner
     fetch('/api/banners/rtw-coords')
-      .then(res => res.ok ? res.json() : null)
-      .then(data => { if (data) setCoordsBanner(data); })
-      .catch(e => console.warn('Using default RTW Coords banner:', e));
+      .then(res => (res.ok ? res.json() : null))
+      .then(data => { if (data && typeof data === 'object') setCoordsBanner(data); })
+      .catch(e => console.warn('Could not load RTW Coords banner:', e));
 
-    // Fetch dynamic RTW products (even if empty [])
     fetch('/api/products?category=Ready%20To%20Wear')
-      .then(res => {
-        if (res.ok) return res.json();
-        throw new Error('RTW fetch failed');
-      })
+      .then(res => (res.ok ? res.json() : []))
       .then(data => { setProducts(Array.isArray(data) ? data : []); })
       .catch(e => {
-        console.warn('Using default RTW products:', e);
-        setProducts(RTW_PRODUCTS);
+        console.warn('Failed to load RTW products:', e);
+        setProducts([]);
       })
       .finally(() => setLoadingProducts(false));
   }, []);
+
+  if (!loadingProducts && !pretBanner && !coordsBanner && products.length === 0) {
+    return null;
+  }
 
   const handleSelectSize = (productId, size) => {
     setSelectedSizes((prev) => ({ ...prev, [productId]: size }));
@@ -64,18 +40,16 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
   return (
     <section className="shopify-section section py-[50px] bg-transparent border-t border-[#1212121a] dark:border-white/10" id="ready-to-wear">
       <div className="max-w-[1600px] mx-auto px-[15px] sm:px-[30px]">
-        {/* Dual Visual Feature Banners for RTW (Dynamic via Backend API) */}
+        {(pretBanner || coordsBanner) && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[15px] sm:gap-[20px] mb-[35px]">
-          {/* Banner 1: Pret Casuals / Daily Chic & Kurtis */}
-          {pretBanner.isActive !== false && (
+          {pretBanner && pretBanner.isActive !== false && pretBanner.imageUrl && (
             <div className="relative rounded-[8px] overflow-hidden shadow-soft group h-[240px] sm:h-[340px]">
               <img
-                src={pretBanner.imageUrl || ASSETS.rtwMain}
-                alt={pretBanner.title || "Limelight Ready to Wear Pret"}
+                src={pretBanner.imageUrl}
+                alt={pretBanner.title || "Ready to Wear Pret"}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = ASSETS.rtwMain;
+                  e.target.style.display = 'none';
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-[18px] sm:p-[26px] z-10">
@@ -117,15 +91,14 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
           )}
 
           {/* Banner 2: Modern Silhouettes / Western Co-Ords */}
-          {coordsBanner.isActive !== false && (
+          {coordsBanner && coordsBanner.isActive !== false && coordsBanner.imageUrl && (
             <div className="relative rounded-[8px] overflow-hidden shadow-soft group h-[240px] sm:h-[340px]">
               <img
-                src={coordsBanner.imageUrl || ASSETS.coordsBanner}
-                alt={coordsBanner.title || "Limelight Western Co-Ords"}
+                src={coordsBanner.imageUrl}
+                alt={coordsBanner.title || "Western Co-Ords"}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = ASSETS.coordsBanner;
+                  e.target.style.display = 'none';
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-[18px] sm:p-[26px] z-10">
@@ -160,6 +133,7 @@ export default function ReadyToWearSection({ onQuickView, onAddToCart, onToggleW
             </div>
           )}
         </div>
+        )}
 
         {/* Section Heading */}
         <div className="text-center mb-[30px]" id="rtw-grid">
